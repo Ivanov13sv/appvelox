@@ -5,6 +5,7 @@ export const Header = styled.header`
 	height: 55px;
 	padding: 0 40px;
 	flex: 1 1 auto;
+	grid-area: header;
 `;
 
 export const HeaderBody = styled.section`
@@ -25,7 +26,6 @@ export const ProfileTitle = styled.h2`
 `;
 
 export const HeaderList = styled.ul`
-	list-style: none;
 	display: flex;
 `;
 

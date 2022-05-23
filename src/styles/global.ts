@@ -8,6 +8,11 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
 }
 
+li{
+	list-style: none;
+}
+
+
 #root{
 	height: 100%;
 }

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Sidebar = styled.div`
+	grid-area: sidebar;
 	display: flex;
 	flex-direction: column;
 	width: 190px;
@@ -25,7 +26,7 @@ interface SidebarBodyProps {
 
 export const SidebarMain = styled.ul<SidebarBodyProps>`
 	display: flex;
-	list-style: none;
+
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
@@ -83,7 +84,7 @@ export const SidebarFooterLogo = styled.div`
 	padding: 16px 18px;
 	height: 46px;
 	pointer-events: none;
-	img{
-		pointer-events: none; 
+	img {
+		pointer-events: none;
 	}
 `;

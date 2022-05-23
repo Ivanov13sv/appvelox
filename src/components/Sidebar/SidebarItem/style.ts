@@ -18,6 +18,9 @@ export const SidebarItem = styled.li<SidebarItemProps>`
 		font-size: 14px;
 		line-height: 17px;
 	}
+	a {
+		margin-right: 14px;
+	}
 
 	svg {
 		> * {
