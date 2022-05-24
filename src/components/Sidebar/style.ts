@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
 export const Sidebar = styled.div`
-	grid-area: sidebar;
+	grid-area: side;
 	display: flex;
 	flex-direction: column;
-	width: 190px;
+	width: 100%;
 	background-color: ${({ theme }) => theme.color.main};
 `;
 
@@ -26,11 +26,15 @@ interface SidebarBodyProps {
 
 export const SidebarMain = styled.ul<SidebarBodyProps>`
 	display: flex;
-
+	padding: 0 20px;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
 	position: relative;
+	& > *:last-child {
+		margin-top: 10px;
+		width: 150px;
+	}
 
 	li {
 		font-weight: 400;
@@ -72,6 +76,7 @@ export const SidebarButton = styled.a`
 `;
 
 export const SidebarFooter = styled.div`
+	padding: 0 20px;
 	margin-top: auto;
 	display: flex;
 	flex-direction: column;
@@ -81,7 +86,9 @@ export const SidebarFooterLogo = styled.div`
 	width: 100%;
 	display: flex;
 	align-items: center;
-	padding: 16px 18px;
+	justify-content: start;
+	
+
 	height: 46px;
 	pointer-events: none;
 	img {

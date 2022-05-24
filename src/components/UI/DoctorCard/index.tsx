@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import doctorone from 'assets/img/doctor1.png';
 import { Button } from '../Button';
 import { ProfilePhoto } from '../ProfilePhoto';
 import * as S from './style';
@@ -11,7 +10,7 @@ interface DoctorCardProps {
 	photo: string;
     name: string;
 	job: string;
-    
+
 }
 
 export const DoctorCard: FC<DoctorCardProps> = ({ date, address, hospital, job, name, photo }) => {

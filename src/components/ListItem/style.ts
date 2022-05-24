@@ -4,7 +4,7 @@ import { IconButton } from 'components/UI/IconButton';
 export const ListItem = styled.div`
 	width: 100%;
 
-	padding: 10px;
+
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: transparent;
 	cursor: pointer;
@@ -12,8 +12,8 @@ export const ListItem = styled.div`
 	align-items: center;
 `;
 
-export const LeftIcon = styled(IconButton)`
 
+export const LeftIcon = styled(IconButton) `
 	display: flex;
 	align-items: center;
 	justify-content: center;

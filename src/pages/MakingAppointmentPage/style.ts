@@ -10,6 +10,7 @@ export const CardsList = styled.ul`
 	display: flex;
 	gap: 20px;
 	align-items: center;
+	flex-wrap: wrap;
 `;
 
 export const ShowMoreBlock = styled.div`

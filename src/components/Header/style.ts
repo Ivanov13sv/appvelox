@@ -4,8 +4,8 @@ export const Header = styled.header`
 	background-color: ${({ theme }) => theme.color.secondary};
 	height: 55px;
 	padding: 0 40px;
-	flex: 1 1 auto;
 	grid-area: header;
+
 `;
 
 export const HeaderBody = styled.section`
@@ -21,7 +21,6 @@ export const ProfileTitle = styled.h2`
 	font-weight: 400;
 	font-size: 28px;
 	line-height: 33px;
-
 	color: #ffffff;
 `;
 

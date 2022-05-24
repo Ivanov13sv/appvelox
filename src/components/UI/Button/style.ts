@@ -14,4 +14,9 @@ export const Button = styled.button`
     border-radius: 5px;
     letter-spacing: .5px;
     padding: 0 15px;
+	cursor: pointer;
+	transition: background-color .3s ease;
+	&:hover{
+		background-color: ${({theme}) => theme.color.darkenAccent};
+	}
 `;

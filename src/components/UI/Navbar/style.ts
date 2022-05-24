@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const Navbar = styled.nav`
-	display: flex;
 
-	margin-left: auto;
 `;
 
 export const NavBody = styled.div``;

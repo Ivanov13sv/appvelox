@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import {NavLink} from 'react-router-dom'
 
-export const IconButton = styled.a`
+export const IconButton = styled.span`
 	width: 20px;
 	height: 20px;
 	display: flex;

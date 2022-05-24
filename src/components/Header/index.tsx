@@ -27,7 +27,7 @@ export const Header = () => {
 						<Dropdown />
 					</NavbarItem>
 				</Navbar>
-				<div></div>
+
 			</S.HeaderBody>
 		</S.Header>
 	);

@@ -6,6 +6,7 @@ import { ReactComponent as Test } from 'assets/img/Sidebar-icons/test.svg';
 import { ReactComponent as Book } from 'assets/img/Sidebar-icons/book.svg';
 import { ReactComponent as Help } from 'assets/img/Sidebar-icons/help.svg';
 import { ReactComponent as Logo } from 'assets/img/Sidebar-icons/logo.svg';
+import { Button } from 'components/UI/Button';
 
 import logo from 'assets/img/Sidebar-icons/logo.png';
 import * as S from './style';
@@ -14,11 +15,11 @@ import { SidebarItem } from './SidebarItem';
 
 export const Sidebar = () => {
 	const sidebarItems = [
-		{ leftIcon: <Heart />, text: 'Профиль' },
-		{ leftIcon: <Stethoscope />, text: 'Врачи и клиника' },
-		{ leftIcon: <Message />, text: 'Сообщения' },
-		{ leftIcon: <Test />, text: 'Тестирование' },
-		{ leftIcon: <Book />, text: 'Полезно знать' },
+		{ leftIcon: <Heart />, text: 'Профиль', path: '/profile' },
+		{ leftIcon: <Stethoscope />, text: 'Врачи и клиника', path: '/doctors' },
+		{ leftIcon: <Message />, text: 'Сообщения', path: '/messages' },
+		{ leftIcon: <Test />, text: 'Тестирование', path: '/test' },
+		{ leftIcon: <Book />, text: 'Полезно знать', path: '/goodtoknow' },
 	];
 	const [activeItem, setActiveItem] = useState(0);
 	const [height, setHeight] = useState<number>(0);
@@ -41,6 +42,7 @@ export const Sidebar = () => {
 				<S.SidebarActiveItem style={{ height: height, top: `${height * activeItem}px` }} />
 				{sidebarItems.map((item, index) => (
 					<SidebarItem
+						to={item.path}
 						ref={ref}
 						index={index + 1}
 						key={index}
@@ -50,10 +52,11 @@ export const Sidebar = () => {
 						setActive={setActiveItem}
 					/>
 				))}
-				<S.SidebarButton>Подать заявку</S.SidebarButton>
+				<Button>Подать заявку</Button>
+				{/* <S.SidebarButton></S.SidebarButton> */}
 			</S.SidebarMain>
 			<S.SidebarFooter>
-				<SidebarItem leftIcon={<Help />} text="Помощь" />
+				<SidebarItem leftIcon={<Help />} text="Помощь" to="/help" />
 
 				<S.SidebarFooterLogo>
 					<img src={logo} />
