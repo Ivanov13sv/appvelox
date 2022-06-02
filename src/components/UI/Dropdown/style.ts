@@ -5,13 +5,14 @@ const opening = keyframes`
 	opacity: 0;
 	top: 45px;
 	transform: translateX(-95%);
-	/* transform: scale(0.9); */
+
+
 }
 
 100%{
 	top: 50px;
 	transform: translateX(-100%);
-	/* transform: scale(1); */
+
 	opacity: 1;
 }
 `;
@@ -24,14 +25,14 @@ export const Dropdown = styled.div`
 	position: absolute;
 	top: 50px;
 	overflow: hidden;
-	/* right: 0; */
+	transition: all .3s ease;
+
 	transform: translateX(-100%);
 	padding: 1rem;
-	animation: ${opening} 0.05s linear;
+	animation: ${opening} .1s linear;
 	display: flex;
 	overflow: hidden;
-	/* height: 300px; */
-	transition: height .3s ease;
+	z-index: 11;
 
 `;
 

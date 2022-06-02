@@ -1,40 +1,45 @@
+import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-
 interface SidebarItemProps {
-	isActive: boolean | undefined;
+	isActive?: boolean | undefined;
+	ref?: any;
 }
 
-export const SidebarItem = styled.li<SidebarItemProps>`
-	width: 100%;
-	position: relative;
-	z-index: 10;
-	height: 46px;
-
+export const SidebarItem = styled(NavLink)<SidebarItemProps>`
+	text-decoration: none;
+	height: 100%;
 	display: flex;
+	gap: 10px;
+	height: 46px;
 	align-items: center;
-	cursor: pointer;
-	span {
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 17px;
-	}
-	a {
-		margin-right: 14px;
-	}
+	width: 100%;
+	color: white;
 
 	svg {
 		> * {
 			fill: white;
 		}
 	}
+`;
 
+interface SidebarTextProps {
+	isActive?: boolean;
+}
+
+export const SidebarText = styled.span<SidebarTextProps>`
+	position: relative;
+	z-index: 5;
+	display: flex;
+	gap: 14px;
+	color: white;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
 	${props =>
 		props.isActive &&
 		css`
-			span {
-				color: ${({ theme }) => theme.color.accent};
-			}
+			color: ${({ theme }) => theme.color.accent};
 			svg {
 				> * {
 					fill: ${({ theme }) => theme.color.accent};

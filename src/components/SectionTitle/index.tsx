@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
-import { Title } from './style';
+import { Title, Icon } from './style';
 
 interface SectionTitleProps {
 	active: boolean;
 	title: string;
 	icon?: JSX.Element;
+	to: string | null;
 }
 
-export const SectionTitle: FC<SectionTitleProps> = ({ title, active, icon }) => {
+export const SectionTitle: FC<SectionTitleProps> = ({ title, active, icon, to }) => {
 	return (
 		<Title active={active}>
-			{icon && icon}
+			<Icon to={to ? to : ''}>{icon && icon}</Icon>
 			{title}
 		</Title>
 	);

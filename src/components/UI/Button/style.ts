@@ -16,7 +16,7 @@ export const Button = styled.button`
     padding: 0 15px;
 	cursor: pointer;
 	transition: background-color .3s ease;
-	&:hover{
+	&:hover, &:focus{
 		background-color: ${({theme}) => theme.color.darkenAccent};
 	}
 `;

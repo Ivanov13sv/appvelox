@@ -6,6 +6,7 @@ import { ReactComponent as Test } from 'assets/img/Sidebar-icons/test.svg';
 import { ReactComponent as Book } from 'assets/img/Sidebar-icons/book.svg';
 import { ReactComponent as Help } from 'assets/img/Sidebar-icons/help.svg';
 import { ReactComponent as Logo } from 'assets/img/Sidebar-icons/logo.svg';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 import { Button } from 'components/UI/Button';
 
 import logo from 'assets/img/Sidebar-icons/logo.png';
@@ -15,14 +16,14 @@ import { SidebarItem } from './SidebarItem';
 
 export const Sidebar = () => {
 	const sidebarItems = [
-		{ leftIcon: <Heart />, text: 'Профиль', path: '/profile' },
-		{ leftIcon: <Stethoscope />, text: 'Врачи и клиника', path: '/doctors' },
-		{ leftIcon: <Message />, text: 'Сообщения', path: '/messages' },
-		{ leftIcon: <Test />, text: 'Тестирование', path: '/test' },
-		{ leftIcon: <Book />, text: 'Полезно знать', path: '/goodtoknow' },
+		{ leftIcon: <Heart />, text: 'Профиль', path: 'profile' },
+		{ leftIcon: <Stethoscope />, text: 'Врачи и клиника', path: 'doctors' },
+		{ leftIcon: <Message />, text: 'Сообщения', path: 'messages' },
+		{ leftIcon: <Test />, text: 'Тестирование', path: 'test' },
+		{ leftIcon: <Book />, text: 'Полезно знать', path: 'goodtoknow' },
 	];
-	const [activeItem, setActiveItem] = useState(0);
-	const [height, setHeight] = useState<number>(0);
+	const [activeItem, setActiveItem] = useLocalStorage('activeItem', 0);
+	const [height, setHeight] = useState(0);
 
 	const ref = useRef<HTMLLIElement>(null);
 
@@ -53,7 +54,7 @@ export const Sidebar = () => {
 					/>
 				))}
 				<Button>Подать заявку</Button>
-				{/* <S.SidebarButton></S.SidebarButton> */}
+
 			</S.SidebarMain>
 			<S.SidebarFooter>
 				<SidebarItem leftIcon={<Help />} text="Помощь" to="/help" />

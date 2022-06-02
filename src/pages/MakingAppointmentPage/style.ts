@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const AppointemntPage = styled.section`
-	padding: 0 20px;
+	padding: 3px 20px;
 `;
 
 export const Title = styled.h3``;

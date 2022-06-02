@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from 'components/Layout';
 
@@ -7,6 +7,8 @@ import { AppointmentsPage } from 'pages/AppointmentsPage';
 
 import doctor1 from 'assets/img/doctor1.png';
 import doctor2 from 'assets/img/doctor2.png';
+import { AuthPage } from 'pages/AuthPage';
+import { RequireAuth } from 'hoc/RequireAuth';
 
 const admissions = [
 	{
@@ -75,13 +77,28 @@ const admissions = [
 	},
 ];
 
-export const Router = () => {
+export const Router: FC = () => {
 	return (
 		<Routes>
-			<Route path="/" element={<Layout />}>
+			<Route
+				path="/"
+				element={
+					<RequireAuth>
+						<Layout />
+					</RequireAuth>
+				}
+			>
 				<Route path="profile" element={<MakingAppointmentPage admissions={admissions} />} />
-				<Route path="appointment" element={<AppointmentsPage admissions={admissions} />} />
+				<Route
+					path="profile/appointment"
+					element={<AppointmentsPage admissions={admissions} />}
+				/>
+				<Route path="doctors" element={<div>Doctors Section</div>} />
+				<Route path="messages" element={<div>Messages Section</div>} />
+				<Route path="test" element={<div>Test Section</div>} />
+				<Route path="goodtoknow" element={<div>Good to know Section</div>} />
 			</Route>
+			<Route path="/auth" element={<AuthPage />} />
 		</Routes>
 	);
 };

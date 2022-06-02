@@ -13,11 +13,13 @@ export const DropdownItem = styled.li`
 	svg {
 		> * {
 			color: white;
+
 		}
+
 	}
 
-	a {
-		margin-right: 10px;
+	span {
+		padding-left: 10px;
 	}
 
 	&:hover {

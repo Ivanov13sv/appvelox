@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {useClickOutside} from 'hooks/useClickOutside'
 import { MdPerson } from 'react-icons/md';
 import { MdChevronRight } from 'react-icons/md';
 import { BsGearFill } from 'react-icons/bs';
@@ -20,6 +21,8 @@ export const Dropdown = () => {
 			setMenuHeight(secondaryMenuRef.current?.clientHeight);
 		}
 	}, [menuOpen]);
+
+
 
 
 	return (

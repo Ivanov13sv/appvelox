@@ -40,7 +40,7 @@ export const MakingAppointmentPage: FC<MakingAppointmentPageProps> = ({ admissio
 						</span>
 					) : null}
 
-					<Link to="/appointment">Подборнее</Link>
+					<Link to="/profile/appointment">Подборнее</Link>
 				</S.ShowMoreBlock>
 			</S.CardsList>
 			<S.PatientInfo>
