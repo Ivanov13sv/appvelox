@@ -1,15 +1,6 @@
 import styled from 'styled-components';
 
-export const StepOneForm = styled.form`
-	max-width: 367px;
-	margin: 0 auto;
-	padding-top: 29px;
-	display: flex;
-	flex-direction: column;
-	> *:not(:last-child) {
-		margin-bottom: 20px;
-	}
-`;
+
 
 export const StepAgreements = styled.ul`
 	display: flex;

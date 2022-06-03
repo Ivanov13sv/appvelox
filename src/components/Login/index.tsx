@@ -28,7 +28,7 @@ export const Login = () => {
 				<p>
 					Забыли пароль? <a href="#">Восстановить</a>{' '}
 				</p>
-				<Button>Войти</Button>
+				<Button >Войти</Button>
 			</form>
 		</S.LoginForm>
 	);

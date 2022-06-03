@@ -1,8 +1,6 @@
-import React from 'react'
-import * as S from './style'
+import React from 'react';
+import * as S from './style';
 
 export const Button = (props: any) => {
-  return (
-    <S.Button {...props}/>
-  )
-}
+	return <S.Button {...props} />;
+};

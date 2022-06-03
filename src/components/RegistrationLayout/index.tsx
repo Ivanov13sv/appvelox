@@ -11,8 +11,10 @@ export const RegistrationLayout = () => {
 			<p>
 				У вас уже есть аккаунт? <Link to="/login">Войти</Link>{' '}
 			</p>
-            <RegistrationStatus />
-			<Outlet />
+			<RegistrationStatus />
+			<form>
+				<Outlet />
+			</form>
 		</S.Layout>
 	);
 };

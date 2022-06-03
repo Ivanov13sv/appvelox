@@ -6,11 +6,9 @@ interface CheckboxProps {}
 
 export const Checkbox: FC<CheckboxProps> = () => {
 	return (
-		<S.WrapperCheckbox >
+		<S.WrapperCheckbox>
 			<input type="checkbox" />
-			<span>
-
-            </span>
+			<span></span>
 		</S.WrapperCheckbox>
 	);
 };

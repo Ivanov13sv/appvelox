@@ -1,5 +1,10 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+
+
+interface StatusProps {
+	active?: boolean;
+	done?: boolean;
+}
 
 export const Status = styled.div`
 	width: 437px;
@@ -10,15 +15,14 @@ export const Status = styled.div`
 			display: none;
 		}
 	}
-
 `;
 
-export const Step = styled.div`
+export const Step = styled.div<StatusProps>`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	color: white;
 	position: relative;
+
 	&:before {
 		content: '';
 		position: absolute;
@@ -29,21 +33,72 @@ export const Step = styled.div`
 		left: 100%;
 		border-radius: 5px;
 	}
+	&:after {
+		transition: .3s ease;
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 2px;
+		background-color: ${({ theme }) => theme.color.accent};
+		top: 30%;
+		left: 100%;
+		border-radius: 5px;
+	}
+	>span{
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 17px;
+		width: 100%;
+		text-align: center;
+		color: #c5c5c5;
+	}
+	
+	${props =>
+		props.active &&
+		css`
+			>span{
+				color: ${({ theme }) => theme.color.accent};
+			}
+			>div{
+				a{
+					color: white;
+				}
+		`}
+	
+	}
+
+	${props =>
+		props.done &&
+		css`
+			&:after {
+				width: 40px;
+			}
+			> div {
+				background-color: ${({ theme }) => theme.color.accent};
+				a {
+					color: white;
+				}
+			}
+			> span {
+				color: ${({ theme }) => theme.color.accent};
+			}
+		`}
+	
+
+
 `;
 
-export const StepNumber = styled.div`
+export const StepNumber = styled.div<StatusProps>`
 	background: transparent;
 	width: 24px;
 	height: 24px;
-
 	font-weight: 300;
 	font-size: 14px;
 	overflow: hidden;
 	color: #ffffff;
-
 	border-radius: 50%;
 	margin-bottom: 3px;
-
+	position: relative;
 	a {
 		display: flex;
 		align-items: center;
@@ -51,15 +106,33 @@ export const StepNumber = styled.div`
 		width: 100%;
 		height: 100%;
 		text-align: center;
-		color: #C5C5C5;
+		color: #c5c5c5;
+		text-decoration: none;
 	}
-`;
 
-export const StepText = styled.span`
-	font-weight: 300;
-	font-size: 14px;
-	line-height: 17px;
-	width: 100%;
-	text-align: center;
-	color: #C5C5C5;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: ${({ theme }) => theme.color.accent};
+		width: 0;
+		height: 100%;
+		transition: width 0.3s ease;
+		z-index: -1;
+	}
+	${props =>
+		props.active &&
+		css`
+			&::before {
+				width: 100%;
+			}
+		`}
+	${props =>
+		props.done &&
+		css`
+			&::before {
+				width: 100%;
+			}
+		`}
 `;

@@ -1,12 +1,13 @@
 import { Button } from 'components/UI/Button';
 import { Checkbox } from 'components/UI/Checkbox';
 import { Input } from 'components/UI/Input';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 import * as S from './style';
 
 export const RegistrationStepOne = () => {
 	return (
-		<S.StepOneForm>
+		<>
 			<Input label="Почта" type="text" />
 			<Input label="Телефон" />
 			<Input label="Пароль" />
@@ -21,7 +22,9 @@ export const RegistrationStepOne = () => {
 				<li>Передачу персональных данных третьим лицам</li>
 				<li>Обращение для информирования и напоминания</li>
 			</S.StepAgreements>
-			<Button>Далее</Button>
-		</S.StepOneForm>
+			<Button as={NavLink} to="step2">
+				Далее
+			</Button>
+		</>
 	);
 };

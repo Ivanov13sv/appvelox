@@ -1,8 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
 export const WrapperCheckbox = styled.label`
+-webkit-touch-callout: none;
+-webkit-tap-highlight-color: transparent;
 	cursor: pointer;
-	/* padding-left: -30%; */
 	width: 20px;
 	height: 20px;
 	position: relative;
@@ -21,10 +22,6 @@ export const WrapperCheckbox = styled.label`
 			opacity: 1;
 		}
 
-		/* &:checked + span, span:after, span:before {
-			background: ${({ theme }) => theme.color.accent};
-
-		} */
 	}
 	span {
 		position: absolute;

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Layout = styled.section`
+padding-top: 50px;
+min-height: 100%;
 	h2 {
 		font-weight: 300;
 		font-size: 28px;
@@ -8,7 +10,7 @@ export const Layout = styled.section`
 		text-align: center;
 		padding-bottom: 15px;
 	}
-	p {
+	> p {
 		font-weight: 300;
 		font-size: 14px;
 		line-height: 17px;
@@ -24,4 +26,14 @@ export const Layout = styled.section`
 		margin-bottom: 29px;
 	}
 
+	> form {
+		max-width: 347px;
+		margin: 0 auto;
+		padding-top: 29px;
+		display: flex;
+		flex-direction: column;
+		> *:not(:last-child) {
+			margin-bottom: 20px;
+		}
+	}
 `;
