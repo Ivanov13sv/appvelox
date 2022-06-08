@@ -1,6 +1,6 @@
 import { IconButton } from 'components/UI/IconButton';
 // import { IconButton } from 'components/UI/IconButton/style';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const LoginWrapper = styled.div`
 	display: flex;
@@ -17,14 +17,31 @@ export const LoginBody = styled.div`
 	flex: 1 1 60%;
 `;
 
-export const LoginImage = styled.div`
+
+interface ThemeProps {
+	active: boolean;
+}
+
+
+export const ThemesRow = styled.div`
 	background-color: ${({ theme }) => theme.color.main};
-	/* width: 100%; */
-	flex: 1 1 40%;
+	display: flex;
+	width: 584px;
+	position: relative;
+	overflow: hidden;
+`;
+
+export const Theme = styled.div<ThemeProps>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transition: .3s ease;
+	transform: translate(100%, -50%);
+
 	h3 {
 		font-weight: 400;
 		font-size: 28px;
@@ -32,18 +49,23 @@ export const LoginImage = styled.div`
 		text-align: center;
 		color: #ffffff;
 	}
-	img {
-		max-width: 534px;
-		background: transparent;
-	}
-`;
 
-export const ImageWrapper = styled.div`
-	width: 584px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+	> img {
+		padding: 55px 0px;
+	}
+
+	> p {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 19px;
+		text-align: center;
+		color: #ffffff;
+	}
+	${props =>
+		props.active &&
+		css`
+			transform: translate(-50%, -50%);
+		`}
 `;
 
 export const LoginHeader = styled.header`
@@ -59,6 +81,11 @@ export const LoginHeader = styled.header`
 		pointer-events: none;
 	}
 	border-bottom: 1px solid #ebe7ff;
+
+	> a {
+		text-decoration: none;
+		color: #000;
+	}
 `;
 
 export const VisuallyImpaired = styled.a`

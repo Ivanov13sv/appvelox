@@ -12,18 +12,15 @@ const authorizationSlice = createSlice({
 	name: 'authorizaiton',
 	initialState,
 	reducers: {
-		setAuth: (state, action: PayloadAction<string>): void => {
-			if (action.payload.length > 0) {
-				state.isAuth = !state.isAuth;
-				// console.log(state);
-			}
-
-			// console.log(state.isAuth);
-			// console.log(action);
+		logIn: (state: AuthState) => {
+			state.isAuth = true;
+		},
+		logOut: (state: AuthState) => {
+			state.isAuth = false;
 		},
 	},
 });
 
-export const { setAuth } = authorizationSlice.actions;
+export const authorizaitonActions = authorizationSlice.actions;
 
 export default authorizationSlice.reducer;

@@ -9,6 +9,7 @@ import doctor1 from 'assets/img/doctor1.png';
 import doctor2 from 'assets/img/doctor2.png';
 import { AuthPage } from 'pages/AuthPage';
 import { RequireAuth } from 'hoc/RequireAuth';
+import { LoginPage } from 'pages/LoginPage';
 
 const admissions = [
 	{
@@ -98,7 +99,7 @@ export const Router: FC = () => {
 				<Route path="test" element={<div>Test Section</div>} />
 				<Route path="goodtoknow" element={<div>Good to know Section</div>} />
 			</Route>
-			<Route path="/auth" element={<AuthPage />} />
+			<Route path="/login/*" element={<LoginPage />} />
 		</Routes>
 	);
 };

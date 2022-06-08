@@ -39,6 +39,7 @@ export const Radio = styled.label`
 	border-radius: 50%;
 	overflow: hidden;
 	cursor: pointer;
+	transition: box-shadow 0.125s ease;
 	input {
 		appearance: none;
 		&:checked + span {
@@ -59,6 +60,9 @@ export const Radio = styled.label`
 		align-items: center;
 		justify-content: center;
 		color: ${({ theme }) => theme.color.accent};
+	}
+	&:hover {
+		box-shadow: 0 0 2px 1px ${({ theme }) => theme.color.accent};
 	}
 `;
 

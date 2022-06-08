@@ -1,24 +1,20 @@
 import { FC } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store';
-import { setAuth } from 'store/authorizationSlice';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 interface RequireAuthProps {
-	children: JSX.Element;
+	children?: JSX.Element;
 }
 
 export const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
 	const location = useLocation();
-	const auth = useSelector((state: RootState) => state.authorization.isAuth);
+	const { isAuth } = useAppSelector(state => state.authorization);
 
-
-
-	// const auth = false;
-
-	if (!auth) {
-		return <Navigate to="/auth" state={{ from: location }} replace/>;
+	if (isAuth === false) {
+		return <Navigate to="/login" state={{ from: location }} replace />;
 	}
 
-	return children;
+	return <Outlet />;
 };

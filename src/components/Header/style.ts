@@ -6,6 +6,7 @@ export const Header = styled.header`
 	padding: 0 40px;
 	grid-area: header;
 
+
 `;
 
 export const HeaderBody = styled.section`

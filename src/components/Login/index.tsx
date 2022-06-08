@@ -1,8 +1,11 @@
+import { FormEvent, useEffect, useState } from 'react';
 import { Button } from 'components/UI/Button';
 import { useInput } from 'hooks/useInput';
 import { Input } from 'components/UI/Input';
 import { Link } from 'react-router-dom';
-import { RegistrationStatus } from 'components/UI/RegistrationStatus';
+import { SuccessRegistration } from 'components/Registration/SuccessRegistration';
+import { useActions } from 'hooks/useActions';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 import * as S from './style';
 
@@ -10,26 +13,47 @@ export const Login = () => {
 	const email = useInput('');
 	const password = useInput('');
 
-	return (
-		<S.LoginForm>
-			<h1>Вход</h1>
-			<p>
-				У вас нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
-			</p>
+	const { successReg } = useAppSelector(state => state.successReg);
+	const user = useAppSelector(state => state.user);
+	const { hideSuccessReg } = useActions();
 
-			<form>
-				<Input
-					{...email}
-					type="text"
-					placeholder="+7-999-999-99"
-					label="Почта или телефон"
-				/>
-				<Input type="password" isPassword {...password} label="Пароль" />
+	useEffect(() => {
+		if (successReg) {
+			setTimeout(() => {
+				hideSuccessReg();
+			}, 2000);
+		}
+	}, [successReg, hideSuccessReg]);
+
+	const onChange = (e: FormEvent<HTMLFormElement>): void => {
+		e.preventDefault();
+	};
+
+	console.log(user);
+
+	return (
+		<>
+			{successReg && <SuccessRegistration />}
+			<S.LoginForm>
+				<h1>Вход</h1>
 				<p>
-					Забыли пароль? <a href="#">Восстановить</a>{' '}
+					У вас нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
 				</p>
-				<Button >Войти</Button>
-			</form>
-		</S.LoginForm>
+
+				<form onSubmit={onChange}>
+					<Input
+						{...email}
+						type="text"
+						placeholder="+7-999-999-99"
+						label="Почта или телефон"
+					/>
+					<Input type="password" isPassword {...password} label="Пароль" />
+					<p>
+						Забыли пароль? <a href="#">Восстановить</a>{' '}
+					</p>
+					<Button>Войти</Button>
+				</form>
+			</S.LoginForm>
+		</>
 	);
 };

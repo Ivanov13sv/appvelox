@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-
 interface StatusProps {
 	active?: boolean;
 	done?: boolean;
@@ -60,7 +59,7 @@ export const Step = styled.div<StatusProps>`
 				color: ${({ theme }) => theme.color.accent};
 			}
 			>div{
-				a{
+				button{
 					color: white;
 				}
 		`}
@@ -75,8 +74,9 @@ export const Step = styled.div<StatusProps>`
 			}
 			> div {
 				background-color: ${({ theme }) => theme.color.accent};
-				a {
+				button {
 					color: white;
+					cursor: pointer;
 				}
 			}
 			> span {
@@ -99,7 +99,8 @@ export const StepNumber = styled.div<StatusProps>`
 	border-radius: 50%;
 	margin-bottom: 3px;
 	position: relative;
-	a {
+	transition: box-shadow 0.125s ease;
+	> button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -108,6 +109,8 @@ export const StepNumber = styled.div<StatusProps>`
 		text-align: center;
 		color: #c5c5c5;
 		text-decoration: none;
+		border: none;
+		background: transparent;
 	}
 
 	&::before {
@@ -120,6 +123,7 @@ export const StepNumber = styled.div<StatusProps>`
 		height: 100%;
 		transition: width 0.3s ease;
 		z-index: -1;
+
 	}
 	${props =>
 		props.active &&
@@ -131,6 +135,10 @@ export const StepNumber = styled.div<StatusProps>`
 	${props =>
 		props.done &&
 		css`
+		
+			&:hover {
+				box-shadow: 0 0 0 2px ${({theme}) => theme.color.darkenAccent};
+			}
 			&::before {
 				width: 100%;
 			}

@@ -7,10 +7,10 @@ import { RegistrationLayout } from 'components/RegistrationLayout';
 export const LoginPage = () => {
 	return (
 		<Routes>
-			<Route path="/*" element={<LoginLayout />}>
-				<Route path="login/*" element={<Login />} />
-				<Route path="registration/*" element={<Ragistration />} />
-				<Route path="*" element={<Navigate to="/login" />} />
+			<Route element={<LoginLayout />}>
+				<Route index element={<Login />} />
+				<Route path="/registration" element={<Ragistration />} />
+				{/* <Route path="*" element={<Navigate to="/login" />} /> */}
 			</Route>
 		</Routes>
 	);

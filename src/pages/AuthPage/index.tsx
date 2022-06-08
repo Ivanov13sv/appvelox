@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate, useLocation, Location, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store';
-import { setAuth } from 'store/authorizationSlice';
+import { useActions } from 'hooks/useActions';
 
 interface AuthPageProps {
 	isAuth?: boolean;
@@ -17,6 +17,7 @@ export const AuthPage: FC<AuthPageProps> = ({ setIsAuth }) => {
 	const { isAuth } = useSelector((state: RootState) => state.authorization);
 	const dispatch = useDispatch();
 
+
 	// @ts-ignore
 	const fromPage = location.state?.from?.pathname || '/';
 
@@ -24,18 +25,17 @@ export const AuthPage: FC<AuthPageProps> = ({ setIsAuth }) => {
 
 	const onSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(setAuth(value));
+		// setAuth();
 		// @ts-ignore
 		// navigate(location.fromPage);
 	};
 
 	if (isAuth) {
-		return <Navigate to="/" />;
+		return <Navigate to="/log" />;
 	}
 
 	return (
 		<Wrapper>
-
 			{fromPage}
 			<form onSubmit={onSubmit}>
 				<input
