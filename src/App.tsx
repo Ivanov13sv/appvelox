@@ -16,6 +16,7 @@ import { LoginLayout } from 'components/LoginLayout';
 import { Login } from 'components/Login';
 import { Ragistration } from 'components/Registration';
 import { Layout } from 'components/Layout';
+import { RecoveryPage } from 'pages/RecoveryPage';
 
 function App() {
 	return (
@@ -24,7 +25,10 @@ function App() {
 				<Route element={<RequireAuth />}>
 					<Route element={<Layout />}>
 						<Route path="profile" element={<MakingAppointmentPage admissions={[]} />} />
-						<Route path="profile/appointment" element={<AppointmentsPage admissions={[]} />} />
+						<Route
+							path="profile/appointment"
+							element={<AppointmentsPage admissions={[]} />}
+						/>
 						<Route path="doctors" element={<></>} />
 						<Route path="messages" element={<></>} />
 						<Route path="test" element={<></>} />
@@ -39,6 +43,7 @@ function App() {
 						<Route path="step2" element={<RegistrationStepTwo />} />
 						<Route path="step3" element={<RegistrationStepThree />} />
 					</Route>
+					<Route path="/recovery" element={<RecoveryPage />} />
 					<Route path="*" element={<Navigate to="/login" />} />
 				</Route>
 			</Routes>

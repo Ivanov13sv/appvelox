@@ -4,6 +4,7 @@ import authorizationSlice from 'store/reducers/authorizationSlice';
 import successRegistrationSlice from 'store/reducers/successRegistrationSlice';
 import userSlice from 'store/reducers/userSlice';
 
+
 export const store = configureStore({
 	reducer: {
 		dropdown: dropdownReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
 		successReg: successRegistrationSlice,
 		user: userSlice,
 	},
+	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

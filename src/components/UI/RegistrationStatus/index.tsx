@@ -35,7 +35,7 @@ export const RegistrationStatus = () => {
 			</S.Step>
 			<S.Step active={step === 2} done={step > 2}>
 				<S.StepNumber active={step === 2} done={step > 2}>
-					<button onClick={() => navigate('/registration/step2')}>2</button>
+					<button disabled={step < 2} onClick={() => navigate('/registration/step2')}>2</button>
 				</S.StepNumber>
 				<span>Личная информация</span>
 			</S.Step>

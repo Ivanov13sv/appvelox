@@ -5,6 +5,7 @@ import * as S from './style';
 interface DropdownItemProps extends ListItemProps {
 	goTo?: string;
 	setMenuOpen?: (menu: string) => void;
+	callback?: () => void;
 }
 
 export const DropdownItem: FC<DropdownItemProps> = ({
@@ -12,6 +13,7 @@ export const DropdownItem: FC<DropdownItemProps> = ({
 	text,
 	rightIcon,
 	goTo,
+	callback,
 	setMenuOpen,
 }) => {
 	const changeMenu = () => {
@@ -20,9 +22,11 @@ export const DropdownItem: FC<DropdownItemProps> = ({
 		}
 	};
 
+	const cb = goTo ? changeMenu : callback;
+
 	return (
-		<S.DropdownItem onClick={changeMenu}>
-			<ListItem leftIcon={leftIcon} text={text} rightIcon={rightIcon}/>
+		<S.DropdownItem onClick={cb}>
+			<ListItem leftIcon={leftIcon} text={text} rightIcon={rightIcon} />
 		</S.DropdownItem>
 	);
 };

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import React from 'react';
 
 interface IUser {
-	loginDatas?: {
+	loginData?: {
 		email: string;
 		phone: string;
 		password: string;
@@ -13,7 +13,7 @@ interface IUser {
 		patronymic: string;
 		registrationAddress: string;
 		gender: string;
-		dOb: string;
+		dOb: string | null;
 		residentialAddress: string;
 	};
 	representativeInfo?: {
@@ -25,7 +25,7 @@ interface IUser {
 }
 
 const initialState: IUser = {
-	loginDatas: {
+	loginData: {
 		email: '',
 		password: '',
 		phone: '',
@@ -52,13 +52,37 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setLoginInfo: (state: IUser, action: PayloadAction<IUser>) => {
-			state.loginDatas = action.payload.loginDatas;			
+			state.loginData = action.payload.loginData;
 		},
 		setPersonalInfo: (state: IUser, action: PayloadAction<IUser>) => {
-			state.personalInfo = action.payload.personalInfo;			
+			state.personalInfo = action.payload.personalInfo;
 		},
 		setRepresentativeInfo: (state: IUser, action: PayloadAction<IUser>) => {
-			state.representativeInfo = action.payload.representativeInfo;			
+			state.representativeInfo = action.payload.representativeInfo;
+		},
+		resetRegForm: (state: IUser) => {
+			if (state.loginData) {
+				let key: keyof typeof state.loginData;
+				for (key in state.loginData) {
+					state.loginData[key] = '';
+				}
+			}
+
+			if (state.personalInfo) {
+				let key: keyof typeof state.personalInfo;
+				for (key in state.personalInfo) {
+					state.personalInfo[key] = '';
+				}
+			}
+
+			if (state.representativeInfo) {
+				let key: keyof typeof state.representativeInfo;
+
+				for (key in state.representativeInfo) {
+					state.representativeInfo[key] = '';
+				}
+			}
+
 		},
 	},
 });

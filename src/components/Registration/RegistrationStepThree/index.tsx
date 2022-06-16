@@ -1,15 +1,17 @@
 import { Button } from 'components/UI/Button';
 import { Input } from 'components/UI/Input';
 import { useActions } from 'hooks/useActions';
+import { useAppSelector } from 'hooks/useAppSelector';
 import { useInput } from 'hooks/useInput';
 import { NavLink } from 'react-router-dom';
 import * as S from './style';
 
 export const RegistrationStepThree = () => {
-	const secondName = useInput('');
-	const firstName = useInput('');
-	const patronymic = useInput('');
-	const phone = useInput('');
+	const { representativeInfo } = useAppSelector(state => state.user);
+	const secondName = useInput(representativeInfo?.secondName);
+	const firstName = useInput(representativeInfo?.firstName);
+	const patronymic = useInput(representativeInfo?.patronymic);
+	const phone = useInput(representativeInfo?.phone);
 
 	const { setSuccessReg, setRepresentativeInfo } = useActions();
 
@@ -22,7 +24,6 @@ export const RegistrationStepThree = () => {
 				phone: phone.value,
 			},
 		});
-		setSuccessReg();
 	};
 
 	return (
@@ -35,7 +36,7 @@ export const RegistrationStepThree = () => {
 			<Input {...firstName} label="Имя" />
 			<Input {...patronymic} label="Отчество" />
 			<Input {...phone} label="Телефон" />
-			<Button onClick={setData} as={NavLink} to="/login">
+			<Button type="submit" onClick={setData}>
 				Зарегистрироваться
 			</Button>
 		</>

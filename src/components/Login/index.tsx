@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { Button } from 'components/UI/Button';
 import { useInput } from 'hooks/useInput';
 import { Input } from 'components/UI/Input';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { SuccessRegistration } from 'components/Registration/SuccessRegistration';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -13,31 +13,18 @@ export const Login = () => {
 	const email = useInput('');
 	const password = useInput('');
 
-	const { successReg } = useAppSelector(state => state.successReg);
-	const user = useAppSelector(state => state.user);
-	const { hideSuccessReg } = useActions();
-
-	useEffect(() => {
-		if (successReg) {
-			setTimeout(() => {
-				hideSuccessReg();
-			}, 2000);
-		}
-	}, [successReg, hideSuccessReg]);
+	const { logIn } = useActions();
 
 	const onChange = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 	};
 
-	console.log(user);
-
 	return (
 		<>
-			{successReg && <SuccessRegistration />}
 			<S.LoginForm>
 				<h1>Вход</h1>
 				<p>
-					У вас нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
+					У вас нет аккаунта? <NavLink to="/registration">Зарегистрироваться</NavLink>
 				</p>
 
 				<form onSubmit={onChange}>
@@ -49,9 +36,11 @@ export const Login = () => {
 					/>
 					<Input type="password" isPassword {...password} label="Пароль" />
 					<p>
-						Забыли пароль? <a href="#">Восстановить</a>{' '}
+						Забыли пароль? <NavLink to="/recovery">Восстановить</NavLink>{' '}
 					</p>
-					<Button>Войти</Button>
+					<Button onClick={() => logIn()} as={NavLink} to="/">
+						Войти
+					</Button>
 				</form>
 			</S.LoginForm>
 		</>

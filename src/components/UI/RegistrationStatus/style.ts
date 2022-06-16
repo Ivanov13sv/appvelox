@@ -50,6 +50,7 @@ export const Step = styled.div<StatusProps>`
 		width: 100%;
 		text-align: center;
 		color: #c5c5c5;
+		pointer-events: none;
 	}
 	
 	${props =>

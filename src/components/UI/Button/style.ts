@@ -21,4 +21,7 @@ export const Button = styled.button`
 	&:focus {
 		background-color: ${({ theme }) => theme.color.darkenAccent};
 	}
+	&:disabled{
+		border: 1px solid red;
+	}
 `;

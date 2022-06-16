@@ -3,8 +3,9 @@ import { ReactComponent as Eye } from 'assets/img/icons/VisuallyImpaired.svg';
 import logo from 'assets/img/logo.png';
 import welcome from 'assets/img/LoginImgs/welcome.jpg';
 import registration from 'assets/img/LoginImgs/registration.png';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Navigate, NavLink, useLocation } from 'react-router-dom';
 
+import { useAppSelector } from 'hooks/useAppSelector';
 import { Outlet } from 'react-router-dom';
 import * as S from './style';
 
@@ -14,6 +15,10 @@ interface LoginLayoutProps {
 
 export const LoginLayout: FC<LoginLayoutProps> = () => {
 	const [imageTheme, setImageTheme] = useState('login');
+	const { isAuth } = useAppSelector(state => state.authorization);
+
+
+
 
 	const location = useLocation();
 
@@ -25,6 +30,9 @@ export const LoginLayout: FC<LoginLayoutProps> = () => {
 		}
 	}, [location.pathname]);
 
+	if (isAuth) {
+		return <Navigate to="/" state={{ from: location }} replace />;
+	}
 
 	return (
 		<S.LoginWrapper>
