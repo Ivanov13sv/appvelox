@@ -1,13 +1,13 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const WrapperCheckbox = styled.label`
--webkit-touch-callout: none;
--webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
 	position: relative;
-	input {
+	/* input {
 		appearance: none;
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -22,7 +22,7 @@ export const WrapperCheckbox = styled.label`
 			opacity: 1;
 		}
 
-	}
+	} */
 	span {
 		position: absolute;
 		width: 100%;
@@ -60,4 +60,32 @@ export const WrapperCheckbox = styled.label`
 			background: #d8d1ff;
 		}
 	}
+`;
+
+interface InputProps {
+	error: boolean;
+}
+
+export const Input = styled.input<InputProps>`
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	position: absolute;
+	&:checked + span {
+		background-color: ${({ theme }) => theme.color.accent};
+	}
+	&:checked + span:after {
+		opacity: 1;
+	}
+	&:checked + span:before {
+		opacity: 1;
+	}
+
+	${props =>
+		props.error &&
+		css`
+			& + span {
+				box-shadow: 0 0 0 0.1em red;
+			}
+		`}
 `;

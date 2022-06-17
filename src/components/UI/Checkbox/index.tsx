@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import * as S from './style';
 
-interface CheckboxProps {}
+interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+	error?: boolean;
+}
 
-export const Checkbox: FC<CheckboxProps> = () => {
+export const Checkbox: FC<CheckboxProps> = ({error = false, ...props}) => {
 	return (
 		<S.WrapperCheckbox>
-			<input type="checkbox" />
+			<S.Input type="checkbox" error={error} {...props} />
+			{/* <input type="checkbox" {...props} /> */}
 			<span></span>
 		</S.WrapperCheckbox>
 	);

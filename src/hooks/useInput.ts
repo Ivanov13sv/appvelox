@@ -16,5 +16,5 @@ export const useInput = (defaultValue: any, validations = {}) => {
 		setDirty(true);
 	};
 
-	return { value, onChange, setValue, isDirty, onBlur, ...valid };
+	return { value, onChange, setValue, isDirty,setDirty, onBlur, ...valid };
 };

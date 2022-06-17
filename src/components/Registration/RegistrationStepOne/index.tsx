@@ -6,71 +6,121 @@ import { useActions } from 'hooks/useActions';
 import { useInput } from 'hooks/useInput';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getMaskedPhone } from 'utils/phoneMask';
+import { useEffect, useState } from 'react';
+import { checkPasswordMatch } from 'utils/checkPasswordMatch';
 
 import * as S from './style';
-import { useEffect, useState } from 'react';
 
 export const RegistrationStepOne = () => {
 	const { loginData } = useAppSelector(state => state.user);
 	const { setLoginInfo } = useActions();
 
-	const email = useInput(loginData?.email, { isEmail: true });
+	const email = useInput(loginData?.email, { isEmpty: true, isEmail: true });
 	const phone = useInput(loginData?.phone, { isEmpty: true, isPhone: true });
-	const pass = useInput(loginData?.password, { isPassword: true });
-	const repeatPass = useInput(loginData?.password);
-
+	const { onChange, ...pass } = useInput(loginData?.password, {
+		isEmpty: true,
+		isPassword: true,
+	});
+	const repeatPass = useInput(loginData?.password, { repeatPassword: true });
+	const [agreements, setAgreements] = useState({
+		isChecked: false,
+		showError: false,
+	});
 	const [validForm, setValidForm] = useState(false);
 
 	const navigate = useNavigate();
+
+	const checkedPass = checkPasswordMatch(pass.value, repeatPass.value);
+
+	useEffect(() => {
+		if (checkedPass === true) {
+			repeatPass.errorMessage = '';
+		}
+	}, [checkedPass, repeatPass]);
 
 	useEffect(() => {
 		if (
 			email.errorMessage ||
 			phone.errorMessage ||
 			pass.errorMessage ||
-			repeatPass.errorMessage
+			repeatPass.errorMessage ||
+			checkedPass === false ||
+			agreements.isChecked === false
 		) {
 			setValidForm(false);
 		} else {
 			setValidForm(true);
 		}
-	}, [email.errorMessage, phone.errorMessage, pass.errorMessage, repeatPass.errorMessage]);
+	}, [
+		email.errorMessage,
+		phone.errorMessage,
+		pass.errorMessage,
+		repeatPass.errorMessage,
+		checkedPass,
+		agreements,
+	]);
 
-	const setData = () => {
-		// if (validForm) {
-		// 	setLoginInfo({
-		// 		loginData: {
-		// 			email: email.value,
-		// 			phone: phone.value,
-		// 			password: pass.value,
-		// 		},
-		// 	});
-		// }
-		email.isDirty = true;
-
-		// navigate('step2');
+	const showRequiredFields = () => {
+		email.setDirty(true);
+		phone.setDirty(true);
+		pass.setDirty(true);
+		repeatPass.setDirty(true);
+		setAgreements({ ...agreements, showError: true });
 	};
 
-	console.log(validForm);
+	const setData = () => {
+		if (validForm) {
+			setLoginInfo({
+				loginData: {
+					email: email.value,
+					password: pass.value,
+					phone: phone.value,
+				},
+			});
+			navigate('step2');
+		} else {
+			showRequiredFields();
+		}
+	};
 
 	return (
 		<>
-			<Input {...email} label="Почта" type="text" />
-			{email.isDirty && email.errorMessage && <h2>{email.errorMessage}</h2>}
+			<Input
+				{...email}
+				error={email.isDirty ? email.errorMessage : ''}
+				label="Почта"
+				type="text"
+			/>
 			<Input
 				value={phone.value}
 				placeholder="+7 (999) 999-99-99"
 				onBlur={phone.onBlur}
 				onChange={e => getMaskedPhone(e, phone.setValue)}
+				error={phone.isDirty ? phone.errorMessage : ''}
 				label="Телефон"
 			/>
-			{phone.isDirty && phone.errorMessage && <h2>{phone.errorMessage}</h2>}
-			<Input {...pass} label="Пароль" />
-			{pass.isDirty && pass.errorMessage && <h2>{pass.errorMessage}</h2>}
-			<Input {...repeatPass} label="Повторите пароль" />
+
+			<Input
+				onChange={e => pass.setValue(e.target.value.replace(/\s/, ''))}
+				{...pass}
+				error={pass.isDirty ? pass.errorMessage : ''}
+				label="Пароль"
+			/>
+			<Input
+				{...repeatPass}
+				error={repeatPass.isDirty && checkedPass === false ? repeatPass.errorMessage : ''}
+				label="Повторите пароль"
+			/>
 			<S.StepAgreements>
 				<div>
-					<Checkbox /> <span>Я согласен на:</span>
+					<Checkbox 
+						error={!agreements.isChecked && agreements.showError}
+						checked={agreements.isChecked}
+						onChange={() =>
+							setAgreements({ ...agreements, isChecked: !agreements.isChecked })
+						}
+					/>
+					<span>Я согласен на:</span>
 				</div>
 				<li>
 					<NavLink to="#">Обработку персональных данных (ФЗ 152)</NavLink>
@@ -78,7 +128,9 @@ export const RegistrationStepOne = () => {
 				<li>Передачу персональных данных третьим лицам</li>
 				<li>Обращение для информирования и напоминания</li>
 			</S.StepAgreements>
-			<Button type='button' onClick={() => setData()}>Далее</Button>
+			<Button type="button" onClick={setData}>
+				Далее
+			</Button>
 		</>
 	);
 };

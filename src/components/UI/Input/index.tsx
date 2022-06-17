@@ -12,10 +12,11 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
 	placeholder?: string;
 	type?: string;
 	onBlur?: () => void;
+	error?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-	const { value, label, onChange, placeholder, type, isPassword = false, onBlur } = props;
+	const { value, label, onChange, placeholder, type, isPassword = false, onBlur, error  = ''} = props;
 
 	const [isFocus, setIsFocus] = useState(false);
 	const [isShowedPass, setIsShowedPass] = useState(true);
@@ -40,6 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 		<S.InputWrapper>
 			<S.Label isFocus={isFocus}>{label}</S.Label>
 			<S.Input
+				isError={!!error}
 				ref={ref}
 				type={inputType}
 				value={value}
@@ -48,6 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 				onBlur={onBlury}
 				placeholder={isShowPlaceholder}
 			/>
+			{error && <S.ErrorMessage>{error}</S.ErrorMessage>}
 			{isPassword && (
 				<S.PasswordIcon isShowedPass={isShowedPass}>
 					<IconButton onClick={() => setIsShowedPass(!isShowedPass)} icon={<Eye />} />

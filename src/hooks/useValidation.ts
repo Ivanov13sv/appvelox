@@ -6,8 +6,8 @@ export const useValidation = (value: string, validations: any) => {
 	const [incorrectEmail, setIncorrenctEmail] = useState(true);
 	const [unsafePassword, setUnsafePassword] = useState(true);
 	const [incorrectPhone, setIncorrectPhone] = useState(true);
+	const [repeatPassword, setRepeatPassword] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
-
 
 	useEffect(() => {
 		for (const validation in validations) {
@@ -46,22 +46,37 @@ export const useValidation = (value: string, validations: any) => {
 					}
 					break;
 				case 'isPassword':
-					const regExPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-					if (!value.match(regExPassword)) {
+					if (value.length <= 7) {
 						setUnsafePassword(false);
-						setErrorMessage(
-							'Пароль должен состоять из латинских букв, как минимум одной заглавной буквы и двух цифр'
-						);
+						setErrorMessage('Пароль должен быть не менее 8 символов');
 					} else {
 						setUnsafePassword(true);
 						setErrorMessage('');
 					}
 					break;
+				// const regExPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+				// if (!value.match(regExPassword)) {
+				// 	setUnsafePassword(false);
+				// 	setErrorMessage(
+				// 		'Пароль должен состоять из латинских букв, как минимум одной заглавной буквы и двух цифр'
+				// 	);
+				// } else {
+				// 	setUnsafePassword(true);
+				// 	setErrorMessage('');
+				// }
+				// break;
+
+				case 'repeatPassword':
+					setRepeatPassword(true);
+					setErrorMessage('Пароль не совпадает');
+
+					break;
+
 				case 'isPhone':
 					const regExPhone = /(?:\+?)[78]+[0-9() -]{16,17}/;
 					if (!value.match(regExPhone)) {
 						setIncorrectPhone(true);
-						setErrorMessage('Введите номер телефона корректно');
+						setErrorMessage('Введите корректный номер телефона');
 					} else {
 						setIncorrectPhone(false);
 						setErrorMessage('');
@@ -72,9 +87,7 @@ export const useValidation = (value: string, validations: any) => {
 					return;
 			}
 		}
-	}, [value]);
-
-
+	}, [value, validations]);
 
 	return {
 		isEmpty,
@@ -83,5 +96,6 @@ export const useValidation = (value: string, validations: any) => {
 		incorrectEmail,
 		unsafePassword,
 		incorrectPhone,
+		repeatPassword,
 	};
 };

@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-
+import styled, { css } from 'styled-components';
 
 export const StepAgreements = styled.ul`
 	display: flex;
@@ -13,7 +11,7 @@ export const StepAgreements = styled.ul`
 		display: flex;
 		align-items: center;
 		padding-bottom: 10px;
-		>span{
+		> span {
 			margin-left: 14px;
 		}
 	}
@@ -53,4 +51,22 @@ export const StepAgreements = styled.ul`
 			color: #0088ff;
 		}
 	}
+`;
+
+interface ErrorWarningProps{
+	active: boolean;
+}
+
+export const ErrorWarning = styled.ul<ErrorWarningProps>`
+	width: 300px;
+	height: 300px;
+	background: red;
+	position: absolute;
+	top: -100%;
+	left: 13%;
+	transition: all .3s ease;
+
+	${props => props.active && css`
+	top: 0;
+	`}
 `;

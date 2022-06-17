@@ -35,7 +35,11 @@ export const Label = styled.label<LabelProps>`
 		`}
 `;
 
-export const Input = styled.input`
+interface InputProps {
+	isError?: boolean;
+}
+
+export const Input = styled.input<InputProps>`
 	width: 100%;
 	height: 40px;
 	border: 0.5px solid #000000;
@@ -43,6 +47,12 @@ export const Input = styled.input`
 	outline: none;
 	font-size: 16px;
 	padding: 0 10px;
+	transition: border .3s ease; 
+	${props =>
+		props.isError &&
+		css`
+			border: 0.5px solid red;
+		`}
 `;
 
 interface PasswordIconProps {
@@ -56,10 +66,10 @@ export const PasswordIcon = styled.div<PasswordIconProps>`
 	transform: translateY(-100%);
 
 	&::after {
-		transition: .3s ease;
+		transition: 0.3s ease;
 		content: '';
 		position: absolute;
-		/* background: ${({theme}) => theme.color.accent}; */
+		/* background: ${({ theme }) => theme.color.accent}; */
 		background: black;
 		height: 1px;
 		width: 120%;
@@ -76,4 +86,18 @@ export const PasswordIcon = styled.div<PasswordIconProps>`
 				opacity: 1;
 			}
 		`}
+`;
+
+export const ErrorMessage = styled.span`
+	position: absolute;
+	left: 10px;
+	bottom: -15%;
+	font-size: 13px;
+	padding: 0 5px;
+	border-radius: 15px;
+	background: white;
+	color: red;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 17px;
 `;
