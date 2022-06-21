@@ -10,7 +10,7 @@ import { SuccessRegistration } from 'components/Registration/SuccessRegistration
 export const Ragistration = () => {
 	return (
 		<Routes>
-			<Route path='' element={<RegistrationStepOne />} />
+			<Route path="" element={<RegistrationStepOne />} />
 			<Route path="step2" element={<RegistrationStepTwo />} />
 			<Route path="step3" element={<RegistrationStepThree />} />
 		</Routes>

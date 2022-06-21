@@ -5,6 +5,7 @@ import { MdChevronRight, MdOutlineExitToApp } from 'react-icons/md';
 import { BsGearFill } from 'react-icons/bs';
 
 import { useActions } from 'hooks/useActions';
+import { getAuth, signOut } from 'firebase/auth';
 import { DropdownItem } from './DropdownItem';
 
 import * as S from './style';
@@ -12,15 +13,21 @@ import * as S from './style';
 export const Dropdown = () => {
 	const [menuOpen, setMenuOpen] = useState('main');
 	const [menuHeight, setMenuHeight] = useState<null | number>();
-	const {logOut} = useActions();
+	const { logOut } = useActions();
 
 	const mainMenuRef = useRef<HTMLUListElement>(null);
 	const secondaryMenuRef = useRef<HTMLUListElement>(null);
+	const auth = getAuth();
 
-	const signOut = () =>{
-		logOut();
-		localStorage.setItem('activeItem', '0');
-	}
+	const exit = () => {
+		signOut(auth)
+			.then(() => {
+				console.log('signOut');
+			})
+			.catch(error => {
+				// An error happened.
+			});
+	};
 
 	useEffect(() => {
 		if (menuOpen === 'main') {
@@ -59,10 +66,8 @@ export const Dropdown = () => {
 				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
 				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
 				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem callback={signOut} text="Выйти" leftIcon={<MdOutlineExitToApp />} />
+				<DropdownItem callback={exit} text="Выйти" leftIcon={<MdOutlineExitToApp />} />
 			</S.SecondaryMenu>
-
-			{/* <S.SecondaryMenu>321</S.SecondaryMenu> */}
 		</S.Dropdown>
 	);
 };

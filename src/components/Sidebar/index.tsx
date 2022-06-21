@@ -54,7 +54,6 @@ export const Sidebar = () => {
 					/>
 				))}
 				<Button>Подать заявку</Button>
-
 			</S.SidebarMain>
 			<S.SidebarFooter>
 				<SidebarItem leftIcon={<Help />} text="Помощь" to="/help" />

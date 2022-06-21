@@ -1,6 +1,6 @@
-import { successActions } from 'store/reducers/successRegistrationSlice';
-import { authorizaitonActions } from 'store/reducers/authorizationSlice';
-import { userSliceActions } from 'store/reducers/userSlice';
+import { successActions } from 'store/slices/successRegistrationSlice';
+import { authorizaitonActions } from 'store/slices/userAuthSlice';
+import { userSliceActions } from 'store/slices/registrationDataSlice';
 
 export const allActions = {
 	...successActions,

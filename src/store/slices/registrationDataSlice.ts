@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import React from 'react';
 
-interface IUser {
+interface IRegistrationData {
 	loginData?: {
 		email: string;
 		phone: string;
@@ -13,7 +12,7 @@ interface IUser {
 		patronymic: string;
 		registrationAddress: string;
 		gender: string;
-		dOb: string | null;
+		dOb: string;
 		residentialAddress: string;
 	};
 	representativeInfo?: {
@@ -24,7 +23,7 @@ interface IUser {
 	};
 }
 
-const initialState: IUser = {
+const initialState: IRegistrationData = {
 	loginData: {
 		email: '',
 		password: '',
@@ -51,16 +50,16 @@ const userSlice = createSlice({
 	name: 'newUser',
 	initialState,
 	reducers: {
-		setLoginInfo: (state: IUser, action: PayloadAction<IUser>) => {
+		setLoginInfo: (state: IRegistrationData, action: PayloadAction<IRegistrationData>) => {
 			state.loginData = action.payload.loginData;
 		},
-		setPersonalInfo: (state: IUser, action: PayloadAction<IUser>) => {
+		setPersonalInfo: (state: IRegistrationData, action: PayloadAction<IRegistrationData>) => {
 			state.personalInfo = action.payload.personalInfo;
 		},
-		setRepresentativeInfo: (state: IUser, action: PayloadAction<IUser>) => {
+		setRepresentativeInfo: (state: IRegistrationData, action: PayloadAction<IRegistrationData>) => {
 			state.representativeInfo = action.payload.representativeInfo;
 		},
-		resetRegForm: (state: IUser) => {
+		resetRegForm: (state: IRegistrationData) => {
 			if (state.loginData) {
 				let key: keyof typeof state.loginData;
 				for (key in state.loginData) {

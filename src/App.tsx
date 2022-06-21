@@ -18,16 +18,94 @@ import { Ragistration } from 'components/Registration';
 import { Layout } from 'components/Layout';
 import { RecoveryPage } from 'pages/RecoveryPage';
 
+import doctor1 from 'assets/img/doctor1.png';
+import doctor2 from 'assets/img/doctor2.png';
+import { useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useActions } from 'hooks/useActions';
+
+const admissions = [
+	{
+		id: 1,
+		date: 'Понедельник 15.06.20 | 15:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor1,
+		name: 'Малушко Т. Н.',
+		job: 'Хирургия',
+	},
+	{
+		id: 2,
+		date: 'Понедельник 15.06.20 | 18:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor2,
+		name: 'Харьков В. С.',
+		job: 'Терапевтическое отделение',
+	},
+
+	{
+		id: 3,
+		date: 'Понедельник 15.06.20 | 18:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor2,
+		name: 'Харьков В. С.',
+		job: 'Терапевтическое отделение',
+	},
+	{
+		id: 4,
+		date: 'Понедельник 15.06.20 | 18:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor2,
+		name: 'Харьков В. С.',
+		job: 'Терапевтическое отделение',
+	},
+	{
+		id: 5,
+		date: 'Понедельник 15.06.20 | 18:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor2,
+		name: 'Харьков В. С.',
+		job: 'Терапевтическое отделение',
+	},
+	{
+		id: 7,
+		date: 'Понедельник 15.06.20 | 18:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor2,
+		name: 'Харьков В. С.',
+		job: 'Терапевтическое отделение',
+	},
+	{
+		id: 6,
+		date: 'Понедельник 15.06.20 | 18:30',
+		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
+		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
+		photo: doctor2,
+		name: 'Харьков В. С.',
+		job: 'Терапевтическое отделение',
+	},
+];
+
 function App() {
+
+
 	return (
 		<ThemeProvider theme={myTheme}>
 			<Routes>
 				<Route element={<RequireAuth />}>
 					<Route element={<Layout />}>
-						<Route path="profile" element={<MakingAppointmentPage admissions={[]} />} />
+						<Route
+							path="profile"
+							element={<MakingAppointmentPage admissions={admissions} />}
+						/>
 						<Route
 							path="profile/appointment"
-							element={<AppointmentsPage admissions={[]} />}
+							element={<AppointmentsPage admissions={admissions} />}
 						/>
 						<Route path="doctors" element={<></>} />
 						<Route path="messages" element={<></>} />
@@ -53,13 +131,3 @@ function App() {
 }
 
 export default App;
-
-{
-	/* <Route element={<Layout />}>
-<Route path="profile" element={<RequireAuth />}>
-	<Route element={<MakingAppointmentPage admissions={[]} />} />
-</Route>
-<Route path="doctors" element={<></>} />
-<Route path="*" element={<Navigate to="profile" />} />
-</Route> */
-}

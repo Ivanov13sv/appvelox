@@ -2,21 +2,40 @@ import { FormEvent, useEffect, useState } from 'react';
 import { Button } from 'components/UI/Button';
 import { useInput } from 'hooks/useInput';
 import { Input } from 'components/UI/Input';
-import { NavLink } from 'react-router-dom';
-import { SuccessRegistration } from 'components/Registration/SuccessRegistration';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useActions } from 'hooks/useActions';
-import { useAppSelector } from 'hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 import * as S from './style';
 
 export const Login = () => {
 	const email = useInput('');
 	const password = useInput('');
-
+	const dispatch = useDispatch();
 	const { logIn } = useActions();
+	const navigate = useNavigate();
 
-	const onChange = (e: FormEvent<HTMLFormElement>): void => {
+	const handleLogin = (email: string, password: string) => {
+		const auth = getAuth();
+		signInWithEmailAndPassword(auth, email, password)
+			.then(({ user }) => {
+				console.log('login')
+				// logIn({
+				// 	email: user.email,
+				// 	id: user.uid,
+				// 	//@ts-ignore
+				// 	token: user.accessToken,
+				// });
+			})
+			.catch(console.error);
+	};
+
+	const onChange = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		handleLogin(email.value, password.value);
+		navigate('/');
 	};
 
 	return (
@@ -38,9 +57,7 @@ export const Login = () => {
 					<p>
 						Забыли пароль? <NavLink to="/recovery">Восстановить</NavLink>{' '}
 					</p>
-					<Button onClick={() => logIn()} as={NavLink} to="/">
-						Войти
-					</Button>
+					<Button>Войти</Button>
 				</form>
 			</S.LoginForm>
 		</>

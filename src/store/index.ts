@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dropdownReducer from 'store/reducers/dropdownSlice';
-import authorizationSlice from 'store/reducers/authorizationSlice';
-import successRegistrationSlice from 'store/reducers/successRegistrationSlice';
-import userSlice from 'store/reducers/userSlice';
+import dropdownReducer from 'store/slices/dropdownSlice';
+import userAuth from 'store/slices/userAuthSlice';
+import successRegistrationSlice from 'store/slices/successRegistrationSlice';
+import registrationDataSlice from 'store/slices/registrationDataSlice';
 
 
 export const store = configureStore({
 	reducer: {
 		dropdown: dropdownReducer,
-		authorization: authorizationSlice,
+		userAuth: userAuth,
 		successReg: successRegistrationSlice,
-		user: userSlice,
+		registrationData: registrationDataSlice,
 	},
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware)
 });

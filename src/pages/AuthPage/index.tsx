@@ -14,7 +14,7 @@ export const AuthPage: FC<AuthPageProps> = ({ setIsAuth }) => {
 	const [value, setValue] = useState('');
 	const navigate = useNavigate();
 	const location: Location = useLocation();
-	const { isAuth } = useSelector((state: RootState) => state.authorization);
+	const { token } = useSelector((state: RootState) => state.userAuth);
 	const dispatch = useDispatch();
 
 
@@ -30,7 +30,7 @@ export const AuthPage: FC<AuthPageProps> = ({ setIsAuth }) => {
 		// navigate(location.fromPage);
 	};
 
-	if (isAuth) {
+	if (token) {
 		return <Navigate to="/log" />;
 	}
 

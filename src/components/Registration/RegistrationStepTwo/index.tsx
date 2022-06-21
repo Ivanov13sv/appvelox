@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from 'components/UI/Input';
 import { Button } from 'components/UI/Button';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useActions } from 'hooks/useActions';
 import { useInput } from 'hooks/useInput';
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -9,26 +9,49 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import * as S from './style';
 
 export const RegistrationStepTwo = () => {
-	const { personalInfo } = useAppSelector(state => state.user);
+	const { personalInfo } = useAppSelector(state => state.registrationData);
 
-	const secondName = useInput(personalInfo?.secondName, { isEmail: true });
-	const firstName = useInput(personalInfo?.firstName);
-	const patronymic = useInput(personalInfo?.patronymic);
-	const registrationAddress = useInput(personalInfo?.registrationAddress);
+	const secondName = useInput(personalInfo?.secondName, { isEmpty: true });
+	const firstName = useInput(personalInfo?.firstName, { isEmpty: true });
+	const patronymic = useInput(personalInfo?.patronymic, { isEmpty: true });
+	const registrationAddress = useInput(personalInfo?.registrationAddress, { isEmpty: true });
 	const gender = useInput('male');
-	const dateRef = useRef<HTMLInputElement>(null);
-	const residentialAddress = useInput(personalInfo?.residentialAddress);
+	const date = useInput(personalInfo?.dOb, { isEmpty: true });
+	const residentialAddress = useInput(personalInfo?.residentialAddress, { isEmpty: true });
 
+	const [validForm, setValidForm] = useState(false);
+
+	const navigate = useNavigate();
 	const { setPersonalInfo } = useActions();
+
+	useEffect(() => {
+		if (
+			firstName.errorMessage ||
+			secondName.errorMessage ||
+			patronymic.errorMessage ||
+			registrationAddress.errorMessage ||
+			residentialAddress.errorMessage ||
+			date.errorMessage
+		) {
+			setValidForm(false);
+		} else {
+			setValidForm(true);
+		}
+	}, [
+		firstName.errorMessage,
+		secondName.errorMessage,
+		patronymic.errorMessage,
+		registrationAddress.errorMessage,
+		residentialAddress.errorMessage,
+		date.errorMessage,
+	]);
 
 	const pickGender = () => {
 		gender.value === 'male' ? gender.setValue('female') : gender.setValue('male');
 	};
 
-	console.log(secondName.isDirty);
-
 	const setData = () => {
-		if (dateRef.current) {
+		if (validForm) {
 			setPersonalInfo({
 				personalInfo: {
 					secondName: secondName.value,
@@ -36,11 +59,23 @@ export const RegistrationStepTwo = () => {
 					patronymic: patronymic.value,
 					registrationAddress: registrationAddress.value,
 					gender: gender.value,
-					dOb: dateRef.current?.value,
+					dOb: date.value,
 					residentialAddress: residentialAddress.value,
 				},
 			});
+			navigate('/registration/step3');
+		} else {
+			showRequiredFields();
 		}
+	};
+
+	const showRequiredFields = () => {
+		firstName.setDirty(true);
+		secondName.setDirty(true);
+		patronymic.setDirty(true);
+		registrationAddress.setDirty(true);
+		residentialAddress.setDirty(true);
+		date.setDirty(true);
 	};
 
 	return (
@@ -50,11 +85,23 @@ export const RegistrationStepTwo = () => {
 				onChange={secondName.onChange}
 				onBlur={secondName.onBlur}
 				label="Фамилия"
+				error={secondName.isDirty ? secondName.errorMessage : ''}
 			/>
-			{(secondName.errorMessage && secondName.isDirty) && <h2>{secondName.errorMessage}</h2>}
-			<Input {...firstName} label="Имя" />
-			<Input {...patronymic} label="Отчество" />
-			<Input {...registrationAddress} label="Адрес регистрации" />
+			<Input
+				{...firstName}
+				error={firstName.isDirty ? firstName.errorMessage : ''}
+				label="Имя"
+			/>
+			<Input
+				{...patronymic}
+				error={patronymic.isDirty ? patronymic.errorMessage : ''}
+				label="Отчество"
+			/>
+			<Input
+				{...registrationAddress}
+				error={registrationAddress.isDirty ? registrationAddress.errorMessage : ''}
+				label="Адрес регистрации"
+			/>
 			<S.Fieldset>
 				<S.RadioLabel>Пол:</S.RadioLabel>
 				<S.RadioGroup>
@@ -77,11 +124,20 @@ export const RegistrationStepTwo = () => {
 						<span>Ж</span>
 					</S.Radio>
 				</S.RadioGroup>
-				<input ref={dateRef} className="date" type="date" />
+				<S.DateInput
+					// ref={dateRef}
+					{...date}
+					error={date.isDirty && !date.value ? true : false}
+					type="date"
+				/>
 			</S.Fieldset>
 
-			<Input {...residentialAddress} label="Адрес места жительства" />
-			<Button onClick={setData} as={NavLink} to="/registration/step3">
+			<Input
+				{...residentialAddress}
+				error={residentialAddress.isDirty ? residentialAddress.errorMessage : ''}
+				label="Адрес места жительства"
+			/>
+			<Button type="button" onClick={setData}>
 				Далее
 			</Button>
 		</>

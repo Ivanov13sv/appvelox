@@ -6,6 +6,8 @@ export const Sidebar = styled.div`
 	flex-direction: column;
 	width: 100%;
 	background-color: ${({ theme }) => theme.color.main};
+	position: relative;
+	z-index: 10;
 
 `;
 

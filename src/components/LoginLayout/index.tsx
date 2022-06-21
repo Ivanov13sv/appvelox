@@ -15,7 +15,7 @@ interface LoginLayoutProps {
 
 export const LoginLayout: FC<LoginLayoutProps> = () => {
 	const [imageTheme, setImageTheme] = useState('login');
-	const { isAuth } = useAppSelector(state => state.authorization);
+	const { token } = useAppSelector(state => state.userAuth);
 
 
 
@@ -30,7 +30,7 @@ export const LoginLayout: FC<LoginLayoutProps> = () => {
 		}
 	}, [location.pathname]);
 
-	if (isAuth) {
+	if (token) {
 		return <Navigate to="/" state={{ from: location }} replace />;
 	}
 

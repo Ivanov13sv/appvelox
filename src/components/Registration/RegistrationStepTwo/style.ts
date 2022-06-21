@@ -1,32 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import calendary from 'assets/img/icons/calendary.svg';
 
 export const Fieldset = styled.fieldset`
 	border: none;
 	display: flex;
 	align-items: center;
-	input[type='date'] {
-		margin-left: 20px;
-		position: relative;
-		width: 100%;
-		display: flex;
-		flex-direction: row-reverse;
-		height: 40px;
-		text-align: center;
-		border-radius: 5px;
-		outline: none;
-		border: 1px solid black;
-		font-family: 'Rubik', sans-serif;
-		letter-spacing: 1px;
-		&::-webkit-calendar-picker-indicator {
-			cursor: pointer;
-			margin-right: 20px;
-			transform: scale(1.5);
-			background-image: url(${calendary});
-			position: absolute;
-			left: 20px;
-		}
-	}
 `;
 
 export const Radio = styled.label`
@@ -75,4 +53,36 @@ export const RadioGroup = styled.div`
 
 export const RadioLabel = styled.span`
 	padding-right: 14px;
+`;
+
+interface DateInputProps {
+	error?: boolean;
+}
+
+export const DateInput = styled.input<DateInputProps>`
+	margin-left: 20px;
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+	height: 40px;
+	text-align: center;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid black;
+	font-family: 'Rubik', sans-serif;
+	letter-spacing: 1px;
+	&::-webkit-calendar-picker-indicator {
+		cursor: pointer;
+		margin-right: 20px;
+		transform: scale(1.5);
+		background-image: url(${calendary});
+		position: absolute;
+		left: 20px;
+	}
+	${props =>
+		props.error &&
+		css`
+			border: 1px solid red;
+		`}
 `;

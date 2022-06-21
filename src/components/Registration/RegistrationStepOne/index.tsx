@@ -12,7 +12,7 @@ import { checkPasswordMatch } from 'utils/checkPasswordMatch';
 import * as S from './style';
 
 export const RegistrationStepOne = () => {
-	const { loginData } = useAppSelector(state => state.user);
+	const { loginData } = useAppSelector(state => state.registrationData);
 	const { setLoginInfo } = useActions();
 
 	const email = useInput(loginData?.email, { isEmpty: true, isEmail: true });

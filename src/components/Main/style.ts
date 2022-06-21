@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Main = styled.main`
 	grid-area: main;
 	height: 100%;
-	overflow: hidden;
+	/* overflow: hidden; */
 `;
 
 export const Titles = styled.div`
