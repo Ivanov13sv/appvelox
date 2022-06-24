@@ -33,6 +33,8 @@ const authUserSlice = createSlice({
 	},
 });
 
+// Разобраться со стейтом при login и logout
+
 
 export const authorizaitonActions = authUserSlice.actions;
 

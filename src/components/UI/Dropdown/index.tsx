@@ -3,6 +3,7 @@ import { useClickOutside } from 'hooks/useClickOutside';
 import { MdPerson } from 'react-icons/md';
 import { MdChevronRight, MdOutlineExitToApp } from 'react-icons/md';
 import { BsGearFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 import { useActions } from 'hooks/useActions';
 import { getAuth, signOut } from 'firebase/auth';
@@ -19,10 +20,12 @@ export const Dropdown = () => {
 	const secondaryMenuRef = useRef<HTMLUListElement>(null);
 	const auth = getAuth();
 
+
 	const exit = () => {
 		signOut(auth)
 			.then(() => {
-				console.log('signOut');
+				logOut();
+
 			})
 			.catch(error => {
 				// An error happened.

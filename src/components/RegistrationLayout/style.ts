@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Layout = styled.section`
-padding-top: 50px;
-min-height: 100%;
+	padding-top: 50px;
+	min-height: 100%;
+	position: relative;
 	h2 {
 		font-weight: 300;
 		font-size: 28px;

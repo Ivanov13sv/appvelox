@@ -22,7 +22,7 @@ export const Sidebar = () => {
 		{ leftIcon: <Test />, text: 'Тестирование', path: 'test' },
 		{ leftIcon: <Book />, text: 'Полезно знать', path: 'goodtoknow' },
 	];
-	const [activeItem, setActiveItem] = useLocalStorage('activeItem', 0);
+	const [activeItem, setActiveItem] = useState(0);
 	const [height, setHeight] = useState(0);
 
 	const ref = useRef<HTMLLIElement>(null);

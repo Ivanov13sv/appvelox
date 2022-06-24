@@ -31,7 +31,7 @@ export const useValidation = (value: string, validations: any) => {
 						setErrorMessage('');
 					} else {
 						setEmpty(true);
-						setErrorMessage('Поле не может быть пустым');
+						setErrorMessage('Обязательное поле');
 					}
 					break;
 
@@ -93,6 +93,7 @@ export const useValidation = (value: string, validations: any) => {
 		isEmpty,
 		minLengthError,
 		errorMessage,
+		setErrorMessage,
 		incorrectEmail,
 		unsafePassword,
 		incorrectPhone,

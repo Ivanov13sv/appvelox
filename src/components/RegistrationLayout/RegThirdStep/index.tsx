@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { getMaskedPhone } from 'utils/phoneMask';
 import * as S from './style';
 
-export const RegistrationStepThree = () => {
+export const RegThirdStep = () => {
 	const { representativeInfo } = useAppSelector(state => state.registrationData);
 	const secondName = useInput(representativeInfo?.secondName, { isEmpty: true });
 	const firstName = useInput(representativeInfo?.firstName, { isEmpty: true });

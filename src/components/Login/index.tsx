@@ -9,38 +9,44 @@ import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 import * as S from './style';
+import { Notice } from 'components/UI/Notice';
+import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 export const Login = () => {
-	const email = useInput('');
-	const password = useInput('');
-	const dispatch = useDispatch();
+	const emailInput = useInput('');
+	const passwordInput = useInput('');
 	const { logIn } = useActions();
 	const navigate = useNavigate();
+	const { spiner } = useAppSelector(state => state);
 
-	const handleLogin = (email: string, password: string) => {
+	const handleLogin = (email: string, pass: string) => {
 		const auth = getAuth();
-		signInWithEmailAndPassword(auth, email, password)
+		signInWithEmailAndPassword(auth, email, pass)
 			.then(({ user }) => {
-				console.log('login')
-				// logIn({
-				// 	email: user.email,
-				// 	id: user.uid,
-				// 	//@ts-ignore
-				// 	token: user.accessToken,
-				// });
+				logIn({
+					email: user.email,
+					id: user.uid,
+					//@ts-ignore
+					token: user.accessToken,
+				});
+				navigate('/');
 			})
-			.catch(console.error);
+			.catch(error => {
+				emailInput.setErrorMessage('Неверный пользователь');
+			});
 	};
 
 	const onChange = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		handleLogin(email.value, password.value);
-		navigate('/');
+		handleLogin(emailInput.value, passwordInput.value);
 	};
 
 	return (
 		<>
 			<S.LoginForm>
+			
+
 				<h1>Вход</h1>
 				<p>
 					У вас нет аккаунта? <NavLink to="/registration">Зарегистрироваться</NavLink>
@@ -48,12 +54,12 @@ export const Login = () => {
 
 				<form onSubmit={onChange}>
 					<Input
-						{...email}
+						{...emailInput}
+						error={emailInput.errorMessage}
 						type="text"
-						placeholder="+7-999-999-99"
-						label="Почта или телефон"
+						label="Почта"
 					/>
-					<Input type="password" isPassword {...password} label="Пароль" />
+					<Input type="password" isPassword {...passwordInput} label="Пароль" />
 					<p>
 						Забыли пароль? <NavLink to="/recovery">Восстановить</NavLink>{' '}
 					</p>

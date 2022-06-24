@@ -3,6 +3,9 @@ import { IconButton } from '../IconButton';
 
 export const InputWrapper = styled.div`
 	position: relative;
+	/*  */
+	display: flex;
+	align-items: center;
 `;
 
 interface LabelProps {
@@ -63,7 +66,7 @@ export const PasswordIcon = styled.div<PasswordIconProps>`
 	position: absolute;
 	top: 50%;
 	right: 5%;
-	transform: translateY(-100%);
+	transform: translateY(-50%);
 
 	&::after {
 		transition: 0.3s ease;

@@ -8,7 +8,7 @@ import { useAppSelector } from 'hooks/useAppSelector';
 
 import * as S from './style';
 
-export const RegistrationStepTwo = () => {
+export const RegSecondStep = () => {
 	const { personalInfo } = useAppSelector(state => state.registrationData);
 
 	const secondName = useInput(personalInfo?.secondName, { isEmpty: true });

@@ -1,19 +1,27 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Location, NavLink, useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from 'components/UI/Button';
 import { Checkbox } from 'components/UI/Checkbox';
 import { Input } from 'components/UI/Input';
-import { NavLink, useNavigate } from 'react-router-dom';
 import { useActions } from 'hooks/useActions';
 import { useInput } from 'hooks/useInput';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getMaskedPhone } from 'utils/phoneMask';
-import { useEffect, useState } from 'react';
 import { checkPasswordMatch } from 'utils/checkPasswordMatch';
-
 import * as S from './style';
 
-export const RegistrationStepOne = () => {
+interface LocationState {
+	state: {
+		error: string;
+	};
+}
+
+export const RegFirstStep = () => {
 	const { loginData } = useAppSelector(state => state.registrationData);
 	const { setLoginInfo } = useActions();
+	const navigate = useNavigate();
+	const { state } = useLocation() as LocationState;
 
 	const email = useInput(loginData?.email, { isEmpty: true, isEmail: true });
 	const phone = useInput(loginData?.phone, { isEmpty: true, isPhone: true });
@@ -28,12 +36,18 @@ export const RegistrationStepOne = () => {
 	});
 	const [validForm, setValidForm] = useState(false);
 
-	const navigate = useNavigate();
-
 	const checkedPass = checkPasswordMatch(pass.value, repeatPass.value);
 
+	useMemo(() => {
+		if (state?.error) {
+			setTimeout(() => {
+				state.error = '';
+			}, 2000);
+		}	
+	}, [state]);
+
 	useEffect(() => {
-		if (checkedPass === true) {
+		if (checkedPass) {
 			repeatPass.errorMessage = '';
 		}
 	}, [checkedPass, repeatPass]);
@@ -87,7 +101,7 @@ export const RegistrationStepOne = () => {
 		<>
 			<Input
 				{...email}
-				error={email.isDirty ? email.errorMessage : ''}
+				error={email.isDirty && !state?.error ? email.errorMessage : state?.error}
 				label="Почта"
 				type="text"
 			/>
@@ -113,7 +127,7 @@ export const RegistrationStepOne = () => {
 			/>
 			<S.StepAgreements>
 				<div>
-					<Checkbox 
+					<Checkbox
 						error={!agreements.isChecked && agreements.showError}
 						checked={agreements.isChecked}
 						onChange={() =>

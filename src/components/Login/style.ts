@@ -131,6 +131,7 @@ export const LoginForm = styled.section`
 
 	p {
 		text-align: center;
+		/* margin-bottom: 14px; */
 		margin-bottom: 34px;
 		font-weight: 300;
 		font-size: 14px;
@@ -155,10 +156,13 @@ export const LoginForm = styled.section`
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+		gap: 20px 0;
+
+		>p {
+			margin-bottom: 14px;
+		}
 	}
-	input {
-		margin-bottom: 20px;
-	}
+
 `;
 
 export const LoginFooter = styled.footer``;

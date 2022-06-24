@@ -16,7 +16,16 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-	const { value, label, onChange, placeholder, type, isPassword = false, onBlur, error  = ''} = props;
+	const {
+		value,
+		label,
+		onChange,
+		placeholder,
+		type,
+		isPassword = false,
+		onBlur,
+		error = '',
+	} = props;
 
 	const [isFocus, setIsFocus] = useState(false);
 	const [isShowedPass, setIsShowedPass] = useState(true);
@@ -34,6 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 		}
 	}, [value]);
 
+
 	const isShowPlaceholder = isFocus === true ? placeholder : '';
 	const inputType = isShowedPass === true && type === 'password' ? 'password' : 'text';
 
@@ -41,6 +51,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 		<S.InputWrapper>
 			<S.Label isFocus={isFocus}>{label}</S.Label>
 			<S.Input
+				autoComplete="off"
 				isError={!!error}
 				ref={ref}
 				type={inputType}

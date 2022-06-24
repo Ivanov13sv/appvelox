@@ -4,7 +4,7 @@ import logo from 'assets/img/Sidebar-icons/logo.png';
 
 import * as S from './style';
 
-export const SuccessRegistration = () => {
+export const SuccessScreen = () => {
 	return (
 		<S.SuccessReg>
 			<header />
@@ -13,10 +13,10 @@ export const SuccessRegistration = () => {
 					Вы успешно <br /> зарегистрировались!
 				</h2>
 				<span>Давайте приступим</span>
-				<img src={successReg} />
+				<img src={successReg} alt="success registration" />
 			</S.SuccessBody>
 			<footer>
-				<img src={logo} />
+				<img src={logo} alt="logo" />
 			</footer>
 		</S.SuccessReg>
 	);

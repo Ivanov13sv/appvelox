@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from 'components/Layout';
 
 import { MakingAppointmentPage } from 'pages/MakingAppointmentPage';
@@ -7,9 +7,16 @@ import { AppointmentsPage } from 'pages/AppointmentsPage';
 
 import doctor1 from 'assets/img/doctor1.png';
 import doctor2 from 'assets/img/doctor2.png';
-import { AuthPage } from 'pages/AuthPage';
+
 import { RequireAuth } from 'hoc/RequireAuth';
-import { LoginPage } from 'pages/LoginPage';
+
+import { LoginLayout } from 'components/LoginLayout';
+import { RegistrationLayout } from 'components/RegistrationLayout';
+import { Login } from 'components/Login';
+import { RegFirstStep } from 'components/RegistrationLayout/RegFirstStep';
+import { RegSecondStep } from 'components/RegistrationLayout/RegSecondStep';
+import { RegThirdStep } from 'components/RegistrationLayout/RegThirdStep';
+import { RecoveryPage } from 'pages/RecoveryPage';
 
 const admissions = [
 	{
@@ -81,25 +88,33 @@ const admissions = [
 export const Router: FC = () => {
 	return (
 		<Routes>
-			<Route
-				path="/"
-				element={
-					<RequireAuth>
-						<Layout />
-					</RequireAuth>
-				}
-			>
-				<Route path="profile" element={<MakingAppointmentPage admissions={admissions} />} />
-				<Route
-					path="profile/appointment"
-					element={<AppointmentsPage admissions={admissions} />}
-				/>
-				<Route path="doctors" element={<div>Doctors Section</div>} />
-				<Route path="messages" element={<div>Messages Section</div>} />
-				<Route path="test" element={<div>Test Section</div>} />
-				<Route path="goodtoknow" element={<div>Good to know Section</div>} />
+			<Route element={<RequireAuth />}>
+				<Route element={<Layout />}>
+					<Route
+						path="profile"
+						element={<MakingAppointmentPage admissions={admissions} />}
+					/>
+					<Route
+						path="profile/appointment"
+						element={<AppointmentsPage admissions={admissions} />}
+					/>
+					<Route path="doctors" element={<></>} />
+					<Route path="messages" element={<></>} />
+					<Route path="test" element={<></>} />
+					<Route path="goodtoknow" element={<></>} />
+					<Route path="*" element={<Navigate to="profile" />} />
+				</Route>
 			</Route>
-			<Route path="/login/*" element={<LoginPage />} />
+			<Route element={<LoginLayout />}>
+				<Route path="/login" element={<Login />} />
+				<Route path="/registration" element={<RegistrationLayout />}>
+					<Route index element={<RegFirstStep />} />
+					<Route path="step2" element={<RegSecondStep />} />
+					<Route path="step3" element={<RegThirdStep />} />
+				</Route>
+				<Route path="/recovery" element={<RecoveryPage />} />
+				<Route path="*" element={<Navigate to="/login" />} />
+			</Route>
 		</Routes>
 	);
 };

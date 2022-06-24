@@ -8,7 +8,7 @@ export const SuccessReg = styled.section`
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 5;
+	z-index: 50;
 	width: 100%;
 	min-height: 100%;
 	display: flex;

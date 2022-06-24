@@ -4,10 +4,12 @@ import logo from 'assets/img/logo.png';
 import welcome from 'assets/img/LoginImgs/welcome.jpg';
 import registration from 'assets/img/LoginImgs/registration.png';
 import { Navigate, NavLink, useLocation } from 'react-router-dom';
-
 import { useAppSelector } from 'hooks/useAppSelector';
 import { Outlet } from 'react-router-dom';
+import { Notice } from 'components/UI/Notice';
+import { useActions } from 'hooks/useActions';
 import * as S from './style';
+import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
 
 interface LoginLayoutProps {
 	children?: JSX.Element;
@@ -16,26 +18,27 @@ interface LoginLayoutProps {
 export const LoginLayout: FC<LoginLayoutProps> = () => {
 	const [imageTheme, setImageTheme] = useState('login');
 	const { token } = useAppSelector(state => state.userAuth);
-
-
-
-
+	const {isLoading} = useAppSelector(state => state.spiner)
 	const location = useLocation();
+	const { resetRegForm } = useActions();
 
 	useEffect(() => {
 		if (location.pathname === '/login') {
 			setImageTheme('login');
+			resetRegForm();
 		} else if (location.pathname === '/registration') {
 			setImageTheme('registration');
 		}
-	}, [location.pathname]);
+	}, [location.pathname, resetRegForm]);
 
 	if (token) {
 		return <Navigate to="/" state={{ from: location }} replace />;
 	}
 
+
 	return (
 		<S.LoginWrapper>
+				{isLoading && <FullscreenSpiner />}
 			<S.LoginBody>
 				<S.LoginHeader>
 					<NavLink to="/">Портал пациента</NavLink>

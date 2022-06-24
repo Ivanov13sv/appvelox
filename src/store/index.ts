@@ -3,6 +3,9 @@ import dropdownReducer from 'store/slices/dropdownSlice';
 import userAuth from 'store/slices/userAuthSlice';
 import successRegistrationSlice from 'store/slices/successRegistrationSlice';
 import registrationDataSlice from 'store/slices/registrationDataSlice';
+import noticeSlice from 'store/slices/noticeSlice';
+import spinerSlice from 'store/slices/spinerSlice'
+
 
 
 export const store = configureStore({
@@ -11,6 +14,9 @@ export const store = configureStore({
 		userAuth: userAuth,
 		successReg: successRegistrationSlice,
 		registrationData: registrationDataSlice,
+		notice: noticeSlice,
+		spiner: spinerSlice
+
 	},
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware)
 });
