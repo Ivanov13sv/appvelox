@@ -1,27 +1,28 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { Button } from 'components/UI/Button';
-import { useInput } from 'hooks/useInput';
-import { Input } from 'components/UI/Input';
+import { FormEvent } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useActions } from 'hooks/useActions';
-import { useDispatch } from 'react-redux';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { useInput } from 'hooks/useInput';
+import { useActions } from 'hooks/useActions';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { Button } from 'components/UI/Button';
+import { Input } from 'components/UI/Input';
+import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
+import { auth } from '../../firebase';
 
 import * as S from './style';
-import { Notice } from 'components/UI/Notice';
-import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
-import { useAppSelector } from 'hooks/useAppSelector';
 
 export const Login = () => {
+	const { isLoading } = useAppSelector(state => state.spiner);
+	const { spinerOn, spinerOff } = useActions();
+
 	const emailInput = useInput('');
 	const passwordInput = useInput('');
 	const { logIn } = useActions();
 	const navigate = useNavigate();
-	const { spiner } = useAppSelector(state => state);
 
 	const handleLogin = (email: string, pass: string) => {
-		const auth = getAuth();
+		spinerOn();
 		signInWithEmailAndPassword(auth, email, pass)
 			.then(({ user }) => {
 				logIn({
@@ -34,7 +35,8 @@ export const Login = () => {
 			})
 			.catch(error => {
 				emailInput.setErrorMessage('Неверный пользователь');
-			});
+			})
+			.finally(() => spinerOff());
 	};
 
 	const onChange = (e: FormEvent<HTMLFormElement>) => {
@@ -42,11 +44,11 @@ export const Login = () => {
 		handleLogin(emailInput.value, passwordInput.value);
 	};
 
+	if (isLoading) return <FullscreenSpiner />;
+
 	return (
 		<>
 			<S.LoginForm>
-			
-
 				<h1>Вход</h1>
 				<p>
 					У вас нет аккаунта? <NavLink to="/registration">Зарегистрироваться</NavLink>

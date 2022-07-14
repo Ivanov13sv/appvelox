@@ -24,7 +24,7 @@ export const Header = () => {
 					<NavbarItem icon={<Eye />} />
 					<ProfilePhoto photo={photo} />
 					<NavbarItem icon={<DropdownButton />}>
-						<Dropdown />
+						<Dropdown isOpen={true}/>
 					</NavbarItem>
 				</Navbar>
 

@@ -11,6 +11,7 @@ export const CardsList = styled.ul`
 	gap: 20px;
 	align-items: center;
 	flex-wrap: wrap;
+	margin: 0 auto;
 `;
 
 export const ShowMoreBlock = styled.div`
@@ -49,6 +50,8 @@ export const ECards = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
+`;
 
-
+export const ApplyBlock = styled.p`
+	margin: 0 auto;
 `;

@@ -6,13 +6,15 @@ const dropdownSlice = createSlice({
 		isOpen: false,
 	},
 	reducers: {
-		closeDropdown(state, action) {
-			console.log(state);
-			console.log(action);
+		closeDropdown(state) {
+			state.isOpen = false;
 		},
+		openDropdown(state){
+			state.isOpen = true;
+		}
 	},
 });
 
-export const { closeDropdown } = dropdownSlice.actions;
+export const dropdownActions = dropdownSlice.actions;
 
 export default dropdownSlice.reducer;

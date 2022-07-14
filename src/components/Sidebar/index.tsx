@@ -13,6 +13,7 @@ import logo from 'assets/img/Sidebar-icons/logo.png';
 import * as S from './style';
 
 import { SidebarItem } from './SidebarItem';
+import { useActions } from 'hooks/useActions';
 
 export const Sidebar = () => {
 	const sidebarItems = [
@@ -24,7 +25,7 @@ export const Sidebar = () => {
 	];
 	const [activeItem, setActiveItem] = useState(0);
 	const [height, setHeight] = useState(0);
-
+	const { toggleModal } = useActions();
 	const ref = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
@@ -53,7 +54,7 @@ export const Sidebar = () => {
 						setActive={setActiveItem}
 					/>
 				))}
-				<Button>Подать заявку</Button>
+				<Button onClick={() => toggleModal()}>Подать заявку</Button>
 			</S.SidebarMain>
 			<S.SidebarFooter>
 				<SidebarItem leftIcon={<Help />} text="Помощь" to="/help" />

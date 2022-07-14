@@ -8,5 +8,5 @@ interface IconButtonProps {
 }
 
 export const IconButton: FC<IconButtonProps> = ({ icon, onClick}) => {
-	return <S.IconButton onClick={() => onClick && onClick()}>{icon}</S.IconButton>;
+	return <S.IconButton type='button' onClick={() => onClick && onClick()}>{icon}</S.IconButton>;
 };

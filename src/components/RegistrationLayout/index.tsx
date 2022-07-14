@@ -3,15 +3,18 @@ import { Link, Outlet, useNavigate, Navigate, useLocation } from 'react-router-d
 import { RegistrationStatus } from 'components/UI/RegistrationStatus';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
+import { db } from '../../firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import * as S from './style';
+import { collection } from 'firebase/firestore';
 
 export const RegistrationLayout = () => {
-	const { setSuccessReg, showNotice, resetRegForm } = useActions();
+	const { setSuccessReg,  resetRegForm } = useActions();
 	const location = useLocation();
 
-	const { loginData } = useAppSelector(state => state.registrationData);
+	const { loginData, personalInfo, representativeInfo } = useAppSelector(state => state.registrationData);
 	const { spinerOff, spinerOn } = useActions();
 	const navigate = useNavigate();
 
@@ -22,6 +25,8 @@ export const RegistrationLayout = () => {
 			.then(({ user }) => {
 				setSuccessReg();
 				spinerOff();
+				setDoc(doc(db, 'user', user.uid), { ...personalInfo });
+				setDoc(doc(db, 'representative', user.uid), { ...representativeInfo });
 			})
 			.catch(error => {
 				spinerOff();

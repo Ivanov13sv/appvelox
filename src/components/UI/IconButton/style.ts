@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const IconButton = styled.div`
+export const IconButton = styled.button`
 	width: 20px;
 	height: 20px;
 	display: flex;
@@ -8,8 +8,8 @@ export const IconButton = styled.div`
 	justify-content: center;
 	transition: transform 0.3s;
 	cursor: pointer;
-	&:hover {
-		transform: scale(1.2);
-	}
+	border: none;
+	outline: none;
+	background: transparent;
 
 `;

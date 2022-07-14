@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Spiner = styled.div`
-	/* color: ${({ theme }) => theme.color.accent}; */
+
     color: white;
 	position: absolute;
 	font-size: 11px;
@@ -37,7 +37,7 @@ export const Spiner = styled.div`
 	-ms-transform: translateZ(0);
 	transform: translateZ(0); */
 	transform: translate(-50%, -50%);
-	/* background: ${({ theme }) => theme.color.accent}; */
+
 	background: white;
 	-webkit-animation-delay: -0.6s;
 	animation-delay: -0.6s;
@@ -51,7 +51,7 @@ export const Spiner = styled.div`
 		animation: ${load} 1.2s infinite ease-in-out;
 		width: 1em;
 		height: 4em;
-		/* background: ${({ theme }) => theme.color.accent}; */
+
 		background: white;
 		border-radius: 30px;
 	}

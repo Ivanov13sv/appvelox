@@ -9,16 +9,19 @@ import { Outlet } from 'react-router-dom';
 import { Notice } from 'components/UI/Notice';
 import { useActions } from 'hooks/useActions';
 import * as S from './style';
-import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
+
 
 interface LoginLayoutProps {
 	children?: JSX.Element;
 }
 
 export const LoginLayout: FC<LoginLayoutProps> = () => {
+
+	
+
 	const [imageTheme, setImageTheme] = useState('login');
 	const { token } = useAppSelector(state => state.userAuth);
-	const {isLoading} = useAppSelector(state => state.spiner)
+
 	const location = useLocation();
 	const { resetRegForm } = useActions();
 
@@ -31,6 +34,9 @@ export const LoginLayout: FC<LoginLayoutProps> = () => {
 		}
 	}, [location.pathname, resetRegForm]);
 
+
+
+
 	if (token) {
 		return <Navigate to="/" state={{ from: location }} replace />;
 	}
@@ -38,7 +44,7 @@ export const LoginLayout: FC<LoginLayoutProps> = () => {
 
 	return (
 		<S.LoginWrapper>
-				{isLoading && <FullscreenSpiner />}
+
 			<S.LoginBody>
 				<S.LoginHeader>
 					<NavLink to="/">Портал пациента</NavLink>

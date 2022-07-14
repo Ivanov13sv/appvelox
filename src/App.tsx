@@ -1,90 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
 import { ThemeProvider } from 'styled-components';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useActions } from 'hooks/useActions';
 import { Router } from 'components/Router';
 import { myTheme } from './styles/theme';
 import { GlobalStyles } from './styles/global';
-
-import doctor1 from 'assets/img/doctor1.png';
-import doctor2 from 'assets/img/doctor2.png';
-import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
-
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useActions } from 'hooks/useActions';
-import { collection, getDocs, setDoc } from 'firebase/firestore';
-import { db } from './firebase';
-const admissions = [
-	{
-		id: 1,
-		date: 'Понедельник 15.06.20 | 15:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor1,
-		name: 'Малушко Т. Н.',
-		job: 'Хирургия',
-	},
-	{
-		id: 2,
-		date: 'Понедельник 15.06.20 | 18:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor2,
-		name: 'Харьков В. С.',
-		job: 'Терапевтическое отделение',
-	},
-
-	{
-		id: 3,
-		date: 'Понедельник 15.06.20 | 18:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor2,
-		name: 'Харьков В. С.',
-		job: 'Терапевтическое отделение',
-	},
-	{
-		id: 4,
-		date: 'Понедельник 15.06.20 | 18:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor2,
-		name: 'Харьков В. С.',
-		job: 'Терапевтическое отделение',
-	},
-	{
-		id: 5,
-		date: 'Понедельник 15.06.20 | 18:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor2,
-		name: 'Харьков В. С.',
-		job: 'Терапевтическое отделение',
-	},
-	{
-		id: 7,
-		date: 'Понедельник 15.06.20 | 18:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor2,
-		name: 'Харьков В. С.',
-		job: 'Терапевтическое отделение',
-	},
-	{
-		id: 6,
-		date: 'Понедельник 15.06.20 | 18:30',
-		hospital: 'СПБ ГБУЗ "Городская поликлиника №25"',
-		address: 'пр. Солидарности, д. 1, к. 1, лит. А',
-		photo: doctor2,
-		name: 'Харьков В. С.',
-		job: 'Терапевтическое отделение',
-	},
-];
+import { auth } from './firebase';
+import { Notice } from 'components/UI/Notice';
 
 function App() {
-	const [doctors, setDoctors] = useState([]);
-	const doctorsCollectionRef = collection(db, 'doctors');
-	const auth = getAuth();
-
-	const { logIn, logOut } = useActions();
+	const { logIn, logOut, cleanUser, closeDropdown } = useActions();
+	const [user, loading, error] = useAuthState(auth);
 
 	onAuthStateChanged(auth, user => {
 		if (user) {
@@ -95,24 +22,18 @@ function App() {
 				token: user.accessToken,
 			});
 		} else {
+			cleanUser();
 			logOut();
+			closeDropdown();
 		}
 	});
 
-	
-
-	// useEffect(() => {
-	// 	const getUsers = async () => {
-	// 		const data = await getDocs(doctorsCollectionRef);
-	// 		if (data) {
-	// 			setDoctors(data.docs.map(item => ({ ...item.data(), id: item.id })));
-	// 		}
-	// 	};
-	// 	getUsers();
-	// }, []);
+	if (loading) return <FullscreenSpiner />;
 
 	return (
 		<ThemeProvider theme={myTheme}>
+			<Notice timer={3000} />
+
 			<Router />
 			<GlobalStyles />
 		</ThemeProvider>

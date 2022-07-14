@@ -22,10 +22,8 @@ export const DropdownItem: FC<DropdownItemProps> = ({
 		}
 	};
 
-	const cb = goTo ? changeMenu : callback;
-
 	return (
-		<S.DropdownItem onClick={cb}>
+		<S.DropdownItem onClick={ goTo ? changeMenu : callback}>
 			<ListItem leftIcon={leftIcon} text={text} rightIcon={rightIcon} />
 		</S.DropdownItem>
 	);

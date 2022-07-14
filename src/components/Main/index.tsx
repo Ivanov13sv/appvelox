@@ -12,6 +12,7 @@ export const Main: FC<MainProps> = ({ children }) => {
 	const location = useLocation();
 	const [currentPath, setCurrentPath] = useState<string>();
 
+
 	useEffect(() => {
 		setCurrentPath(location?.pathname);
 	}, [location]);

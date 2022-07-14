@@ -8,5 +8,5 @@ interface ProfilePhotoProps {
 }
 
 export const ProfilePhoto: FC<ProfilePhotoProps> = ({ photo, width, height }) => {
-	return <S.Photo width={width} src={photo} />;
+	return <S.Photo width={width} src={photo} height={height}/>;
 };

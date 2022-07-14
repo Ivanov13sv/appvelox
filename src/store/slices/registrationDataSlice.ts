@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUser } from 'types/user';
+import { IRepresentative } from 'types/representative';
 
 interface IRegistrationData {
 	loginData?: {
@@ -6,21 +8,8 @@ interface IRegistrationData {
 		phone: string;
 		password: string;
 	};
-	personalInfo?: {
-		firstName: string;
-		secondName: string;
-		patronymic: string;
-		registrationAddress: string;
-		gender: string;
-		dOb: string;
-		residentialAddress: string;
-	};
-	representativeInfo?: {
-		firstName: string;
-		secondName: string;
-		patronymic: string;
-		phone: string;
-	};
+	personalInfo?: IUser;
+	representativeInfo?: IRepresentative;
 }
 
 const initialState: IRegistrationData = {
@@ -56,7 +45,10 @@ const userSlice = createSlice({
 		setPersonalInfo: (state: IRegistrationData, action: PayloadAction<IRegistrationData>) => {
 			state.personalInfo = action.payload.personalInfo;
 		},
-		setRepresentativeInfo: (state: IRegistrationData, action: PayloadAction<IRegistrationData>) => {
+		setRepresentativeInfo: (
+			state: IRegistrationData,
+			action: PayloadAction<IRegistrationData>
+		) => {
 			state.representativeInfo = action.payload.representativeInfo;
 		},
 		resetRegForm: (state: IRegistrationData) => {
@@ -81,7 +73,6 @@ const userSlice = createSlice({
 					state.representativeInfo[key] = '';
 				}
 			}
-
 		},
 	},
 });

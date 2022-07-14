@@ -1,26 +1,30 @@
-import { FC, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { IconButton } from 'components/UI/IconButton';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { useActions } from 'hooks/useActions';
 import * as S from './style';
 
 interface NavbarItemProps {
-	icon: React.ReactNode;
-	children?: React.ReactNode;
+	icon: JSX.Element;
+	children?: JSX.Element;
 }
 
 export const NavbarItem: FC<NavbarItemProps> = ({ icon, children }) => {
-	const [isDropdownOpen, setDropdownOpen] = useState(false);
+	const { isOpen } = useAppSelector(state => state.dropdown);
+	const { openDropdown } = useActions();
 
-	const dropdown = useSelector(state => state);
-
-
-	const onToggleDropdown = () => {
-		setDropdownOpen(!isDropdownOpen);
+	const openHandler = () => {
+		
+		if (children) {
+			openDropdown();
+	
+		}
 	};
+
 	return (
 		<S.NavbarItem>
-			<IconButton icon={icon} onClick={onToggleDropdown} />
-			{isDropdownOpen && children}
+			<IconButton icon={icon} onClick={openHandler} />
+			{isOpen && children}
 		</S.NavbarItem>
 	);
 };

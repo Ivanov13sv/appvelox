@@ -24,5 +24,6 @@ export const Button = styled.button`
 	&:disabled {
 		color: #b7b7b7;
 		background-color: #776fa6;
+		cursor: default;
 	}
 `;

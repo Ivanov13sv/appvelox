@@ -4,14 +4,14 @@ const opening = keyframes`
 0%{
 	opacity: 0;
 	top: 45px;
-	transform: translateX(-95%);
+	transform: translateX(-10%);
 
 
 }
 
 100%{
 	top: 50px;
-	transform: translateX(-100%);
+	transform: translateX(-20%);
 
 	opacity: 1;
 }
@@ -24,16 +24,16 @@ export const Dropdown = styled.div`
 	border-radius: 5px;
 	position: absolute;
 	top: 50px;
+	right: 0;
 	overflow: hidden;
-	transition: all .3s ease;
+	transition: all 0.3s ease;
 
-	transform: translateX(-100%);
+	transform: translateX(-20%);
 	padding: 1rem;
-	animation: ${opening} .1s linear;
+	animation: ${opening} 0.1s linear;
 	display: flex;
 	overflow: hidden;
-	z-index: 11;
-
+	/* z-index: 500; */
 `;
 
 interface MenuProps {
@@ -61,4 +61,21 @@ export const SecondaryMenu = styled(Menu)`
 		css`
 			transform: translateX(0);
 		`}
+`;
+
+export const Title = styled.h5`
+	text-align: center;
+	color: white;
+	font-weight: 400;
+	font-size: 16px;
+	padding-bottom: 10px;
+`;
+
+export const Overlay = styled.div`
+	z-index: 500;
+	position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
 `;

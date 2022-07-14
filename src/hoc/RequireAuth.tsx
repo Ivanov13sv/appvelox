@@ -3,7 +3,7 @@ import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { useActions } from 'hooks/useActions';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 

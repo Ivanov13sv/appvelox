@@ -1,7 +1,9 @@
 import styled, { css, keyframes } from 'styled-components';
+import {NoticeStatus} from 'store/slices/noticeSlice' 
 
 interface NoticeProps {
 	isActive: boolean;
+    status: NoticeStatus;
 }
 
 const hide = keyframes`
@@ -33,7 +35,7 @@ const show = keyframes`
 export const Notice = styled.div<NoticeProps>`
 	width: 35vw;
 	height: 100px;
-	background: #ffe600;
+	background: white;
 	position: absolute;
 	top: -100%;
 	left: 50%;
@@ -44,11 +46,30 @@ export const Notice = styled.div<NoticeProps>`
     align-items: center;
     justify-content: center;
     border-radius: 0 0 15px 15px ;
-
+    
     p{
-        padding-top: 5%;
+        transform: translateY(12px);
         font-size: 1.1rem;
     }
+    ${props => props.status === NoticeStatus.success && css`
+    background: #18cc1b;
+    
+    p{
+        color: white;
+    }
+    `}
+    ${props => props.status === NoticeStatus.warning && css`
+    background: #ead11c;
+    p{
+        color: black;
+    }
+    `}
+    ${props => props.status === NoticeStatus.error && css`
+    background: #ea721c;
+    p{
+        color: white;
+    }
+    `}
 	${props =>
 		props.isActive &&
 		css`
@@ -56,5 +77,6 @@ export const Notice = styled.div<NoticeProps>`
             animation: ${show} .5s;
 			top: -3%;
 		`}
+    
 `;
 

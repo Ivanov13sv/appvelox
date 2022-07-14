@@ -6,8 +6,6 @@ export interface AuthState {
 	id: null | string;
 }
 
-//@ts-ignore
-const data = localStorage.getItem('isAuth') ? JSON.parse(localStorage.getItem('isAuth')) : true;
 
 const initialState: AuthState = {
 	email: null,
@@ -33,7 +31,6 @@ const authUserSlice = createSlice({
 	},
 });
 
-// Разобраться со стейтом при login и logout
 
 
 export const authorizaitonActions = authUserSlice.actions;
