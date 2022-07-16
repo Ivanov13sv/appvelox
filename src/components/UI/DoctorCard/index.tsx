@@ -6,6 +6,8 @@ import { FC, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { NavLink } from 'react-router-dom';
 import { NavLinkProps } from 'react-router-dom';
+import { LoadableImage } from 'components/LoadbleImage';
+import { Avatar } from '../Avatar';
 
 interface DoctorCardProps extends NavLinkProps {
 	photoSrc: string;
@@ -14,15 +16,20 @@ interface DoctorCardProps extends NavLinkProps {
 	description: string;
 }
 
-export const DoctorCard: FC<DoctorCardProps> = ({ photoSrc, name, speciality, description , to}) => {
+export const DoctorCard: FC<DoctorCardProps> = ({
+	photoSrc,
+	name,
+	speciality,
+	description,
+	to,
+}) => {
 	const isLongDescr =
 		description && description.length > 90 ? description.slice(0, 90) + '...' : description;
-
 
 	return (
 		<S.Card>
 			<S.Wrapper>
-				<ProfilePhoto photo={photoSrc} width="100px" height="100px" />
+				<Avatar width="80px" height="80px" alt="Доктор" src={photoSrc} />
 				<S.Name>{name}</S.Name>
 				<S.Speciality>{speciality}</S.Speciality>
 				<S.Description>{isLongDescr}</S.Description>

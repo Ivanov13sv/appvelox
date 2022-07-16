@@ -15,16 +15,21 @@ import { useActions } from 'hooks/useActions';
 import { FirebaseDataService } from 'API/FirebaseDataService';
 import { useFetching } from 'hooks/useFetching';
 import { Notice } from 'components/UI/Notice';
+import { SkeletonElement } from 'components/UI/Skeletons/SkeletonElement';
+import { NoticeStatus } from 'store/slices/noticeSlice';
+import { LocalLoader } from 'components/UI/LocalLoader';
 import { db } from '../../firebase';
 
 import * as S from './style';
 
 export const ProfilePage: FC = () => {
 	const { appointments, loading } = useAppSelector(state => state.appointments);
-	const { isActive } = useAppSelector(state => state.notice);
-	const { loading: userLoading, user } = useAppSelector(state => state.currentUser);
-	const { loading: representativeLoading } = useAppSelector(state => state.representative);
-	const { removeAppointment: deleteAppointmentFromState, toggleNotice } = useActions();
+	const {
+		removeAppointment: deleteAppointmentFromState,
+		toggleNotice,
+		setNoticeStatus,
+		setNoticeText,
+	} = useActions();
 	const { id: userId } = useAppSelector(state => state.userAuth);
 
 	const [removeAppointment, loadingRemoving, error] = useFetching(async (id?: string) => {
@@ -32,9 +37,13 @@ export const ProfilePage: FC = () => {
 		if (appointment && id) {
 			const userRef = doc(db, 'user', `${userId}`);
 			const doctorRef = doc(db, 'doctors', appointment?.doctorId);
-			await FirebaseDataService.removeAppointment(appointments, id, userRef, doctorRef).then(
-				() => deleteAppointmentFromState(id)
-			);
+			await FirebaseDataService.removeAppointment(appointments, id, userRef, doctorRef)
+				.then(() => deleteAppointmentFromState(id))
+				.then(() => {
+					setNoticeStatus(NoticeStatus.success);
+					setNoticeText('Вы удачно отменили запись!');
+					toggleNotice();
+				});
 		}
 	});
 
@@ -67,7 +76,6 @@ export const ProfilePage: FC = () => {
 		restAdmissions = ' записей';
 	}
 
-	// let restAppointments = '';
 
 	const showMoreAppointments =
 		appointments.length > 2 ? (
@@ -80,25 +88,22 @@ export const ProfilePage: FC = () => {
 			</>
 		) : null;
 
-	// useEffect(() => {
-	// 	if (isActive) {
-	// 		const timer = setTimeout(toggleNotice, 2000);
-	// 		return () => {
-	// 			clearInterval(timer);
-	// 		};
-	// 	}
-	// }, [isActive]);
+	// const isAppointmentsFetching = loading ?
 
-	if (userLoading || representativeLoading) return <FullscreenSpiner />;
+	// if (userLoading || representativeLoading) return <FullscreenSpiner />;
+	// Доделать анимацию скелетона
+	// https://www.youtube.com/watch?v=UHXTtnhSsss&ab_channel=TheNetNinja
 
 	return (
 		<S.AppointemntPage>
 			<S.CardsList>
-				{admissionsArr}
+				{loading ? <LocalLoader width="50px" height="50px" /> : admissionsArr}
 				{appointments.length - 2 ? (
 					<S.ShowMoreBlock>{showMoreAppointments}</S.ShowMoreBlock>
 				) : null}
-				{!appointments.length && <S.ApplyBlock>У вас нет активных записей</S.ApplyBlock>}
+				{!appointments.length && !loading && (
+					<S.ActiveAppointments>У вас нет активных записей</S.ActiveAppointments>
+				)}
 			</S.CardsList>
 			<S.PatientInfo>
 				<h3>Электронная карта</h3>

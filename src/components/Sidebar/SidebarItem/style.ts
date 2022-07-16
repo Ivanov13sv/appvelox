@@ -21,6 +21,11 @@ export const SidebarItem = styled(NavLink)<SidebarItemProps>`
 			fill: white;
 		}
 	}
+	&:hover {
+		svg {
+			transform: scale(1.2);
+		}
+	}
 `;
 
 interface SidebarTextProps {
@@ -43,6 +48,7 @@ export const SidebarText = styled.span<SidebarTextProps>`
 			svg {
 				> * {
 					fill: ${({ theme }) => theme.color.accent};
+
 				}
 			}
 		`}

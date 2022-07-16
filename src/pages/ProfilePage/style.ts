@@ -52,6 +52,9 @@ export const ECards = styled.div`
 	gap: 1rem;
 `;
 
-export const ApplyBlock = styled.p`
+export const ActiveAppointments = styled.p`
 	margin: 0 auto;
+	height: 45px;
+	display: flex;
+	align-items: center;
 `;

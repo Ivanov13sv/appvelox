@@ -5,6 +5,8 @@ import { ProfilePhoto } from 'components/UI/ProfilePhoto';
 import { Dropdown } from 'components/UI/Dropdown';
 import { DropdownButton } from 'components/UI/Dropdown/DropdownButton';
 
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
+
 import { ReactComponent as Eye } from 'assets/img/icons/eye.svg';
 import { ReactComponent as Search } from 'assets/img/icons/search.svg';
 import { ReactComponent as Bell } from 'assets/img/icons/bell.svg';
@@ -23,11 +25,10 @@ export const Header = () => {
 					<NavbarItem icon={<Bell />} />
 					<NavbarItem icon={<Eye />} />
 					<ProfilePhoto photo={photo} />
-					<NavbarItem icon={<DropdownButton />}>
-						<Dropdown isOpen={true}/>
+					<NavbarItem icon={<BsFillGrid3X3GapFill />}>
+						<Dropdown isOpen={true} />
 					</NavbarItem>
 				</Navbar>
-
 			</S.HeaderBody>
 		</S.Header>
 	);

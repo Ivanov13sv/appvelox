@@ -20,9 +20,10 @@ export const Card = styled.article`
 	width: 200px;
 	height: 300px;
 	background: white;
-
+	position: relative;
 	box-shadow: 0px 0px 5px #abaaaf;
 	border-radius: 5px;
+	overflow: hidden;
 `;
 
 export const Wrapper = styled.div`

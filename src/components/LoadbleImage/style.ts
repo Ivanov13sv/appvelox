@@ -29,7 +29,7 @@ export const Wrapper = styled.div<LoadableImageProps>`
 		background: linear-gradient(to right, transparent 0%, whitesmoke 50%, transparent 100%);
 		animation: ${props =>
 			props.isLoaded
-				? `none`
+				? 'none'
 				: css`
 						${load} 1s cubic-bezier(0.4, 0, 0.2, 1) infinite
 				  `};
@@ -38,6 +38,7 @@ export const Wrapper = styled.div<LoadableImageProps>`
 
 export const Image = styled.img<LoadableImageProps>`
 	opacity: ${props => (props.isLoaded ? '1' : '0')};
+	/* opacity: 1; */
 	width: 100%;
 	height: 100%;
 	object-fit: cover;

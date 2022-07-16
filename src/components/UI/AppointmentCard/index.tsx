@@ -4,10 +4,11 @@ import { ImCheckmark, ImCross } from 'react-icons/im';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { format } from 'date-fns';
 import { Button } from '../Button';
-import { ProfilePhoto } from '../ProfilePhoto';
 import { Loader } from '../LocalLoader/style';
+import { Avatar } from '../Avatar';
 
 import * as S from './style';
+
 
 interface AppointmentCardProps extends IAppointment {
 	removeAppointment: (id: string) => void;
@@ -23,20 +24,10 @@ export const AppointmentCard: FC<AppointmentCardProps> = props => {
 	});
 
 	const toggleConfirm = () => setConfirmRemoving(!confirmRemoving);
-	const deleteAppointment = () => removeAppointment(id);
-
-	const isRemoving = loading ? (
-		<Loader width="30px" height="30px" />
-	) : (
-		<>
-			<ImCheckmark onClick={deleteAppointment} size={30} color="green">
-				Да
-			</ImCheckmark>
-			<ImCross size={25} color="red" onClick={toggleConfirm}>
-				Нет
-			</ImCross>
-		</>
-	);
+	const deleteAppointment = () => {
+		removeAppointment(id);
+	};
+	
 
 	const confirmRemove = !confirmRemoving ? (
 		<Button onClick={toggleConfirm}>Отменить</Button>
@@ -56,14 +47,14 @@ export const AppointmentCard: FC<AppointmentCardProps> = props => {
 	const formattedDate = format(date, 'MMMM d, yyyy H:mm');
 
 	return (
-		<S.Card >
+		<S.Card>
 			<S.CardBody ref={ref}>
 				<S.Date>{formattedDate}</S.Date>
 				<S.Hospital>{hospital}</S.Hospital>
 				<S.Address>{address}</S.Address>
 				<S.DoctorInfo>
 					<div>
-						<ProfilePhoto width="60px" height="60px" photo={photo} />
+						<Avatar width="60px" height="60px" src={photo} alt="Доктор" />
 						<S.PersonalInfo>
 							<S.DoctorName>{name}</S.DoctorName>
 							<S.Speciality>{speciality}</S.Speciality>

@@ -1,15 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IDoctor } from 'types/doctors';
 import { ref, onValue, getDatabase } from 'firebase/database';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, FirestoreError, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 interface IDoctorsState {
 	doctors: IDoctor[];
+	loading: boolean;
+	error: string;
 }
 
 const initialState: IDoctorsState = {
 	doctors: [],
+	loading: false,
+	error: '',
 };
 
 export const fetchDoctors = createAsyncThunk(
@@ -22,11 +26,9 @@ export const fetchDoctors = createAsyncThunk(
 			querySnapshot.forEach(doc => {
 				result.push({ ...doc.data(), id: doc.id } as IDoctor);
 			});
-
 			return result;
-		} catch (err) {
-			let error: any = err;
-			return rejectWithValue(error.message);
+		} catch (e) {
+			return 'Произошла ошибка при загрузке врачей';
 		}
 	}
 );
@@ -36,9 +38,16 @@ const doctorsSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers(builder) {
-		builder.addCase(fetchDoctors.pending, state => {});
-		builder.addCase(fetchDoctors.fulfilled, (state, action) => {
-			state.doctors = action.payload;
+		builder.addCase(fetchDoctors.pending, state => {
+			state.loading = true;
+		});
+		builder.addCase(fetchDoctors.fulfilled, (state: IDoctorsState, action) => {
+			state.doctors = action.payload as IDoctor[];
+			state.loading = false;
+		});
+		builder.addCase(fetchDoctors.rejected, (state, action) => {
+			state.loading = false;
+			state.error = action.payload as string;
 		});
 	},
 });

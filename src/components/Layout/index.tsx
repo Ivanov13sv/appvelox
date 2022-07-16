@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Header } from 'components/Header';
 import { Sidebar } from 'components/Sidebar';
 import { Main } from 'components/Main';
@@ -13,21 +13,17 @@ import { Modal } from 'components/UI/Modal';
 import { useDisableScroll } from 'hooks/useDisableScroll';
 
 export const Layout = () => {
-	// const [appointments, setAppointments] = useState<any>();
-	const {appointments} = useAppSelector(state => state.appointments)
 	const { successReg } = useAppSelector(state => state.successReg);
 	const { isModalOpen } = useAppSelector(state => state.modal);
 	const { id: userId } = useAppSelector(state => state.userAuth);
 	const {
 		hideSuccessReg,
 		fetchCurrentUser,
-		fetchRepresentative,
 		fetchAppointments,
 		fetchDoctors,
 	} = useActions();
 
 	useDisableScroll(isModalOpen);
-
 
 	useEffect(() => {
 		if (successReg) {
@@ -39,7 +35,6 @@ export const Layout = () => {
 
 	useEffect(() => {
 		fetchCurrentUser();
-		fetchRepresentative();
 		fetchAppointments(userId as string);
 		fetchDoctors();
 	}, []);
@@ -47,7 +42,6 @@ export const Layout = () => {
 	if (successReg) {
 		return <SuccessScreen />;
 	}
-
 
 	return (
 		<Wrapper>

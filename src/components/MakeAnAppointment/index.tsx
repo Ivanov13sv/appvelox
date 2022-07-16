@@ -129,7 +129,7 @@ export const MakeAnAppointment = () => {
 					disabled={!selectedDoctor.option}
 				/>
 
-				<Button disabled={!date}>
+				<Button disabled={!date || loadingNewAppointment}>
 					{loadingNewAppointment ? <Loader width="30px" height="30px" /> : 'Записаться'}
 				</Button>
 			</S.Form>
