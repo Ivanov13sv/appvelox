@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { IDoctor } from 'types/doctors';
-import { db } from '../../firebase';
 import { LoadableImage } from 'components/LoadbleImage';
-import * as S from './style';
 import { useFetching } from 'hooks/useFetching';
 import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
+import { db } from '../../firebase';
+import * as S from './style';
 
 export const DoctorDetailsPage = () => {
 	const [details, setDetails] = useState<IDoctor>();

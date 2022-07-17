@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
 const phoneMask = (number: string) => {
 	const cleanNumbers = number.replace(/\D/g, '');

@@ -14,35 +14,37 @@ import { doc } from 'firebase/firestore';
 import { useActions } from 'hooks/useActions';
 import { FirebaseDataService } from 'API/FirebaseDataService';
 import { useFetching } from 'hooks/useFetching';
-import { Notice } from 'components/UI/Notice';
+import { INotificationType } from 'types/notification';
 import { SkeletonElement } from 'components/UI/Skeletons/SkeletonElement';
-import { NoticeStatus } from 'store/slices/noticeSlice';
 import { LocalLoader } from 'components/UI/LocalLoader';
 import { db } from '../../firebase';
 
 import * as S from './style';
+import { Notification } from 'components/UI/Notification/Notification';
 
 export const ProfilePage: FC = () => {
 	const { appointments, loading } = useAppSelector(state => state.appointments);
-	const {
-		removeAppointment: deleteAppointmentFromState,
-		toggleNotice,
-		setNoticeStatus,
-		setNoticeText,
-	} = useActions();
+	const { removeAppointment: deleteAppointmentFromState, addNotification } = useActions();
 	const { id: userId } = useAppSelector(state => state.userAuth);
 
 	const [removeAppointment, loadingRemoving, error] = useFetching(async (id?: string) => {
+		const doctorsAppointments = appointments.map(item => ({
+			id: item.id,
+			date: item.date,
+		}));
 		const appointment = appointments.find(item => item.id === id);
+
 		if (appointment && id) {
 			const userRef = doc(db, 'user', `${userId}`);
 			const doctorRef = doc(db, 'doctors', appointment?.doctorId);
-			await FirebaseDataService.removeAppointment(appointments, id, userRef, doctorRef)
+			await FirebaseDataService.removeAppointment(doctorsAppointments, id, userRef, doctorRef)
 				.then(() => deleteAppointmentFromState(id))
 				.then(() => {
-					setNoticeStatus(NoticeStatus.success);
-					setNoticeText('Вы удачно отменили запись!');
-					toggleNotice();
+					addNotification({
+						id: Date.now(),
+						message: 'Вы отменили запись',
+						type: INotificationType.warning,
+					});
 				});
 		}
 	});
@@ -76,7 +78,6 @@ export const ProfilePage: FC = () => {
 		restAdmissions = ' записей';
 	}
 
-
 	const showMoreAppointments =
 		appointments.length > 2 ? (
 			<>
@@ -87,12 +88,6 @@ export const ProfilePage: FC = () => {
 				<Link to="/profile/appointment">Подборнее</Link>
 			</>
 		) : null;
-
-	// const isAppointmentsFetching = loading ?
-
-	// if (userLoading || representativeLoading) return <FullscreenSpiner />;
-	// Доделать анимацию скелетона
-	// https://www.youtube.com/watch?v=UHXTtnhSsss&ab_channel=TheNetNinja
 
 	return (
 		<S.AppointemntPage>

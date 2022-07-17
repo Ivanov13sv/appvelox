@@ -4,28 +4,30 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { FirebaseDataService } from 'API/FirebaseDataService';
 import { useFetching } from 'hooks/useFetching';
 import { useActions } from 'hooks/useActions';
-import { NoticeStatus } from 'store/slices/noticeSlice';
 import { doc } from 'firebase/firestore';
+import { INotificationType } from 'types/notification';
 import { db } from '../../firebase';
 
 import * as S from './style';
 
 export const AppointmentsPage: FC = () => {
 	const { appointments } = useAppSelector(state => state.appointments);
-	const {id: userId} = useAppSelector(state => state.userAuth);
-	const {removeAppointment: deleteAppointmentFromState, setNoticeStatus, setNoticeText, toggleNotice} = useActions()
+	const { id: userId } = useAppSelector(state => state.userAuth);
+	const { removeAppointment: deleteAppointmentFromState, addNotification } = useActions();
 	const [removeAppointment, loadingRemoving] = useFetching(async (id?: string) => {
 		const appointment = appointments.find(item => item.id === id);
 		if (appointment && id) {
 			const userRef = doc(db, 'user', `${userId}`);
 			const doctorRef = doc(db, 'doctors', appointment?.doctorId);
-			await FirebaseDataService.removeAppointment(appointments, id, userRef, doctorRef).then(() =>
-				deleteAppointmentFromState(id)
-			).then(() => {
-				setNoticeText('Вы успешно отменили запись');
-				setNoticeStatus(NoticeStatus.success);
-				toggleNotice();
-			});
+			await FirebaseDataService.removeAppointment(appointments, id, userRef, doctorRef)
+				.then(() => deleteAppointmentFromState(id))
+				.then(() => {
+					addNotification({
+						id: Date.now(),
+						message: 'Вы отменили запись',
+						type: INotificationType.warning,
+					});
+				});
 		}
 	});
 	return (

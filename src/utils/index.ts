@@ -33,10 +33,12 @@ export const filterReservedDates = (reservedDates: number[], date: Date) => {
 		const currentDate = new Date();
 		const selectedDate = new Date(date);
 
+
 		const isPassedTime = currentDate.getTime() < selectedDate.getTime();
 		const isReservedTime = reservedDates.includes(date.getTime());
+		// const isReservedTime = reservedDates.some(item => new Date(item)  === date);
 
-		return !isReservedTime && isPassedTime;
+		return isPassedTime && !isReservedTime;
 	}
 	return false;
 };

@@ -1,5 +1,5 @@
-import { db } from '../firebase';
 import { doc, DocumentReference, getDocs, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export class FirebaseDataService {
 	static async fetchAppointments(ref: any) {

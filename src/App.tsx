@@ -7,7 +7,7 @@ import { Router } from 'components/Router';
 import { myTheme } from './styles/theme';
 import { GlobalStyles } from './styles/global';
 import { auth } from './firebase';
-import { Notice } from 'components/UI/Notice';
+import { NotificationProvider } from 'components/UI/Notification/NotificationProvider';
 
 function App() {
 	const { logIn, logOut, cleanUser, closeDropdown } = useActions();
@@ -32,9 +32,9 @@ function App() {
 
 	return (
 		<ThemeProvider theme={myTheme}>
-			<Notice timer={3000} />
-
+			<NotificationProvider />
 			<Router />
+
 			<GlobalStyles />
 		</ThemeProvider>
 	);

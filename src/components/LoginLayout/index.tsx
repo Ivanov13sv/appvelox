@@ -6,7 +6,6 @@ import registration from 'assets/img/LoginImgs/registration.png';
 import { Navigate, NavLink, useLocation } from 'react-router-dom';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { Outlet } from 'react-router-dom';
-import { Notice } from 'components/UI/Notice';
 import { useActions } from 'hooks/useActions';
 import * as S from './style';
 
