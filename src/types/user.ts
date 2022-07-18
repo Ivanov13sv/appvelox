@@ -1,4 +1,3 @@
-import { IAppointment } from 'types/appointment';
 
 export interface IUser {
 	firstName: string;

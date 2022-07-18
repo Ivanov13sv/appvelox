@@ -1,7 +1,5 @@
-import React, { FC, InputHTMLAttributes, forwardRef } from 'react';
+import { FC, InputHTMLAttributes } from 'react';
 
-// workign
-
-export const RecoveryInput: FC<InputHTMLAttributes<HTMLInputElement>> = (props) => {
+export const RecoveryInput: FC<InputHTMLAttributes<HTMLInputElement>> = props => {
 	return <input {...props} />;
 };

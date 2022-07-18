@@ -1,11 +1,8 @@
-import { Button } from 'components/UI/Button';
-import { ProfilePhoto } from 'components/UI/ProfilePhoto';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { IDoctor } from 'types/doctors';
-import { LoadableImage } from 'components/LoadbleImage';
 import { useFetching } from 'hooks/useFetching';
 import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
 import { db } from '../../firebase';
@@ -15,7 +12,7 @@ export const DoctorDetailsPage = () => {
 	const [details, setDetails] = useState<IDoctor>();
 	const params = useParams();
 	const navigate = useNavigate();
-	const [fetching, loading, error] = useFetching(async () => {
+	const [fetching, loading] = useFetching(async () => {
 		if (params.doctorId) {
 			const docRef = doc(db, 'doctors', params.doctorId);
 			const docSnap = await getDoc(docRef);
@@ -25,6 +22,7 @@ export const DoctorDetailsPage = () => {
 
 	useEffect(() => {
 		fetching();
+		//eslint-disable-next-line
 	}, []);
 
 	if (loading) {
@@ -39,8 +37,7 @@ export const DoctorDetailsPage = () => {
 
 			<S.Body>
 				<S.PersonalInfo>
-					{/* <LoadableImage src={details.photo} alt="doctorsPhoto" /> */}
-					<img src={details?.photo} alt="doctorsPhoto"/>
+					<img src={details?.photo} alt="doctorsPhoto" />
 				</S.PersonalInfo>
 				<S.Description>
 					<h2>{details?.name}</h2>

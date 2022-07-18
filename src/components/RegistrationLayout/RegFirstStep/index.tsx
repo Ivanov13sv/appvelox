@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Location, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import {  NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from 'components/UI/Button';
 import { Checkbox } from 'components/UI/Checkbox';

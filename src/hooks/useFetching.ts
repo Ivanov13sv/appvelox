@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 
 export const useFetching = (callback: (arg?: string) => void): any[] => {
 	const [isLoading, setLoading] = useState(false);

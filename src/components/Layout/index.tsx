@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from 'components/Header';
 import { Sidebar } from 'components/Sidebar';
@@ -37,6 +37,7 @@ export const Layout = () => {
 		fetchCurrentUser();
 		fetchAppointments(userId as string);
 		fetchDoctors();
+		//eslint-disable-next-line
 	}, []);
 
 	if (successReg) {

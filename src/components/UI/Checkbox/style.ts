@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const WrapperCheckbox = styled.label`
 	-webkit-touch-callout: none;
@@ -7,22 +7,7 @@ export const WrapperCheckbox = styled.label`
 	width: 20px;
 	height: 20px;
 	position: relative;
-	/* input {
-		appearance: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		position: absolute;
-		&:checked + span {
-			background-color: ${({ theme }) => theme.color.accent};
-		}
-		&:checked + span:after {
-			opacity: 1;
-		}
-		&:checked + span:before {
-			opacity: 1;
-		}
 
-	} */
 	span {
 		position: absolute;
 		width: 100%;

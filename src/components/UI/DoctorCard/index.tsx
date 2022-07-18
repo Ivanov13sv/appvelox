@@ -1,13 +1,9 @@
 import { BsArrowRight } from 'react-icons/bs';
-import { ProfilePhoto } from '../ProfilePhoto';
-import { IconButton } from '../IconButton';
-import * as S from './style';
-import { FC, useState } from 'react';
-import ReactDatePicker from 'react-datepicker';
-import { NavLink } from 'react-router-dom';
+import { FC} from 'react';
 import { NavLinkProps } from 'react-router-dom';
-import { LoadableImage } from 'components/LoadbleImage';
+import { IconButton } from '../IconButton';
 import { Avatar } from '../Avatar';
+import * as S from './style';
 
 interface DoctorCardProps extends NavLinkProps {
 	photoSrc: string;

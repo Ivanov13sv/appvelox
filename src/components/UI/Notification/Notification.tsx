@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import  { FC, useEffect, useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { INotification } from 'types/notification';
 import { useActions } from 'hooks/useActions';
@@ -42,6 +42,7 @@ export const Notification: FC<INotification> = ({ id, message, type }) => {
 
 	useEffect(() => {
 		if (width === 100) handleCloseNotification();
+		//eslint-disable-next-line
 	}, [width]);
 
 	useEffect(() => {

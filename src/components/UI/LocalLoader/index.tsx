@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Loader } from './style'
+import React, { FC } from 'react';
+import { Loader } from './style';
 
 export interface LocalLoaderProps{
   width?: string;
@@ -9,5 +9,5 @@ export interface LocalLoaderProps{
 export const LocalLoader:FC<LocalLoaderProps> = ({width, height}) => {
   return (
     <Loader width={width} height={height}/>
-  )
-}
+  );
+};

@@ -1,5 +1,5 @@
 import { LoadableImage } from 'components/LoadbleImage';
-import React, { FC } from 'react';
+import  { FC } from 'react';
 import styled from 'styled-components';
 
 interface IAvatar extends IWrapper {
@@ -27,8 +27,4 @@ const Wrapper = styled.div<IWrapper>`
 	overflow: hidden;
 `;
 
-const Photo = styled.img`
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-`;
+

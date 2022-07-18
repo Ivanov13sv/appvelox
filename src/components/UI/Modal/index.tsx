@@ -1,8 +1,6 @@
 import { useActions } from 'hooks/useActions';
-import { useAppSelector } from 'hooks/useAppSelector';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { useDisableScroll } from 'hooks/useDisableScroll';
-import React, { FC, useMemo } from 'react';
+import  { FC } from 'react';
 
 import * as S from './style';
 

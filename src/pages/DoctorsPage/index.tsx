@@ -1,9 +1,6 @@
 import { DoctorCard } from 'components/UI/DoctorCard';
 import { SkeletonDoctorCard } from 'components/UI/Skeletons/SkeletonDoctorCard';
-import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { useFetching } from 'hooks/useFetching';
-import { useEffect } from 'react';
 
 import * as S from './style';
 

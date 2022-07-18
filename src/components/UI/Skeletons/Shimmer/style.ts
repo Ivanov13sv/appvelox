@@ -10,7 +10,7 @@ const loading = keyframes`
     100%{
         transform: translateX(150%);
     }
-`
+`;
 
 export const Wrapper = styled.div`
 	position: absolute;

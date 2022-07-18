@@ -1,5 +1,5 @@
 import { Button } from 'components/UI/Button';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect,  useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RecoveryInput } from 'components/UI/RecoveryInput';
 import * as S from './style';

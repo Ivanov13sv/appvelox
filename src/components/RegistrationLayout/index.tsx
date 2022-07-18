@@ -1,18 +1,16 @@
 import { FormEvent } from 'react';
-import { Link, Outlet, useNavigate, Navigate, useLocation } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { RegistrationStatus } from 'components/UI/RegistrationStatus';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../../firebase';
 import * as S from './style';
-import { collection } from 'firebase/firestore';
 
 export const RegistrationLayout = () => {
-	const { setSuccessReg,  resetRegForm } = useActions();
-	const location = useLocation();
+	const { setSuccessReg } = useActions();
 
 	const { loginData, personalInfo, representativeInfo } = useAppSelector(state => state.registrationData);
 	const { spinerOff, spinerOn } = useActions();

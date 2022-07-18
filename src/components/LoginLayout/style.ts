@@ -1,5 +1,3 @@
-import { IconButton } from 'components/UI/IconButton';
-// import { IconButton } from 'components/UI/IconButton/style';
 import styled, { css } from 'styled-components';
 
 export const LoginWrapper = styled.div`

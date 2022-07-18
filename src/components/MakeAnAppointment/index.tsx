@@ -10,7 +10,6 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';
 import { removeDuplicateOptions, filterReservedDates, filterDoctorsBySpeciality } from 'utils';
 import { IAppointment } from 'types/appointment';
-import { Calendar } from 'components/UI/Calendar';
 import { Loader } from 'components/UI/LocalLoader/style';
 
 import setHours from 'date-fns/setHours';
@@ -49,11 +48,10 @@ export const MakeAnAppointment = () => {
 		if (docSnap.exists()) {
 			const response = docSnap.data();
 
-			// const days = response.appointments.map((item: any) => new Date(item.date).getTime());
 			const days = response.appointments.map((item: any) => item.date);
 			setReservedDates(days);
 		} else {
-			console.log('No such document!');
+			// console.log('No such document!');
 		}
 	});
 	const [postNewAppointment, loadingNewAppointment] = useFetching(async () => {
@@ -113,11 +111,10 @@ export const MakeAnAppointment = () => {
 
 	useEffect(() => {
 		fetchReservedDates();
+		//eslint-disable-next-line
 	}, [selectedDoctor]);
 
-	const arr = [1657976400255, 1657976400746, 1657976400203, 1657976400408];
 
-	// console.log(arr.map(item => new Date(item)))
 
 	return (
 		<S.Wrapper>

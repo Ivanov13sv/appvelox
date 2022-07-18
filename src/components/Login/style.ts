@@ -1,5 +1,3 @@
-import { IconButton } from 'components/UI/IconButton';
-// import { IconButton } from 'components/UI/IconButton/style';
 import styled from 'styled-components';
 
 export const LoginWrapper = styled.div`
@@ -19,7 +17,6 @@ export const LoginBody = styled.div`
 
 export const LoginImage = styled.div`
 	background-color: ${({ theme }) => theme.color.main};
-	/* width: 100%; */
 	flex: 1 1 40%;
 	display: flex;
 	align-items: center;
@@ -131,7 +128,6 @@ export const LoginForm = styled.section`
 
 	p {
 		text-align: center;
-		/* margin-bottom: 14px; */
 		margin-bottom: 34px;
 		font-weight: 300;
 		font-size: 14px;

@@ -14,7 +14,7 @@ const shake = keyframes`
 100%{
     transform: rotate(0);
 }
-`
+`;
 
 export const Card = styled.article`
 	width: 200px;
@@ -76,4 +76,4 @@ svg{
 		color: ${({theme}) => theme.color.darkenAccent};
     }
 }
-`
+`;

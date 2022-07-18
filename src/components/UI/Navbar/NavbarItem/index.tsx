@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC } from 'react';
 import { IconButton } from 'components/UI/IconButton';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';

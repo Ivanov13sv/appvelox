@@ -1,11 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'store';
+
 import { useAppSelector } from 'hooks/useAppSelector';
-import { getAuth } from 'firebase/auth';
-import { useActions } from 'hooks/useActions';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 
 interface RequireAuthProps {
 	children?: JSX.Element;

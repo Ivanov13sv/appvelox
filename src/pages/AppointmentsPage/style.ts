@@ -42,4 +42,4 @@ export const Calendary = styled.div`
 
 export const CardListWrapper = styled.div`
 
-`
+`;

@@ -4,13 +4,14 @@ import { ThemeProvider } from 'styled-components';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useActions } from 'hooks/useActions';
 import { Router } from 'components/Router';
+import { NotificationProvider } from 'components/UI/Notification/NotificationProvider';
 import { myTheme } from './styles/theme';
 import { GlobalStyles } from './styles/global';
 import { auth } from './firebase';
-import { NotificationProvider } from 'components/UI/Notification/NotificationProvider';
 
 function App() {
 	const { logIn, logOut, cleanUser, closeDropdown } = useActions();
+	//eslint-disable-next-line
 	const [user, loading, error] = useAuthState(auth);
 
 	onAuthStateChanged(auth, user => {

@@ -3,8 +3,8 @@ import { useClickOutside } from 'hooks/useClickOutside';
 import { BsChevronDown } from 'react-icons/bs';
 import { ISelectItem } from 'types/selectItem';
 import { IconButton } from '../IconButton';
-import * as S from './style';
 import { LocalLoader } from '../LocalLoader';
+import * as S from './style';
 
 interface SelectProps {
 	options: ISelectItem[];

@@ -1,16 +1,13 @@
 import styled, { css } from 'styled-components';
-import { IconButton } from '../IconButton';
 
 export const InputWrapper = styled.div`
 	position: relative;
-	/*  */
 	display: flex;
 	align-items: center;
 `;
 
 interface LabelProps {
 	isFocus: boolean;
-	// children: string;
 }
 
 export const Label = styled.label<LabelProps>`
@@ -72,7 +69,6 @@ export const PasswordIcon = styled.div<PasswordIconProps>`
 		transition: 0.3s ease;
 		content: '';
 		position: absolute;
-		/* background: ${({ theme }) => theme.color.accent}; */
 		background: black;
 		height: 1px;
 		width: 120%;

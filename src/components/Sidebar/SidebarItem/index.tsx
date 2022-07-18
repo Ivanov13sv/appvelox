@@ -1,7 +1,5 @@
 import React, { forwardRef } from 'react';
-import { ListItem } from 'components/ListItem';
 import { ListItemProps } from 'components/ListItem';
-import { NavLink } from 'react-router-dom';
 import { IconButton } from 'components/UI/IconButton';
 
 import * as S from './style';

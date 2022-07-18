@@ -3,8 +3,6 @@ import { Navbar } from 'components/UI/Navbar';
 import { NavbarItem } from 'components/UI/Navbar/NavbarItem';
 import { ProfilePhoto } from 'components/UI/ProfilePhoto';
 import { Dropdown } from 'components/UI/Dropdown';
-import { DropdownButton } from 'components/UI/Dropdown/DropdownButton';
-
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 import { ReactComponent as Eye } from 'assets/img/icons/eye.svg';

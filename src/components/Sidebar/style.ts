@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Sidebar = styled.div`
 	grid-area: side;
@@ -35,7 +35,6 @@ export const SidebarMain = styled.div<SidebarBodyProps>`
 	position: relative;
 
 	& > *:last-child {
-		/* margin-top: 10px; */
 		margin: 10px 0 0 20px;
 		width: 150px;
 	}

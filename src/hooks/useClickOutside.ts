@@ -1,4 +1,4 @@
-import { ElementType, MouseEvent, useEffect, useRef } from 'react';
+import {  useEffect, useRef } from 'react';
 
 export const useClickOutside = (handler: () => void) => {
 	const domNode = useRef<HTMLDivElement>(null);

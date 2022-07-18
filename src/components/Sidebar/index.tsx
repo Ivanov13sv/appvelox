@@ -5,15 +5,13 @@ import { ReactComponent as Message } from 'assets/img/Sidebar-icons/message.svg'
 import { ReactComponent as Test } from 'assets/img/Sidebar-icons/test.svg';
 import { ReactComponent as Book } from 'assets/img/Sidebar-icons/book.svg';
 import { ReactComponent as Help } from 'assets/img/Sidebar-icons/help.svg';
-import { ReactComponent as Logo } from 'assets/img/Sidebar-icons/logo.svg';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 import { Button } from 'components/UI/Button';
 
 import logo from 'assets/img/Sidebar-icons/logo.png';
+import { useActions } from 'hooks/useActions';
 import * as S from './style';
 
 import { SidebarItem } from './SidebarItem';
-import { useActions } from 'hooks/useActions';
 
 export const Sidebar = () => {
 	const sidebarItems = [
@@ -60,7 +58,7 @@ export const Sidebar = () => {
 				<SidebarItem leftIcon={<Help />} text="Помощь" to="/help" />
 
 				<S.SidebarFooterLogo>
-					<img src={logo} />
+					<img src={logo} alt="appvelox logo" />
 				</S.SidebarFooterLogo>
 			</S.SidebarFooter>
 		</S.Sidebar>

@@ -1,6 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-import calendary from 'assets/img/icons/calendary.svg';
 
 export const Wrapper = styled.section`
 	padding: 2rem;
@@ -49,51 +48,4 @@ export const DateTimePicker = styled(DatePicker)`
 	}
 `;
 
-interface DatePickerProps {
-	isDisabled: boolean;
-}
 
-// export const DateTimePicker = styled.div<DatePickerProps>`
-// 	display: flex;
-// 	width: 100%;
-
-// 	box-shadow: 0px 0px 5px #abaaaf;
-// 	align-items: center;
-// 	border-radius: 5px;
-// 	background: white;
-// 	cursor: pointer;
-// 	.react-datepicker-wrapper {
-// 		height: 45px;
-// 		width: 100%;
-// 		display: flex;
-// 		align-items: center;
-// 		input {
-// 			outline: none;
-// 			cursor: pointer;
-// 			background: inherit;
-// 			padding: 0 12px;
-// 			cursor: pointer;
-// 			margin-right: 20px;
-// 			background-image: url(${calendary}) no-repeat;
-// 			&::placeholder {
-// 				color: black;
-// 				font-size: 16px;
-// 			}
-// 		}
-// 	}
-
-// 	svg {
-// 		right: 5%;
-// 		top: 50%;
-// 		transform: translateX(-50%);
-// 		color: ${({ theme }) => theme.color.accent};
-// 	}
-
-// 	${props =>
-// 		props.isDisabled &&
-// 		css`
-// 			background: #dbdbdb;
-// 			pointer-events: none;
-// 			opacity: 0.7;
-// 		`}
-// `;
