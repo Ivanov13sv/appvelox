@@ -14,32 +14,27 @@ export class FirebaseDataService {
 		doctorRef: DocumentReference
 	) {
 		const filtredArray = array.filter(item => item.id !== removeItemId);
+		const formatedArr = filtredArray.map(item => ({ id: item.id, date: item.date }));
 
 		await updateDoc(userRef, {
 			appointments: filtredArray,
 		});
 		await updateDoc(doctorRef, {
-			appointments: filtredArray,
+			appointments: formatedArr,
 		});
 	}
-	// static async removeAppointment(
-	// 	array: any[],
-	// 	removeItemId: string,
-	// 	userIdRef: string,
-	// 	doctorIdRef?: string
-	// ) {
-	// 	const filtredArray = array.filter(item => item.id !== removeItemId);
 
-	// 	const userRef = doc(db, 'user', userIdRef);
-	// 	await updateDoc(userRef, {
-	// 		appointments: filtredArray,
-	// 	});
-	// 	if (doctorIdRef) {
-	// 		const doctorRef = doc(db, 'doctors', doctorIdRef);
-
-	// 		await updateDoc(doctorRef, {
-	// 			appointments: filtredArray,
-	// 		});
-	// 	}
-	// }
+	static async deleteAppointment(
+		userArr: any[],
+		docorsArr: any[],
+		userRef: DocumentReference,
+		docRef: DocumentReference
+	) {
+		await updateDoc(userRef, {
+			appointments: userArr,
+		});
+		await updateDoc(docRef, {
+			appointments: docorsArr,
+		});
+	}
 }

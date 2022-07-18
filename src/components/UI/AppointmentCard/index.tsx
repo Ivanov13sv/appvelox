@@ -9,7 +9,6 @@ import { Avatar } from '../Avatar';
 
 import * as S from './style';
 
-
 interface AppointmentCardProps extends IAppointment {
 	removeAppointment: (id: string) => void;
 	loading?: boolean;
@@ -27,7 +26,6 @@ export const AppointmentCard: FC<AppointmentCardProps> = props => {
 	const deleteAppointment = () => {
 		removeAppointment(id);
 	};
-	
 
 	const confirmRemove = !confirmRemoving ? (
 		<Button onClick={toggleConfirm}>Отменить</Button>

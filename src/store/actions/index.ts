@@ -6,7 +6,8 @@ import { appointmentsActions } from 'store/slices/appointmentsSlice';
 import { currentUserActions } from 'store/slices/currentUserSlice';
 import { dropdownActions } from 'store/slices/dropdownSlice';
 import { modalActions } from 'store/slices/modalSlice';
-import {notificationActions} from 'store/slices/notificationSlice'
+import { notificationActions } from 'store/slices/notificationSlice';
+import { asyncActions } from 'store/actions/asyncActionCreators';
 
 export const allActions = {
 	...successActions,
@@ -17,5 +18,6 @@ export const allActions = {
 	...appointmentsActions,
 	...currentUserActions,
 	...modalActions,
-	...notificationActions
+	...notificationActions,
+	...asyncActions
 };

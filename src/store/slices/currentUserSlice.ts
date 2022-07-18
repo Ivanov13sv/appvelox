@@ -1,11 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FirebaseDataService } from 'API/FirebaseDataService';
-// import { UserService } from 'API/UserService';
-import { getAuth } from 'firebase/auth';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import { useAppSelector } from 'hooks/useAppSelector';
+import { createSlice } from '@reduxjs/toolkit';
+import { asyncActions } from 'store/actions/asyncActionCreators';
 import { IUser } from 'types/user';
-import { auth, db } from '../../firebase';
 
 interface IUserState {
 	user: IUser;
@@ -28,25 +23,11 @@ const initialState: IUserState = {
 	error: null,
 };
 
-export const currentUserRef = collection(db, 'user');
-
-export const fetchCurrentUser = createAsyncThunk('user/fetchUser', async () => {
-	try {
-		if (auth.currentUser) {
-			const docRef = doc(db, 'user', auth.currentUser.uid);
-			const docSnap = await getDoc(docRef);
-			return docSnap.data();
-		}
-	} catch (error) {
-		console.log(error);
-	}
-});
-
 const currentUserSlice = createSlice({
 	initialState,
 	name: 'user',
 	reducers: {
-		cleanUser(state){
+		cleanUser(state) {
 			state.user.dOb = '';
 			state.user.firstName = '';
 			state.user.secondName = '';
@@ -54,17 +35,21 @@ const currentUserSlice = createSlice({
 			state.user.patronymic = '';
 			state.user.registrationAddress = '';
 			state.user.residentialAddress = '';
-		}
+		},
 	},
 	extraReducers(builder) {
-		builder.addCase(fetchCurrentUser.pending, state => {
+		builder.addCase(asyncActions.fetchCurrentUser.pending, state => {
 			state.loading = true;
 		});
-		builder.addCase(fetchCurrentUser.fulfilled, (state: IUserState, action) => {
+		builder.addCase(asyncActions.fetchCurrentUser.fulfilled, (state: IUserState, action) => {
 			state.loading = false;
-			state.user = {...action.payload} as IUser;
+			state.user = { ...action.payload } as IUser;
+			state.error = null;
 		});
-		
+		builder.addCase(asyncActions.fetchCurrentUser.rejected, (state: IUserState, action) => {
+			state.loading = false;
+			state.error = action.payload as string;
+		});
 	},
 });
 
