@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/appvelox/static/css/main.da8986fb.css",
-    "main.js": "/appvelox/static/js/main.ba0c5517.js",
+    "main.js": "/appvelox/static/js/main.e73af68b.js",
     "static/media/registration.png": "/appvelox/static/media/registration.e07fedff1d70dd111b5c.png",
     "static/media/success.png": "/appvelox/static/media/success.bee524923bbf1459eb89.png",
     "static/media/welcome.jpg": "/appvelox/static/media/welcome.00738b60a21e79dcd008.jpg",
@@ -23,10 +23,10 @@
     "static/media/back-arrow.svg": "/appvelox/static/media/back-arrow.6edb44c47eeeaf41a8763b58df2fac38.svg",
     "index.html": "/appvelox/index.html",
     "main.da8986fb.css.map": "/appvelox/static/css/main.da8986fb.css.map",
-    "main.ba0c5517.js.map": "/appvelox/static/js/main.ba0c5517.js.map"
+    "main.e73af68b.js.map": "/appvelox/static/js/main.e73af68b.js.map"
   },
   "entrypoints": [
     "static/css/main.da8986fb.css",
-    "static/js/main.ba0c5517.js"
+    "static/js/main.e73af68b.js"
   ]
 }
