@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.da8986fb.css",
+    "main.js": "/static/js/main.faed75fd.js",
+    "static/media/registration.png": "/static/media/registration.e07fedff1d70dd111b5c.png",
+    "static/media/success.png": "/static/media/success.bee524923bbf1459eb89.png",
+    "static/media/welcome.jpg": "/static/media/welcome.00738b60a21e79dcd008.jpg",
+    "static/media/history.svg": "/static/media/history.4e04b49f7baf15f3267af70fdddd5a40.svg",
+    "static/media/heart.svg": "/static/media/heart.9bf6353c25f0339613fc44d5c491fa51.svg",
+    "static/media/calendary.svg": "/static/media/calendary.d1be1e987e5fc8d90dff04218c7b7813.svg",
+    "static/media/test.svg": "/static/media/test.322cf45b98e6a988881d63b8ed04c7cd.svg",
+    "static/media/message.svg": "/static/media/message.107acdb0f6ca4f8652c2b4350bf76436.svg",
+    "static/media/stethoscope.svg": "/static/media/stethoscope.a10a4a17c54a059f961db511a78361ea.svg",
+    "static/media/addInfo.svg": "/static/media/addInfo.873d901e39843607645c6915728e67c2.svg",
+    "static/media/book.svg": "/static/media/book.0bd20f92525e0f83075c8425bc4fc55e.svg",
+    "static/media/VisuallyImpaired.svg": "/static/media/VisuallyImpaired.92e7d488984f83765485f5f34f4e6602.svg",
+    "static/media/eye.svg": "/static/media/eye.777335d11893237226830eef0eb486a9.svg",
+    "static/media/info.svg": "/static/media/info.647a8956c6436eaa4a24e8924a3f2d17.svg",
+    "static/media/results.svg": "/static/media/results.3182e261a26dc408225c35836ff89e23.svg",
+    "static/media/bell.svg": "/static/media/bell.cb0013f4f36565eefdb0220e45e528d5.svg",
+    "static/media/help.svg": "/static/media/help.08d1d542d41580cf60e60baecd5df00d.svg",
+    "static/media/search.svg": "/static/media/search.0c9076faefc54f8c050ab4923f53d9be.svg",
+    "static/media/back-arrow.svg": "/static/media/back-arrow.6edb44c47eeeaf41a8763b58df2fac38.svg",
+    "index.html": "/index.html",
+    "main.da8986fb.css.map": "/static/css/main.da8986fb.css.map",
+    "main.faed75fd.js.map": "/static/js/main.faed75fd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.da8986fb.css",
+    "static/js/main.faed75fd.js"
+  ]
+}
