@@ -2,6 +2,7 @@
 	"name": "hospital_website",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "https://ivanov13sv.github.io",
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.2",
 		"@testing-library/jest-dom": "^5.16.4",
@@ -15,6 +16,7 @@
 		"@types/react-router-dom": "^5.3.3",
 		"@types/styled-components": "^5.1.25",
 		"firebase": "^9.8.4",
+		"gh-pages": "^4.0.0",
 		"react": "^18.1.0",
 		"react-datepicker": "^4.8.0",
 		"react-dom": "^18.1.0",
@@ -35,7 +37,9 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"lint": "eslint .",
-		"lint:fix": "npm run lint -- --fix"
+		"lint:fix": "npm run lint -- --fix",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"eslintConfig": {
 		"extends": [
