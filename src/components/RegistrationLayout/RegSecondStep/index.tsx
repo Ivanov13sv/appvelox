@@ -7,17 +7,18 @@ import { useInput } from 'hooks/useInput';
 import { useAppSelector } from 'hooks/useAppSelector';
 
 import * as S from './style';
+import { IIUser } from 'types/iuser';
 
 export const RegSecondStep = () => {
-	const { personalInfo } = useAppSelector(state => state.registrationData);
+	const { user } = useAppSelector(state => state.user);
 
-	const secondName = useInput(personalInfo?.secondName, { isEmpty: true });
-	const firstName = useInput(personalInfo?.firstName, { isEmpty: true });
-	const patronymic = useInput(personalInfo?.patronymic, { isEmpty: true });
-	const registrationAddress = useInput(personalInfo?.registrationAddress, { isEmpty: true });
+	const lastName = useInput(user?.lastName, { isEmpty: true });
+	const firstName = useInput(user?.firstName, { isEmpty: true });
+	const patronymic = useInput(user?.patronymic, { isEmpty: true });
+	const registrationAddress = useInput(user?.registrationAddress, { isEmpty: true });
 	const gender = useInput('male');
-	const date = useInput(personalInfo?.dOb, { isEmpty: true });
-	const residentialAddress = useInput(personalInfo?.residentialAddress, { isEmpty: true });
+	const date = useInput(user?.dOb, { isEmpty: true });
+	const residentialAddress = useInput(user?.residentialAddress, { isEmpty: true });
 
 	const [validForm, setValidForm] = useState(false);
 
@@ -27,7 +28,7 @@ export const RegSecondStep = () => {
 	useEffect(() => {
 		if (
 			firstName.errorMessage ||
-			secondName.errorMessage ||
+			lastName.errorMessage ||
 			patronymic.errorMessage ||
 			registrationAddress.errorMessage ||
 			residentialAddress.errorMessage ||
@@ -39,7 +40,7 @@ export const RegSecondStep = () => {
 		}
 	}, [
 		firstName.errorMessage,
-		secondName.errorMessage,
+		lastName.errorMessage,
 		patronymic.errorMessage,
 		registrationAddress.errorMessage,
 		residentialAddress.errorMessage,
@@ -53,15 +54,13 @@ export const RegSecondStep = () => {
 	const setData = () => {
 		if (validForm) {
 			setPersonalInfo({
-				personalInfo: {
-					secondName: secondName.value,
-					firstName: firstName.value,
-					patronymic: patronymic.value,
-					registrationAddress: registrationAddress.value,
-					gender: gender.value,
-					dOb: date.value,
-					residentialAddress: residentialAddress.value,
-				},
+				lastName: lastName.value,
+				firstName: firstName.value,
+				patronymic: patronymic.value,
+				registrationAddress: registrationAddress.value,
+				gender: gender.value,
+				dOb: date.value,
+				residentialAddress: residentialAddress.value,
 			});
 			navigate('/registration/step3');
 		} else {
@@ -71,7 +70,7 @@ export const RegSecondStep = () => {
 
 	const showRequiredFields = () => {
 		firstName.setDirty(true);
-		secondName.setDirty(true);
+		lastName.setDirty(true);
 		patronymic.setDirty(true);
 		registrationAddress.setDirty(true);
 		residentialAddress.setDirty(true);
@@ -81,11 +80,11 @@ export const RegSecondStep = () => {
 	return (
 		<>
 			<Input
-				value={secondName.value}
-				onChange={secondName.onChange}
-				onBlur={secondName.onBlur}
+				value={lastName.value}
+				onChange={lastName.onChange}
+				onBlur={lastName.onBlur}
 				label="Фамилия"
-				error={secondName.isDirty ? secondName.errorMessage : ''}
+				error={lastName.isDirty ? lastName.errorMessage : ''}
 			/>
 			<Input
 				{...firstName}

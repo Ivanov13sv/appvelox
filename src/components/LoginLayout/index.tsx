@@ -9,20 +9,15 @@ import { Outlet } from 'react-router-dom';
 import { useActions } from 'hooks/useActions';
 import * as S from './style';
 
-
 interface LoginLayoutProps {
 	children?: JSX.Element;
 }
 
 export const LoginLayout: FC<LoginLayoutProps> = () => {
-
-	
-
 	const [imageTheme, setImageTheme] = useState('login');
 	const { token } = useAppSelector(state => state.userAuth);
-
-	const location = useLocation();
 	const { resetRegForm } = useActions();
+	const location = useLocation();
 
 	useEffect(() => {
 		if (location.pathname === '/login') {
@@ -33,17 +28,12 @@ export const LoginLayout: FC<LoginLayoutProps> = () => {
 		}
 	}, [location.pathname, resetRegForm]);
 
-
-
-
 	if (token) {
 		return <Navigate to="/" state={{ from: location }} replace />;
 	}
 
-
 	return (
 		<S.LoginWrapper>
-
 			<S.LoginBody>
 				<S.LoginHeader>
 					<NavLink to="/">Портал пациента</NavLink>

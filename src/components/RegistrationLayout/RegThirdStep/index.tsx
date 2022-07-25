@@ -8,11 +8,14 @@ import { getMaskedPhone } from 'utils/phoneMask';
 import * as S from './style';
 
 export const RegThirdStep = () => {
-	const { representativeInfo } = useAppSelector(state => state.registrationData);
-	const secondName = useInput(representativeInfo?.secondName, { isEmpty: true });
+	const {
+		user: { representativeInfo },
+	} = useAppSelector(state => state.user);
+	const lastName = useInput(representativeInfo?.lastName, { isEmpty: true });
 	const firstName = useInput(representativeInfo?.firstName, { isEmpty: true });
 	const patronymic = useInput(representativeInfo?.patronymic, { isEmpty: true });
 	const phone = useInput(representativeInfo?.phone, { isPhone: true });
+	
 
 	const { setRepresentativeInfo } = useActions();
 
@@ -20,7 +23,7 @@ export const RegThirdStep = () => {
 
 	useEffect(() => {
 		if (
-			secondName.errorMessage ||
+			lastName.errorMessage ||
 			firstName.errorMessage ||
 			patronymic.errorMessage ||
 			phone.errorMessage
@@ -30,7 +33,7 @@ export const RegThirdStep = () => {
 			setValidForm(true);
 		}
 	}, [
-		secondName.errorMessage,
+		lastName.errorMessage,
 		firstName.errorMessage,
 		patronymic.errorMessage,
 		phone.errorMessage,
@@ -39,12 +42,10 @@ export const RegThirdStep = () => {
 	const setData = () => {
 		if (validForm) {
 			setRepresentativeInfo({
-				representativeInfo: {
-					secondName: secondName.value,
-					firstName: firstName.value,
-					patronymic: patronymic.value,
-					phone: phone.value,
-				},
+				lastName: lastName.value,
+				firstName: firstName.value,
+				patronymic: patronymic.value,
+				phone: phone.value,
 			});
 		} else {
 			showRequiredFields();
@@ -52,7 +53,7 @@ export const RegThirdStep = () => {
 	};
 
 	const showRequiredFields = () => {
-		secondName.setDirty(true);
+		lastName.setDirty(true);
 		firstName.setDirty(true);
 		patronymic.setDirty(true);
 		phone.setDirty(true);
@@ -65,8 +66,8 @@ export const RegThirdStep = () => {
 				экстренного информирования
 			</S.Description>
 			<Input
-				{...secondName}
-				error={secondName.isDirty ? secondName.errorMessage : ''}
+				{...lastName}
+				error={lastName.isDirty ? lastName.errorMessage : ''}
 				label="Фамилия"
 			/>
 			<Input

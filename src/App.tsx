@@ -8,9 +8,11 @@ import { NotificationProvider } from 'components/UI/Notification/NotificationPro
 import { myTheme } from './styles/theme';
 import { GlobalStyles } from './styles/global';
 import { auth } from './firebase';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 function App() {
 	const { logIn, logOut, cleanUser, closeDropdown } = useActions();
+	const { user: currentUser } = useAppSelector(state => state.user);
 	//eslint-disable-next-line
 	const [user, loading, error] = useAuthState(auth);
 
@@ -30,6 +32,8 @@ function App() {
 	});
 
 	if (loading) return <FullscreenSpiner />;
+
+	console.log(currentUser)
 
 	return (
 		<ThemeProvider theme={myTheme}>

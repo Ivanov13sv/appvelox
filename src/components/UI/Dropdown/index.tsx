@@ -19,7 +19,8 @@ export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
 	const [menuOpen, setMenuOpen] = useState('main');
 	const [menuHeight, setMenuHeight] = useState<null | number>();
 	const { logOut, closeDropdown } = useActions();
-	const { user } = useAppSelector(state => state.currentUser);
+	// const { user } = useAppSelector(state => state.currentUser);
+	const { user } = useAppSelector(state => state.user);
 
 	const mainMenuRef = useRef<HTMLUListElement>(null);
 	const secondaryMenuRef = useRef<HTMLUListElement>(null);
@@ -28,6 +29,8 @@ export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
 	const dropdownRef = useClickOutside(() => {
 		closeDropdown();
 	});
+
+	console.log(user)
 
 	const exit = () => {
 		signOut(auth)

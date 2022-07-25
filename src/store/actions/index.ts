@@ -1,6 +1,6 @@
 import { successActions } from 'store/slices/successRegistrationSlice';
 import { authorizaitonActions } from 'store/slices/userAuthSlice';
-import { userSliceActions } from 'store/slices/registrationDataSlice';
+import { userSliceActions } from 'store/slices/userSlice';
 import { spinerActions } from 'store/slices/spinerSlice';
 import { appointmentsActions } from 'store/slices/appointmentsSlice';
 import { currentUserActions } from 'store/slices/currentUserSlice';

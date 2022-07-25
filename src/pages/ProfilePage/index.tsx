@@ -59,6 +59,7 @@ export const ProfilePage: FC = () => {
 			</>
 		) : null;
 
+
 	return (
 		<S.AppointemntPage>
 			<S.CardsList>
@@ -66,7 +67,7 @@ export const ProfilePage: FC = () => {
 					<LocalLoader width="50px" height="50px" />
 				) : (
 					admissionsArr
-				)}
+)}
 				{appointments.length - 2 ? (
 					<S.ShowMoreBlock>{showMoreAppointments}</S.ShowMoreBlock>
 				) : null}

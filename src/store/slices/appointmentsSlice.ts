@@ -27,6 +27,9 @@ const appointmentsSlice = createSlice({
 			const filtredArr = state.appointments.filter(item => item.id !== action.payload);
 			state.appointments = filtredArr;
 		},
+		removeAllAppointments(state){
+			state.appointments = [];
+		}
 	},
 	extraReducers(builder) {
 		builder.addCase(fetchAppointments.pending, state => {

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import {  NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from 'components/UI/Button';
 import { Checkbox } from 'components/UI/Checkbox';
@@ -18,18 +18,18 @@ interface LocationState {
 }
 
 export const RegFirstStep = () => {
-	const { loginData } = useAppSelector(state => state.registrationData);
+	const { user } = useAppSelector(state => state.user);
 	const { setLoginInfo } = useActions();
 	const navigate = useNavigate();
 	const { state } = useLocation() as LocationState;
 
-	const email = useInput(loginData?.email, { isEmpty: true, isEmail: true });
-	const phone = useInput(loginData?.phone, { isEmpty: true, isPhone: true });
-	const { onChange, ...pass } = useInput(loginData?.password, {
+	const email = useInput(user?.email, { isEmpty: true, isEmail: true });
+	const phone = useInput(user?.phone, { isEmpty: true, isPhone: true });
+	const { onChange, ...pass } = useInput(user?.password, {
 		isEmpty: true,
 		isPassword: true,
 	});
-	const repeatPass = useInput(loginData?.password, { repeatPassword: true });
+	const repeatPass = useInput(user?.password, { repeatPassword: true });
 	const [agreements, setAgreements] = useState({
 		isChecked: false,
 		showError: false,
@@ -43,7 +43,7 @@ export const RegFirstStep = () => {
 			setTimeout(() => {
 				state.error = '';
 			}, 2000);
-		}	
+		}
 	}, [state]);
 
 	useEffect(() => {
@@ -85,11 +85,9 @@ export const RegFirstStep = () => {
 	const setData = () => {
 		if (validForm) {
 			setLoginInfo({
-				loginData: {
-					email: email.value,
-					password: pass.value,
-					phone: phone.value,
-				},
+				email: email.value,
+				password: pass.value,
+				phone: phone.value,
 			});
 			navigate('step2');
 		} else {

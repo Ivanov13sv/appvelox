@@ -21,6 +21,7 @@ export const Layout = () => {
 		fetchCurrentUser,
 		fetchAppointments,
 		fetchDoctors,
+		removeAllAppointments,
 	} = useActions();
 
 	useDisableScroll(isModalOpen);
@@ -37,8 +38,11 @@ export const Layout = () => {
 		fetchCurrentUser();
 		fetchAppointments(userId as string);
 		fetchDoctors();
+		return () => {
+			removeAllAppointments();
+		};
 		//eslint-disable-next-line
-	}, []);
+	}, [userId]);
 
 	if (successReg) {
 		return <SuccessScreen />;

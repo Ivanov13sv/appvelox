@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useValidation = (value: string, validations: any) => {
+
 	const [isEmpty, setEmpty] = useState(true);
 	const [minLengthError, setMinLengthError] = useState(true);
 	const [incorrectEmail, setIncorrenctEmail] = useState(true);
@@ -54,17 +55,7 @@ export const useValidation = (value: string, validations: any) => {
 						setErrorMessage('');
 					}
 					break;
-				// const regExPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-				// if (!value.match(regExPassword)) {
-				// 	setUnsafePassword(false);
-				// 	setErrorMessage(
-				// 		'Пароль должен состоять из латинских букв, как минимум одной заглавной буквы и двух цифр'
-				// 	);
-				// } else {
-				// 	setUnsafePassword(true);
-				// 	setErrorMessage('');
-				// }
-				// break;
+
 
 				case 'repeatPassword':
 					setRepeatPassword(true);
@@ -74,7 +65,7 @@ export const useValidation = (value: string, validations: any) => {
 
 				case 'isPhone':
 					const regExPhone = /(?:\+?)[78]+[0-9() -]{16,17}/;
-					if (!value.match(regExPhone)) {
+					if (value && !value.match(regExPhone)) {
 						setIncorrectPhone(true);
 						setErrorMessage('Введите корректный номер телефона');
 					} else {

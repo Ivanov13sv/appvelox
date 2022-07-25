@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { RegistrationStatus } from 'components/UI/RegistrationStatus';
 import { useActions } from 'hooks/useActions';
@@ -10,9 +10,9 @@ import { db } from '../../firebase';
 import * as S from './style';
 
 export const RegistrationLayout = () => {
-	const { setSuccessReg } = useActions();
+	const { setSuccessReg, resetRegForm } = useActions();
 
-	const { loginData, personalInfo, representativeInfo } = useAppSelector(state => state.registrationData);
+	const { user } = useAppSelector(state => state.user);
 	const { spinerOff, spinerOn } = useActions();
 	const navigate = useNavigate();
 
@@ -20,11 +20,10 @@ export const RegistrationLayout = () => {
 		const auth = getAuth();
 		spinerOn();
 		createUserWithEmailAndPassword(auth, email, password)
-			.then(({ user }) => {
+			.then(({ user: { uid } }) => {
 				setSuccessReg();
 				spinerOff();
-				setDoc(doc(db, 'user', user.uid), { ...personalInfo });
-				setDoc(doc(db, 'representative', user.uid), { ...representativeInfo });
+				setDoc(doc(db, 'user', uid), user);
 			})
 			.catch(error => {
 				spinerOff();
@@ -41,10 +40,11 @@ export const RegistrationLayout = () => {
 
 	const onSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (loginData) {
-			handleRegister(loginData.email, loginData.password);
+		if (user.email && user.password) {
+			handleRegister(user.email, user.password);
 		}
 	};
+
 
 	return (
 		<S.Layout>

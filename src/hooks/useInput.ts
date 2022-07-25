@@ -2,7 +2,7 @@ import { useState, ChangeEvent } from 'react';
 import { useValidation } from './useValidation';
 
 export const useInput = (defaultValue: any, validations = {}) => {
-	const [value, setValue] = useState(defaultValue);
+	const [value, setValue] = useState(defaultValue || '');
 	const [isDirty, setDirty] = useState(false);
 
 
