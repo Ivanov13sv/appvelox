@@ -6,7 +6,6 @@ import userSlice from 'store/slices/userSlice';
 import spinerSlice from 'store/slices/spinerSlice';
 import appointmentsSlice from './slices/appointmentsSlice';
 import currentUserSlice from './slices/currentUserSlice';
-import representativeSlice from './slices/representativeSlice';
 import modalSlice from './slices/modalSlice';
 import doctorsSlice from './slices/doctorsSlice';
 import notificationSlice from './slices/notificationSlice';
@@ -20,7 +19,6 @@ export const store = configureStore({
 		spiner: spinerSlice,
 		appointments: appointmentsSlice,
 		currentUser: currentUserSlice,
-		representative: representativeSlice,
 		modal: modalSlice,
 		doctors: doctorsSlice,
 		notification: notificationSlice,

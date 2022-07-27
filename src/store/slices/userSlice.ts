@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { asyncActions } from 'store/actions/asyncActionCreators';
 import { IIUser, IUserRepresentative } from 'types/iuser';
 
 interface IRegistrationData {
@@ -27,7 +28,7 @@ const initialState: IRegistrationData = {
 		},
 	},
 	loading: false,
-	error: '',
+	error: null,
 };
 
 const userSlice = createSlice({
@@ -63,7 +64,9 @@ const userSlice = createSlice({
 				}
 			}
 		},
+
 	},
+
 });
 
 export const userSliceActions = userSlice.actions;

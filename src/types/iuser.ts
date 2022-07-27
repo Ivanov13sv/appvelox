@@ -18,3 +18,10 @@ export interface IUserRepresentative {
 	patronymic?: string;
 	phone?: string;
 }
+
+
+export interface IUserState {
+	user: IIUser;
+	loading: boolean;
+	error: null | string;
+}

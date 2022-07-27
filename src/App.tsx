@@ -33,7 +33,6 @@ function App() {
 
 	if (loading) return <FullscreenSpiner />;
 
-	console.log(currentUser)
 
 	return (
 		<ThemeProvider theme={myTheme}>

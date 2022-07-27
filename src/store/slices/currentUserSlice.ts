@@ -1,23 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { asyncActions } from 'store/actions/asyncActionCreators';
+import { IIUser, IUserState } from 'types/iuser';
 import { IUser } from 'types/user';
 
-interface IUserState {
-	user: IUser;
-	loading: boolean;
-	error: null | string;
-}
 
 const initialState: IUserState = {
 	user: {
 		firstName: '',
-		secondName: '',
+		lastName: '',
 		patronymic: '',
 		dOb: '',
 		gender: '',
 		registrationAddress: '',
 		residentialAddress: '',
-	} as IUser,
+		email: '',
+		password:'',
+		phone: '',
+		representativeInfo: {
+			firstName: '',
+			lastName: '',
+			patronymic: '',
+			phone: ''
+		}
+	} ,
 
 	loading: false,
 	error: null,
@@ -30,7 +35,7 @@ const currentUserSlice = createSlice({
 		cleanUser(state) {
 			state.user.dOb = '';
 			state.user.firstName = '';
-			state.user.secondName = '';
+			state.user.lastName = '';
 			state.user.gender = '';
 			state.user.patronymic = '';
 			state.user.registrationAddress = '';
@@ -41,9 +46,9 @@ const currentUserSlice = createSlice({
 		builder.addCase(asyncActions.fetchCurrentUser.pending, state => {
 			state.loading = true;
 		});
-		builder.addCase(asyncActions.fetchCurrentUser.fulfilled, (state: IUserState, action) => {
+		builder.addCase(asyncActions.fetchCurrentUser.fulfilled, (state, action) => {
 			state.loading = false;
-			state.user = { ...action.payload } as IUser;
+			state.user = {...action.payload};
 			state.error = null;
 		});
 		builder.addCase(asyncActions.fetchCurrentUser.rejected, (state: IUserState, action) => {

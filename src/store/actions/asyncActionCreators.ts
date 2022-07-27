@@ -65,6 +65,7 @@ import { db } from '../../firebase';
 		const { userAuth } = getState() as RootState;
 		try {
 			if (userAuth.id) {
+
 				const docRef = doc(db, 'user', userAuth.id);
 				const docSnap = await getDoc(docRef);
 				return docSnap.data();

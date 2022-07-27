@@ -5,7 +5,6 @@ import { Sidebar } from 'components/Sidebar';
 import { Main } from 'components/Main';
 import { MakeAnAppointment } from 'components/MakeAnAppointment';
 import styled from 'styled-components';
-
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';
 import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
