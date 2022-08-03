@@ -9,7 +9,7 @@ const initialState: IUserState = {
 		firstName: '',
 		lastName: '',
 		patronymic: '',
-		dOb: '',
+		dOb: null,
 		gender: '',
 		registrationAddress: '',
 		residentialAddress: '',
@@ -28,12 +28,13 @@ const initialState: IUserState = {
 	error: null,
 };
 
+
 const currentUserSlice = createSlice({
 	initialState,
 	name: 'user',
 	reducers: {
 		cleanUser(state) {
-			state.user.dOb = '';
+			state.user.dOb = null;
 			state.user.firstName = '';
 			state.user.lastName = '';
 			state.user.gender = '';
@@ -41,6 +42,9 @@ const currentUserSlice = createSlice({
 			state.user.registrationAddress = '';
 			state.user.residentialAddress = '';
 		},
+		updateData: (state,action: PayloadAction<IIUser>) =>{
+			state.user = action.payload;
+		}
 	},
 	extraReducers(builder) {
 		builder.addCase(asyncActions.fetchCurrentUser.pending, state => {
@@ -54,6 +58,18 @@ const currentUserSlice = createSlice({
 		builder.addCase(asyncActions.fetchCurrentUser.rejected, (state: IUserState, action) => {
 			state.loading = false;
 			state.error = action.payload as string;
+		});
+
+		// update user actions
+		builder.addCase(asyncActions.updateUserData.pending, (state: IUserState, action) => {
+			state.loading = true;
+		
+		});
+		builder.addCase(asyncActions.updateUserData.fulfilled, (state: IUserState, action) => {
+			state.loading = false;
+		});
+		builder.addCase(asyncActions.updateUserData.rejected, (state: IUserState, action) => {
+			state.loading = false;
 		});
 	},
 });

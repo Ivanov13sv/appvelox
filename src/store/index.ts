@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import dropdownReducer from 'store/slices/dropdownSlice';
 import userAuth from 'store/slices/userAuthSlice';
 import successRegistrationSlice from 'store/slices/successRegistrationSlice';
-import userSlice from 'store/slices/userSlice';
+import regFieldsSlice from 'store/slices/regFieldsSlice';
 import spinerSlice from 'store/slices/spinerSlice';
 import appointmentsSlice from './slices/appointmentsSlice';
 import currentUserSlice from './slices/currentUserSlice';
@@ -15,7 +15,7 @@ export const store = configureStore({
 		dropdown: dropdownReducer,
 		userAuth: userAuth,
 		successReg: successRegistrationSlice,
-		user: userSlice,
+		regFields: regFieldsSlice,
 		spiner: spinerSlice,
 		appointments: appointmentsSlice,
 		currentUser: currentUserSlice,

@@ -20,6 +20,7 @@ export const Main: FC<MainProps> = ({ children }) => {
 	const titles = [
 		{ path: '/profile', title: 'Записи на приём', to: null },
 		{ path: '/profile/appointment', title: 'Мои записи', to: '/profile', icon: <BackArrow /> },
+		{ path: '/profile/userInfo', title: 'Мои записи', to: '/profile', icon: <BackArrow /> },
 		{ path: '/doctors', title: 'Врачи и клиники', to: null },
 		{ path: '/messages', title: 'Сообщения', to: null },
 		{ path: '/test', title: 'Тестирование', to: null },

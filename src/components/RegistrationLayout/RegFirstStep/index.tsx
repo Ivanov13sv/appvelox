@@ -18,7 +18,7 @@ interface LocationState {
 }
 
 export const RegFirstStep = () => {
-	const { user } = useAppSelector(state => state.user);
+	const { user } = useAppSelector(state => state.regFields);
 	const { setLoginInfo } = useActions();
 	const navigate = useNavigate();
 	const { state } = useLocation() as LocationState;

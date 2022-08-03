@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Wrapper, Image } from './style';
 
 interface ILoadableImage {
-	src: string;
+	src: any;
 	alt?: string;
 	onLoad?: () => void;
 }
@@ -12,6 +12,7 @@ export const LoadableImage = (props: ILoadableImage) => {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const imageRef = useRef<HTMLImageElement | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
+
 
 	useEffect(() => {
 		if (imageRef.current) {

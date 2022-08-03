@@ -10,7 +10,7 @@ import * as S from './style';
 import { IIUser } from 'types/iuser';
 
 export const RegSecondStep = () => {
-	const { user } = useAppSelector(state => state.user);
+	const { user } = useAppSelector(state => state.regFields);
 
 	const lastName = useInput(user?.lastName, { isEmpty: true });
 	const firstName = useInput(user?.firstName, { isEmpty: true });

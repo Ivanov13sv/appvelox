@@ -1,37 +1,39 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, updateDoc } from 'firebase/firestore';
 import { RootState } from 'store';
 import { INotificationType } from 'types/notification';
 import { FirebaseDataService } from 'API/FirebaseDataService';
 import { appointmentsActions } from 'store/slices/appointmentsSlice';
 import { notificationActions } from 'store/slices/notificationSlice';
+import { currentUserActions } from 'store/slices/currentUserSlice';
 import { IAppointment } from 'types/appointment';
 import { IDoctor } from 'types/doctors';
 import { db } from '../../firebase';
+import { IIUser } from 'types/iuser';
 
- const fetchAppointments = createAsyncThunk(
+const fetchAppointments = createAsyncThunk(
 	'appointments/fetchAppointments',
 	async (id: string, { rejectWithValue }) => {
 		const docRef = doc(db, 'user', id);
 		const docSnap = await getDoc(docRef);
 		try {
 			const response = docSnap.data();
-			const days = response?.appointments.map((item: IAppointment) => item);
-			return days;
+			const result = response?.appointments.map((item: IAppointment) => item);
+			return result;
 		} catch (error) {
 			return rejectWithValue('Что-то пошло не так');
 		}
 	}
 );
 
- const removeAppointment = createAsyncThunk(
+const removeAppointment = createAsyncThunk(
 	'appointments/removeAppointment',
 	async (id: string, { rejectWithValue, getState, dispatch }) => {
 		const { userAuth, appointments } = getState() as RootState;
 		const appointment = appointments.appointments.find(item => item.id === id);
 
-		try {
-			if (appointment && userAuth.id) {
+		if (appointment && userAuth.id) {
+			try {
 				const userRef = doc(db, 'user', userAuth.id);
 				const doctorRef = doc(db, 'doctors', appointment?.doctorId);
 
@@ -52,23 +54,28 @@ import { db } from '../../firebase';
 						})
 					);
 				});
+			} catch (error) {
+				return rejectWithValue('Не удалось отменить запись');
 			}
-		} catch (error) {
-			return rejectWithValue('Не удалось отменить запись');
 		}
 	}
 );
 
- const fetchCurrentUser = createAsyncThunk(
+const fetchCurrentUser = createAsyncThunk(
 	'user/fetchUser',
 	async (_, { rejectWithValue, getState }) => {
 		const { userAuth } = getState() as RootState;
 		try {
 			if (userAuth.id) {
-
 				const docRef = doc(db, 'user', userAuth.id);
 				const docSnap = await getDoc(docRef);
-				return docSnap.data();
+				const result = {
+					...docSnap.data(),
+					id: docSnap.id,
+				} as IIUser;
+				console.log(result)
+				return result;
+				// return docSnap.data();
 			}
 		} catch (error) {
 			return rejectWithValue('Произошла ошибка при загрузке даннх');
@@ -76,21 +83,56 @@ import { db } from '../../firebase';
 	}
 );
 
- const fetchDoctors = createAsyncThunk(
-	'doctors/fetchDoctors',
-	async (_, { rejectWithValue }) => {
-		try {
-			const q = query(collection(db, 'doctors'));
-			const result: IDoctor[] = [];
-			const querySnapshot = await getDocs(q);
-			querySnapshot.forEach(doc => {
-				result.push({ ...doc.data(), id: doc.id } as IDoctor);
-			});
-			return result;
-		} catch (e) {
-			return rejectWithValue('Произошла ошибка при загрузке врачей');
+const updateUserData = createAsyncThunk(
+	'user/UpdateData',
+	async (data: IIUser, { getState, dispatch, rejectWithValue }) => {
+		const {
+			userAuth: { id },
+		} = getState() as RootState;
+		if (id) {
+			try {
+				const docRef = doc(db, 'user', id);
+				await updateDoc(docRef, { ...data }).then(() => {
+					dispatch(currentUserActions.updateData(data));
+					dispatch(
+						notificationActions.addNotification({
+							id: Date.now(),
+							message: 'Данные успешно обновлены',
+							type: INotificationType.success,
+						})
+					);
+				});
+			} catch (e) {
+				dispatch(
+					notificationActions.addNotification({
+						id: Date.now(),
+						message: 'Произошла ошибка при обновлении данных',
+						type: INotificationType.warning,
+					})
+				);
+			}
 		}
 	}
 );
 
-export const asyncActions = {fetchAppointments, removeAppointment, fetchCurrentUser,fetchDoctors};
+const fetchDoctors = createAsyncThunk('doctors/fetchDoctors', async (_, { rejectWithValue }) => {
+	try {
+		const q = query(collection(db, 'doctors'));
+		const result: IDoctor[] = [];
+		const querySnapshot = await getDocs(q);
+		querySnapshot.forEach(doc => {
+			result.push({ ...doc.data(), id: doc.id } as IDoctor);
+		});
+		return result;
+	} catch (e) {
+		return rejectWithValue('Произошла ошибка при загрузке врачей');
+	}
+});
+
+export const asyncActions = {
+	fetchAppointments,
+	removeAppointment,
+	fetchCurrentUser,
+	fetchDoctors,
+	updateUserData,
+};

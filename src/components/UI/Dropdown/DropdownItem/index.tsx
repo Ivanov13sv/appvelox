@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { ListItem, ListItemProps } from 'components/ListItem';
 import * as S from './style';
+import { useActions } from 'hooks/useActions';
 
 interface DropdownItemProps extends ListItemProps {
 	goTo?: string;
@@ -16,14 +17,22 @@ export const DropdownItem: FC<DropdownItemProps> = ({
 	callback,
 	setMenuOpen,
 }) => {
+	const { closeDropdown } = useActions();
 	const changeMenu = () => {
 		if (goTo && setMenuOpen) {
 			setMenuOpen(goTo);
 		}
 	};
 
+	const cb = () => {
+		if (callback) {
+			callback();
+			closeDropdown();
+		}
+	};
+
 	return (
-		<S.DropdownItem onClick={ goTo ? changeMenu : callback}>
+		<S.DropdownItem onClick={goTo ? changeMenu : cb}>
 			<ListItem leftIcon={leftIcon} text={text} rightIcon={rightIcon} />
 		</S.DropdownItem>
 	);

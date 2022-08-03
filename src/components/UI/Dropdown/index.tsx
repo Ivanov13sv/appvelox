@@ -10,6 +10,7 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { DropdownItem } from './DropdownItem';
 
 import * as S from './style';
+import { useNavigate } from 'react-router-dom';
 
 interface DropdownProps {
 	isOpen: boolean;
@@ -18,7 +19,7 @@ interface DropdownProps {
 export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
 	const [menuOpen, setMenuOpen] = useState('main');
 	const [menuHeight, setMenuHeight] = useState<null | number>();
-	const { logOut, closeDropdown } = useActions();
+	const { logOut, closeDropdown, toggleModal } = useActions();
 	const { user } = useAppSelector(state => state.currentUser);
 
 	const mainMenuRef = useRef<HTMLUListElement>(null);
@@ -29,6 +30,7 @@ export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
 		closeDropdown();
 	});
 
+	const navigate = useNavigate();
 
 	const exit = () => {
 		signOut(auth)
@@ -47,13 +49,18 @@ export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
 			setMenuHeight(secondaryMenuRef.current?.clientHeight);
 		}
 	}, [menuOpen]);
+	console.log(user)
 
 	return (
 		<S.Overlay>
 			<S.Dropdown ref={dropdownRef} style={{ height: `${menuHeight && menuHeight + 35}px` }}>
 				<S.Menu ref={mainMenuRef} menuOpen={menuOpen === 'main'}>
 					<S.Title>Привет, {user.firstName}! </S.Title>
-					<DropdownItem text="Мой профиль" leftIcon={<MdPerson />} />
+					<DropdownItem
+						text="Мой профиль"
+						leftIcon={<MdPerson />}
+						callback={() => navigate('/profile/userInfo')}
+					/>
 					<DropdownItem
 						goTo="settings"
 						setMenuOpen={setMenuOpen}

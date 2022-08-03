@@ -1,12 +1,16 @@
-import React, { FC } from 'react';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { useLocalStorage } from 'hooks/useLocalStorage';
+import React, { FC, useEffect, useState } from 'react';
+import defaultAvatar from 'assets/img/defaultImage.jpg'
 import * as S from './style';
 
 interface ProfilePhotoProps {
 	photo: any;
 	width?: string;
 	height?: string;
+	border?: string;
 }
 
-export const ProfilePhoto: FC<ProfilePhotoProps> = ({ photo, width, height }) => {
-	return <S.Photo width={width} src={photo} height={height}/>;
+export const ProfilePhoto: FC<ProfilePhotoProps> = ({ photo, ...props }) => {
+	return <S.Photo src={photo ? photo : defaultAvatar}  {...props}/>;
 };

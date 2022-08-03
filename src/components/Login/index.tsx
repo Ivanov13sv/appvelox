@@ -30,6 +30,7 @@ export const Login = () => {
 					id: user.uid,
 					//@ts-ignore
 					token: user.accessToken,
+					avatar: user.photoURL as string
 				});
 				navigate('/');
 			})

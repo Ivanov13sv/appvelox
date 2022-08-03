@@ -10,7 +10,7 @@ import * as S from './style';
 export const RegThirdStep = () => {
 	const {
 		user: { representativeInfo },
-	} = useAppSelector(state => state.user);
+	} = useAppSelector(state => state.regFields);
 	const lastName = useInput(representativeInfo?.lastName, { isEmpty: true });
 	const firstName = useInput(representativeInfo?.firstName, { isEmpty: true });
 	const patronymic = useInput(representativeInfo?.patronymic, { isEmpty: true });

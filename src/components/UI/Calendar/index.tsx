@@ -7,10 +7,10 @@ import * as S from './style';
 interface CalendarProps {
 	date: Date;
 	setDate: (date: Date) => void;
-	filterTime: (date: Date) => boolean;
+	filterTime?: (date: Date) => boolean;
 	filterDate?: (date: Date) => boolean;
-	reservedDates: number[];
-	disabled: boolean;
+	reservedDates?: number[];
+	disabled?: boolean;
 }
 
 export const Calendar: FC<CalendarProps> = ({
@@ -38,7 +38,7 @@ export const Calendar: FC<CalendarProps> = ({
 			maxTime={setHours(setMinutes(new Date(), 30), 20)}
 			shouldCloseOnSelect={true}
 			filterDate={(date: Date) => {
-				return !reservedDates.includes(date.getTime());
+				return !reservedDates!.includes(date.getTime());
 			}}
 		/>
 	);

@@ -5,7 +5,7 @@ export interface IIUser {
 	email?: string;
 	phone?: string;
 	password?: string;
-	dOb?: string;
+	dOb?: Date | null;
 	gender?: string;
 	registrationAddress?: string;
 	residentialAddress?: string;

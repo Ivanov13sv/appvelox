@@ -13,7 +13,7 @@ const initialState: IRegistrationData = {
 		firstName: '',
 		lastName: '',
 		patronymic: '',
-		dOb: '',
+		dOb: null,
 		gender: '',
 		registrationAddress: '',
 		residentialAddress: '',
@@ -31,8 +31,8 @@ const initialState: IRegistrationData = {
 	error: null,
 };
 
-const userSlice = createSlice({
-	name: 'user',
+const regFieldsSlice = createSlice({
+	name: 'regFields',
 	initialState,
 	reducers: {
 		setLoginInfo: (state: IRegistrationData, action: PayloadAction<IIUser>) => {
@@ -60,6 +60,7 @@ const userSlice = createSlice({
 			if (state.user) {
 				let key: keyof typeof state.user;
 				for (key in state.user) {
+					//@ts-ignore
 					state.user[key] = '';
 				}
 			}
@@ -69,6 +70,6 @@ const userSlice = createSlice({
 
 });
 
-export const userSliceActions = userSlice.actions;
+export const regFieldsActions = regFieldsSlice.actions;
 
-export default userSlice.reducer;
+export default regFieldsSlice.reducer;

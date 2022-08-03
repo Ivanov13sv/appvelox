@@ -10,6 +10,7 @@ import { useActions } from 'hooks/useActions';
 import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
 import { Modal } from 'components/UI/Modal';
 import { useDisableScroll } from 'hooks/useDisableScroll';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 export const Layout = () => {
 	const { successReg } = useAppSelector(state => state.successReg);

@@ -12,7 +12,7 @@ import * as S from './style';
 export const RegistrationLayout = () => {
 	const { setSuccessReg, resetRegForm } = useActions();
 
-	const { user } = useAppSelector(state => state.user);
+	const { user } = useAppSelector(state => state.regFields);
 	const { spinerOff, spinerOn } = useActions();
 	const navigate = useNavigate();
 

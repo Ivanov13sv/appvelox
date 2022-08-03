@@ -13,13 +13,19 @@ import { RegThirdStep } from 'components/RegistrationLayout/RegThirdStep';
 import { RecoveryPage } from 'pages/RecoveryPage';
 import { DoctorsPage } from 'pages/DoctorsPage';
 import { DoctorDetailsPage } from 'pages/DoctorDetailsPage';
+import { UserInfoPage } from 'pages/UserInfoPage';
+import { useAppSelector } from 'hooks/useAppSelector';
+
+
 
 export const Router: FC = () => {
+	const {user} = useAppSelector(state => state.currentUser)
 	return (
 		<Routes>
 			<Route element={<RequireAuth />}>
 				<Route element={<Layout />}>
 					<Route path="profile" element={<ProfilePage />} />
+					<Route path="profile/userInfo" element={<UserInfoPage />} />
 					<Route path="profile/appointment" element={<AppointmentsPage />} />
 					<Route path="doctors" element={<DoctorsPage />}>
 					</Route>
