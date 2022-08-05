@@ -21,7 +21,7 @@ export const Label = styled.label<LabelProps>`
 	font-size: 16px;
 	line-height: 17px;
 
-	z-index: 2;
+	z-index: 1;
 
 	${props =>
 		props.isFocus &&

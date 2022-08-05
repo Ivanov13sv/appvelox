@@ -72,8 +72,11 @@ const fetchCurrentUser = createAsyncThunk(
 				const result = {
 					...docSnap.data(),
 					id: docSnap.id,
+					//@ts-ignore
+					dOb: docSnap.data().dOb.toDate().getTime(),
 				} as IIUser;
-				console.log(result)
+				//@ts-ignore
+				// console.log(result.dOb.toDate())
 				return result;
 				// return docSnap.data();
 			}

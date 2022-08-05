@@ -21,9 +21,10 @@ export const RegistrationLayout = () => {
 		spinerOn();
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(({ user: { uid } }) => {
+				const userData = { ...user, dOb: new Date(user.dOb as number) };
 				setSuccessReg();
 				spinerOff();
-				setDoc(doc(db, 'user', uid), user);
+				setDoc(doc(db, 'user', uid), userData);
 			})
 			.catch(error => {
 				spinerOff();
@@ -44,7 +45,6 @@ export const RegistrationLayout = () => {
 			handleRegister(user.email, user.password);
 		}
 	};
-
 
 	return (
 		<S.Layout>

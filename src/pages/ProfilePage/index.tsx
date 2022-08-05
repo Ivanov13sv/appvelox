@@ -16,7 +16,7 @@ import { LocalLoader } from 'components/UI/LocalLoader';
 import * as S from './style';
 
 export const ProfilePage: FC = () => {
-	const { appointments, loading } = useAppSelector(state => state.appointments);
+	const { appointments = [], loading } = useAppSelector(state => state.appointments);
 	const { removeAppointment } = useActions();
 
 	const admissionsArr =

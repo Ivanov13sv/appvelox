@@ -40,6 +40,7 @@ export const upload = async (
 	currentUser: any,
 	setLoading: (status: boolean) => void
 ) => {
+	console.log(typeof file)
 	const fileRef = ref(storage, `${currentUser}${Date.now()}`);
 	setLoading(true);
 	await uploadBytes(fileRef, file);

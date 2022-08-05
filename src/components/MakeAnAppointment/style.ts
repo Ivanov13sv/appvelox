@@ -21,6 +21,12 @@ export const Form = styled.form`
 	justify-content: center;
 	align-items: center;
 	gap: 30px;
+	input{
+		border: none;
+		box-shadow: 0px 0px 5px #abaaaf;
+		width: 100%;
+
+	}
 `;
 
 export const DateTimePicker = styled(DatePicker)`

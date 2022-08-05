@@ -11,6 +11,7 @@ interface CalendarProps {
 	filterDate?: (date: Date) => boolean;
 	reservedDates?: number[];
 	disabled?: boolean;
+	isError: boolean;
 }
 
 export const Calendar: FC<CalendarProps> = ({
@@ -19,10 +20,12 @@ export const Calendar: FC<CalendarProps> = ({
 	filterDate,
 	filterTime,
 	reservedDates,
-	disabled
+	disabled,
+	isError,
 }) => {
 	return (
 		<S.DateTimePicker
+			isError={isError}
 			placeholderText="Выберите дату и время"
 			selected={date}
 			onChange={setDate}

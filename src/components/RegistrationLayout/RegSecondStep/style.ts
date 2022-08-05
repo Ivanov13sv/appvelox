@@ -5,6 +5,7 @@ export const Fieldset = styled.fieldset`
 	border: none;
 	display: flex;
 	align-items: center;
+	gap: 10px;
 `;
 
 export const Radio = styled.label`
@@ -52,7 +53,6 @@ export const RadioGroup = styled.div`
 `;
 
 export const RadioLabel = styled.span`
-	padding-right: 14px;
 `;
 
 interface DateInputProps {

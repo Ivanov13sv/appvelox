@@ -24,12 +24,8 @@ export const Header = () => {
 					<NavbarItem icon={<Search />} />
 					<NavbarItem icon={<Bell />} />
 					<NavbarItem icon={<Eye />} />
-					<ProfilePhoto
-						width="50px"
-						height="50px"
-						photo={avatar}
-						
-					/>
+					<ProfilePhoto width="50px" height="50px" photo={avatar} />
+					<Avatar alt='avatar' src={avatar} />
 					{/* <Avatar
 						border="2px solid white"
 						width="50px"

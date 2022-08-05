@@ -36,9 +36,9 @@ export const filterReservedDates = (reservedDates: number[], date: Date) => {
 
 		const isPassedTime = currentDate.getTime() < selectedDate.getTime();
 		const isReservedTime = reservedDates.includes(date.getTime());
-		// const isReservedTime = reservedDates.some(item => new Date(item)  === date);
-
 		return isPassedTime && !isReservedTime;
 	}
 	return false;
 };
+
+// выбор изображения

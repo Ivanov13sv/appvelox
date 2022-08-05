@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { useActions } from 'hooks/useActions';
 import { useInput } from 'hooks/useInput';
 import { useAppSelector } from 'hooks/useAppSelector';
+import ru from 'date-fns/locale/ru';
+import { Datepicker } from 'components/UI/Datepicker';
 
 import * as S from './style';
-import { IIUser } from 'types/iuser';
 
 export const RegSecondStep = () => {
 	const { user } = useAppSelector(state => state.regFields);
@@ -16,8 +17,8 @@ export const RegSecondStep = () => {
 	const firstName = useInput(user?.firstName, { isEmpty: true });
 	const patronymic = useInput(user?.patronymic, { isEmpty: true });
 	const registrationAddress = useInput(user?.registrationAddress, { isEmpty: true });
-	const gender = useInput('male');
-	const date = useInput(user?.dOb, { isEmpty: true });
+	const gender = useInput(user?.gender || 'male');
+	const date = useInput(user?.dOb ? new Date(user.dOb) : null, { isEmpty: true });
 	const residentialAddress = useInput(user?.residentialAddress, { isEmpty: true });
 
 	const [validForm, setValidForm] = useState(false);
@@ -44,7 +45,7 @@ export const RegSecondStep = () => {
 		patronymic.errorMessage,
 		registrationAddress.errorMessage,
 		residentialAddress.errorMessage,
-		date.errorMessage,
+		date,
 	]);
 
 	const pickGender = () => {
@@ -59,7 +60,7 @@ export const RegSecondStep = () => {
 				patronymic: patronymic.value,
 				registrationAddress: registrationAddress.value,
 				gender: gender.value,
-				dOb: date.value,
+				dOb: date.value.getTime(),
 				residentialAddress: residentialAddress.value,
 			});
 			navigate('/registration/step3');
@@ -123,11 +124,22 @@ export const RegSecondStep = () => {
 						<span>Ж</span>
 					</S.Radio>
 				</S.RadioGroup>
-				<S.DateInput
-					// ref={dateRef}
-					{...date}
-					error={date.isDirty && !date.value ? true : false}
-					type="date"
+				<Datepicker
+					isError={date.isDirty && !date.value}
+					onBlur={date.onBlur}
+					placeholderText="1 января 2000"
+					selected={date.value}
+					onChange={(selectedDate: Date) => date.setValue(selectedDate)}
+					dateFormat="d MMMM Y"
+					shouldCloseOnSelect={true}
+					errorMessage="Обязательное поле"
+					maxDate={new Date()}
+					showYearDropdown
+					dateFormatCalendar="MMMM"
+					yearDropdownItemNumber={80}
+
+					scrollableYearDropdown
+				
 				/>
 			</S.Fieldset>
 

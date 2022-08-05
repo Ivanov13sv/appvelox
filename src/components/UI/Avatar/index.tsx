@@ -1,6 +1,7 @@
 import { LoadableImage } from 'components/LoadbleImage';
-import  { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+import defaultAvatar from 'assets/img/defaultImage.jpg';
 
 interface IAvatar extends IWrapper {
 	src: string;
@@ -12,10 +13,10 @@ interface IWrapper {
 	height?: string;
 }
 
-export const Avatar: FC<IAvatar> = ({ width, height,  alt, src }) => {
+export const Avatar: FC<IAvatar> = ({ width, height, alt, src }) => {
 	return (
 		<Wrapper width={width} height={height}>
-			<LoadableImage src={src} alt={alt} />
+			<LoadableImage src={src ? src : defaultAvatar} alt={alt} />
 		</Wrapper>
 	);
 };
@@ -26,5 +27,3 @@ const Wrapper = styled.div<IWrapper>`
 	border-radius: 50%;
 	overflow: hidden;
 `;
-
-

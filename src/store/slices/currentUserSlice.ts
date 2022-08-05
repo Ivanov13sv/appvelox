@@ -53,6 +53,8 @@ const currentUserSlice = createSlice({
 		builder.addCase(asyncActions.fetchCurrentUser.fulfilled, (state, action) => {
 			state.loading = false;
 			state.user = {...action.payload};
+			// state.user.dOb = action.payload?.dOb as number;
+
 			state.error = null;
 		});
 		builder.addCase(asyncActions.fetchCurrentUser.rejected, (state: IUserState, action) => {
