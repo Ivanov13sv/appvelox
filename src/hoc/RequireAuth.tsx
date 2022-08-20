@@ -9,7 +9,9 @@ interface RequireAuthProps {
 
 export const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
 	const location = useLocation();
-	const { token } = useAppSelector(state => state.userAuth);
+	const {
+		authInfo: { token },
+	} = useAppSelector(state => state.authInfo);
 
 	if (!token) {
 		return <Navigate to="/login" state={{ from: location }} replace />;

@@ -11,19 +11,21 @@ interface IAvatar extends IWrapper {
 interface IWrapper {
 	width?: string;
 	height?: string;
+	border?: string;
 }
 
-export const Avatar: FC<IAvatar> = ({ width, height, alt, src }) => {
+export const Avatar: FC<IAvatar> = ({ alt, src, ...props }) => {
 	return (
-		<Wrapper width={width} height={height}>
+		<Wrapper {...props}>
 			<LoadableImage src={src ? src : defaultAvatar} alt={alt} />
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.div<IWrapper>`
-	width: ${props => props.width || '40px'};
-	height: ${props => props.height || '40px'};
+	width: ${props => props.width || '45px'};
+	height: ${props => props.height || '45px'};
+	border: ${props => props.border || 'none'};
 	border-radius: 50%;
 	overflow: hidden;
 `;

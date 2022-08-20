@@ -23,7 +23,7 @@ export const Sidebar = () => {
 	];
 	const [activeItem, setActiveItem] = useState(0);
 	const [height, setHeight] = useState(0);
-	const { toggleModal } = useActions();
+	const { toggleModal, openModal } = useActions();
 	const ref = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
@@ -52,7 +52,7 @@ export const Sidebar = () => {
 						setActive={setActiveItem}
 					/>
 				))}
-				<Button onClick={() => toggleModal()}>Подать заявку</Button>
+				<Button onClick={() => openModal()}>Подать заявку</Button>
 			</S.SidebarMain>
 			<S.SidebarFooter>
 				<SidebarItem leftIcon={<Help />} text="Помощь" to="/help" />

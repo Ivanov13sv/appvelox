@@ -8,8 +8,10 @@ import { notificationActions } from 'store/slices/notificationSlice';
 import { currentUserActions } from 'store/slices/currentUserSlice';
 import { IAppointment } from 'types/appointment';
 import { IDoctor } from 'types/doctors';
-import { db } from '../../firebase';
+import { db, reAuth, setNewPassword, upload } from '../../firebase';
 import { IIUser } from 'types/iuser';
+import { authInfoActions } from 'store/slices/authInfoSlice';
+import { updateEmail } from 'firebase/auth';
 
 const fetchAppointments = createAsyncThunk(
 	'appointments/fetchAppointments',
@@ -29,12 +31,15 @@ const fetchAppointments = createAsyncThunk(
 const removeAppointment = createAsyncThunk(
 	'appointments/removeAppointment',
 	async (id: string, { rejectWithValue, getState, dispatch }) => {
-		const { userAuth, appointments } = getState() as RootState;
+		const {
+			authInfo: { authInfo },
+			appointments,
+		} = getState() as RootState;
 		const appointment = appointments.appointments.find(item => item.id === id);
 
-		if (appointment && userAuth.id) {
+		if (appointment && authInfo.id) {
 			try {
-				const userRef = doc(db, 'user', userAuth.id);
+				const userRef = doc(db, 'user', authInfo.id);
 				const doctorRef = doc(db, 'doctors', appointment?.doctorId);
 
 				const filtredArray = appointments.appointments.filter(item => item.id !== id);
@@ -64,10 +69,12 @@ const removeAppointment = createAsyncThunk(
 const fetchCurrentUser = createAsyncThunk(
 	'user/fetchUser',
 	async (_, { rejectWithValue, getState }) => {
-		const { userAuth } = getState() as RootState;
+		const {
+			authInfo: { authInfo },
+		} = getState() as RootState;
 		try {
-			if (userAuth.id) {
-				const docRef = doc(db, 'user', userAuth.id);
+			if (authInfo.id) {
+				const docRef = doc(db, 'user', authInfo.id);
 				const docSnap = await getDoc(docRef);
 				const result = {
 					...docSnap.data(),
@@ -87,15 +94,15 @@ const fetchCurrentUser = createAsyncThunk(
 );
 
 const updateUserData = createAsyncThunk(
-	'user/UpdateData',
-	async (data: IIUser, { getState, dispatch, rejectWithValue }) => {
+	'user/updateUserData',
+	async (data: IIUser, { getState, dispatch }) => {
 		const {
-			userAuth: { id },
+			authInfo: { authInfo },
 		} = getState() as RootState;
-		if (id) {
+		if (authInfo.id) {
 			try {
-				const docRef = doc(db, 'user', id);
-				await updateDoc(docRef, { ...data }).then(() => {
+				const docRef = doc(db, 'user', authInfo.id);
+				await updateDoc(docRef, { ...data, dOb: new Date(data.dOb as number) }).then(() => {
 					dispatch(currentUserActions.updateData(data));
 					dispatch(
 						notificationActions.addNotification({
@@ -114,6 +121,122 @@ const updateUserData = createAsyncThunk(
 					})
 				);
 			}
+		}
+	}
+);
+
+interface IUpdateUserAvatar {
+	currentUser: any;
+	loadingPhoto: any;
+	statePhoto: any;
+}
+
+const updateUserAvatar = createAsyncThunk(
+	'authInfo/updateUserAvatar',
+	async (data: IUpdateUserAvatar, { getState, dispatch }) => {
+		const { currentUser, loadingPhoto, statePhoto } = data;
+		if (data) {
+			try {
+				await upload(loadingPhoto, currentUser).then(() => {
+					dispatch(
+						notificationActions.addNotification({
+							id: Date.now(),
+							message: 'Фото успешно обновлены',
+							type: INotificationType.success,
+						})
+					);
+					dispatch(authInfoActions.updateAvatar(statePhoto));
+				});
+			} catch (e) {
+				dispatch(
+					notificationActions.addNotification({
+						id: Date.now(),
+						message: 'Произошла ошибка при обновлении фото',
+						type: INotificationType.warning,
+					})
+				);
+			}
+		}
+	}
+);
+
+interface UpdatePassword {
+	newPass: string;
+	currentPass: string;
+	currentUser: any;
+}
+const updatePassword = createAsyncThunk(
+	'authInfo/updatePassword',
+	async (data: UpdatePassword, { getState, dispatch }) => {
+		if (data) {
+			const { newPass, currentPass, currentUser } = data;
+			setNewPassword(newPass, currentPass, currentUser)
+				.then(() => {
+					dispatch(
+						notificationActions.addNotification({
+							id: Date.now(),
+							message: 'Пароль успешно изменен!',
+							type: INotificationType.success,
+						})
+					);
+				})
+				.catch(() => {
+					dispatch(
+						notificationActions.addNotification({
+							id: Date.now(),
+							message: 'Что-то пошло не так',
+							type: INotificationType.warning,
+						})
+					);
+				});
+		}
+	}
+);
+
+interface IUpdateEmail {
+	currentUser: any;
+	passwordlLogin: string;
+	emailLogin: string;
+	newEmail: string;
+}
+
+const updateUserEmail = createAsyncThunk(
+	'authInfo/updateEmail',
+	async (data: IUpdateEmail, { getState, dispatch }) => {
+		const { currentUser, emailLogin, passwordlLogin, newEmail } = data;
+
+		if (currentUser && passwordlLogin && emailLogin) {
+			 reAuth(passwordlLogin, currentUser, emailLogin)
+				.then(() => {
+					return updateEmail(currentUser, newEmail)
+						.then(() => {
+							dispatch(
+								notificationActions.addNotification({
+									id: Date.now(),
+									message: 'Почта успешно измененна',
+									type: INotificationType.success,
+								})
+							);
+						})
+						.catch(() => {
+							dispatch(
+								notificationActions.addNotification({
+									id: Date.now(),
+									message: 'Что-то пошло не так',
+									type: INotificationType.warning,
+								})
+							);
+						});
+				})
+				.catch(e => {
+					dispatch(
+						notificationActions.addNotification({
+							id: Date.now(),
+							message: 'Неверный логин или пароль',
+							type: INotificationType.warning,
+						})
+					);
+				});
 		}
 	}
 );
@@ -138,4 +261,7 @@ export const asyncActions = {
 	fetchCurrentUser,
 	fetchDoctors,
 	updateUserData,
+	updateUserAvatar,
+	updatePassword,
+	updateUserEmail
 };

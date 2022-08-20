@@ -20,17 +20,15 @@ import { INotificationType } from 'types/notification';
 import { Datepicker } from 'components/UI/Datepicker';
 import { db } from '../../firebase';
 import * as S from './style';
+import { useClickOutside } from 'hooks/useClickOutside';
 
 export const MakeAnAppointment = () => {
 	const [date, setDate] = useState<any>(null);
-	const { id: userId } = useAppSelector(state => state.userAuth);
-	const { doctors } = useAppSelector(state => state.doctors);
 	const {
-		addNewAppointment,
-		toggleModal,
-
-		addNotification,
-	} = useActions();
+		authInfo: { id: userId },
+	} = useAppSelector(state => state.authInfo);
+	const { doctors } = useAppSelector(state => state.doctors);
+	const { addNewAppointment, toggleModal, closeModal, addNotification } = useActions();
 	const [selectedSpeciality, setSelectedSpeciality] = useState<ISelectItem>({
 		id: '',
 		option: '',
@@ -115,10 +113,12 @@ export const MakeAnAppointment = () => {
 		//eslint-disable-next-line
 	}, [selectedDoctor]);
 
-
+	const ref = useClickOutside(() => {
+		closeModal();
+	});
 
 	return (
-		<S.Wrapper>
+		<S.Wrapper ref={ref}>
 			<S.Title>Запись на приём</S.Title>
 			<S.Form onSubmit={setNewAppointment}>
 				<Select
@@ -140,24 +140,24 @@ export const MakeAnAppointment = () => {
 					setSelected={setSelectedDoctor}
 				/>
 
-				<Datepicker 
-						placeholderText="Выберите дату и время"
-						selected={date}
-						onChange={setDate}
-						showTimeSelect
-						timeFormat="HH:mm"
-						timeIntervals={60}
-						timeCaption="Время"
-						dateFormat="d MMMM в HH:mm"
-						minDate={subDays(new Date(), 0)}
-						filterTime={date => filterReservedDates(reservedDates, date)}
-						disabled={!selectedDoctor.option}
-						minTime={setHours(setMinutes(new Date(), 0), 9)}
-						maxTime={setHours(setMinutes(new Date(), 30), 20)}
-						shouldCloseOnSelect={true}
-						filterDate={(date: Date) => {
-							return !reservedDates.includes(date.getTime());
-						}}
+				<Datepicker
+					placeholderText="Выберите дату и время"
+					selected={date}
+					onChange={setDate}
+					showTimeSelect
+					timeFormat="HH:mm"
+					timeIntervals={60}
+					timeCaption="Время"
+					dateFormat="d MMMM в HH:mm"
+					minDate={subDays(new Date(), 0)}
+					filterTime={date => filterReservedDates(reservedDates, date)}
+					disabled={!selectedDoctor.option}
+					minTime={setHours(setMinutes(new Date(), 0), 9)}
+					maxTime={setHours(setMinutes(new Date(), 30), 20)}
+					shouldCloseOnSelect={true}
+					filterDate={(date: Date) => {
+						return !reservedDates.includes(date.getTime());
+					}}
 				/>
 
 				<Button disabled={!date || loadingNewAppointment}>

@@ -1,5 +1,5 @@
 import { successActions } from 'store/slices/successRegistrationSlice';
-import { authorizaitonActions } from 'store/slices/userAuthSlice';
+import { authInfoActions } from 'store/slices/authInfoSlice';
 import { regFieldsActions } from 'store/slices/regFieldsSlice';
 import { spinerActions } from 'store/slices/spinerSlice';
 import { appointmentsActions } from 'store/slices/appointmentsSlice';
@@ -12,7 +12,7 @@ import { asyncActions } from 'store/actions/asyncActionCreators';
 export const allActions = {
 	...successActions,
 	...dropdownActions,
-	...authorizaitonActions,
+	...authInfoActions,
 	...regFieldsActions,
 	...spinerActions,
 	...appointmentsActions,

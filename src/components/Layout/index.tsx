@@ -11,20 +11,22 @@ import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
 import { Modal } from 'components/UI/Modal';
 import { useDisableScroll } from 'hooks/useDisableScroll';
 import { useLocalStorage } from 'hooks/useLocalStorage';
+import { useClickOutside } from 'hooks/useClickOutside';
 
 export const Layout = () => {
 	const { successReg } = useAppSelector(state => state.successReg);
 	const { isModalOpen } = useAppSelector(state => state.modal);
-	const { id: userId } = useAppSelector(state => state.userAuth);
+	const {
+		authInfo: { id: userId },
+	} = useAppSelector(state => state.authInfo);
 	const {
 		hideSuccessReg,
 		fetchCurrentUser,
 		fetchAppointments,
 		fetchDoctors,
 		removeAllAppointments,
+		closeModal,
 	} = useActions();
-
-	useDisableScroll(isModalOpen);
 
 	useEffect(() => {
 		if (successReg) {
@@ -52,7 +54,7 @@ export const Layout = () => {
 		<Wrapper>
 			<Header />
 			{isModalOpen && (
-				<Modal>
+				<Modal isOpen={isModalOpen}>
 					<MakeAnAppointment />
 				</Modal>
 			)}

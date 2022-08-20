@@ -21,7 +21,25 @@ export const RegistrationLayout = () => {
 		spinerOn();
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(({ user: { uid } }) => {
-				const userData = { ...user, dOb: new Date(user.dOb as number) };
+				// const userData = { ...user, dOb: new Date(user.dOb as number) };
+				const {
+					firstName,
+					lastName,
+					patronymic,
+					registrationAddress,
+					residentialAddress,
+					email,
+					dOb,
+				} = user;
+				const userData = {
+					firstName,
+					lastName,
+					patronymic,
+					registrationAddress,
+					residentialAddress,
+					email,
+					dOb: new Date(dOb as number),
+				};
 				setSuccessReg();
 				spinerOff();
 				setDoc(doc(db, 'user', uid), userData);

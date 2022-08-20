@@ -4,31 +4,14 @@ export const ProfileImage = styled.div`
 	width: 200px;
 	height: 200px;
 	border-radius: 50%;
-	/* border: 2px solid ${({ theme }) => theme.color.main}; */
 	box-shadow: 0px 0px 5px #abaaaf;
 	position: relative;
 	> * {
 		width: 100%;
 		height: 100%;
 	}
-	/* input[type='file'] {
-		border: none;
-		outline: none;
-		background: red;
-		color: white;
-		width: 30px;
-		height: 30px;
-		position: absolute;
-        bottom: 20%;
-        right: 0;
-		&::-webkit-file-upload-button {
-			display: none;
-		}
-        &:focus{
-            border: 2px solid green;
-        }
-	} */
-	.upload {
+
+	label {
 		position: absolute;
 		bottom: 20%;
 		right: 0;
@@ -38,7 +21,6 @@ export const ProfileImage = styled.div`
 		align-items: center;
 		justify-content: center;
 		border-radius: 50%;
-		/* border: 2px solid ${({ theme }) => theme.color.main}; */
 		box-shadow: 0px 0px 5px #abaaaf;
 		transition: transform 0.1s ease-in-out;
 		background: green;
@@ -58,5 +40,59 @@ export const ProfileImage = styled.div`
 				color: grey;
 			}
 		}
+	}
+`;
+
+
+export const Form = styled.form`
+	width: 250px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	h3 {
+		font-weight: 300;
+		padding-bottom: 5px;
+	}
+	> :last-child {
+		margin-top: 10px;
+	}
+`;
+
+export const Body = styled.div`
+	display: flex;
+	justify-content: space-around;
+	padding: 2rem;
+	flex: 1 1 50%;
+	gap: 3rem;
+	flex-wrap: wrap;
+`;
+
+export const InfoBlock = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+	h2 {
+		font-weight: 400;
+	}
+`;
+
+export const PrivateInfo = styled(InfoBlock)`
+	justify-content: flex-start;
+`;
+
+
+export const ModalBody = styled.section`
+	width: 100%;
+	height: 100%;
+	padding: 0 5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+	h2 {
+		font-size: 1.4rem;
+		text-align: center;
+		padding-bottom: 2rem;
 	}
 `;

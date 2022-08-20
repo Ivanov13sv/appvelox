@@ -15,7 +15,9 @@ interface LoginLayoutProps {
 
 export const LoginLayout: FC<LoginLayoutProps> = () => {
 	const [imageTheme, setImageTheme] = useState('login');
-	const { token } = useAppSelector(state => state.userAuth);
+	const {
+		authInfo: { token },
+	} = useAppSelector(state => state.authInfo);
 	const { resetRegForm } = useActions();
 	const location = useLocation();
 

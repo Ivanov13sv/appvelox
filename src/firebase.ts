@@ -1,9 +1,22 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from '@firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
-import { getAuth, onAuthStateChanged, updateProfile, User } from 'firebase/auth';
+import { notificationActions } from 'store/slices/notificationSlice';
+import {
+	getAuth,
+	onAuthStateChanged,
+	updatePassword,
+	updateProfile,
+	User,
+	EmailAuthProvider,
+	reauthenticateWithPopup,
+	reauthenticateWithCredential,
+	AuthCredential,
+	updateEmail,
+} from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { IUser } from 'types/user';
+import { INotificationType } from 'types/notification';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -38,14 +51,29 @@ export const useAuth = () => {
 export const upload = async (
 	file: any,
 	currentUser: any,
-	setLoading: (status: boolean) => void
 ) => {
-	console.log(typeof file)
 	const fileRef = ref(storage, `${currentUser}${Date.now()}`);
-	setLoading(true);
 	await uploadBytes(fileRef, file);
 	const photoURL = await getDownloadURL(fileRef);
 	await updateProfile(currentUser, { photoURL: photoURL });
-	setLoading(false);
 	return photoURL;
+};
+
+export const setNewPassword = async (
+	newPassword: any,
+	currentPasswod: any,
+	currentUser: any,
+) => {
+	return reAuth(currentPasswod, currentUser, currentUser.email).then(() => {
+		updatePassword(currentUser, newPassword);
+	});
+};
+
+export const setNewEmail = (currentUser: any, newEmail: string) => {
+	return updateEmail(currentUser, newEmail);
+};
+
+export const reAuth = (currentPasswod: any, currentUser: any, userEmail: any) => {
+	const cred = EmailAuthProvider.credential(userEmail, currentPasswod);
+	return reauthenticateWithCredential(currentUser, cred);
 };

@@ -11,6 +11,12 @@ const modalSlice = createSlice({
 		toggleModal(state){
 			state.isModalOpen = !state.isModalOpen;
 		},
+		closeModal(state){
+			state.isModalOpen = false;
+		},
+		openModal: (state) =>{
+			state.isModalOpen = true;
+		}
 	},
 });
 

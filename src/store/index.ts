@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dropdownReducer from 'store/slices/dropdownSlice';
-import userAuth from 'store/slices/userAuthSlice';
+import authInfo from 'store/slices/authInfoSlice';
 import successRegistrationSlice from 'store/slices/successRegistrationSlice';
 import regFieldsSlice from 'store/slices/regFieldsSlice';
 import spinerSlice from 'store/slices/spinerSlice';
@@ -13,7 +13,7 @@ import notificationSlice from './slices/notificationSlice';
 export const store = configureStore({
 	reducer: {
 		dropdown: dropdownReducer,
-		userAuth: userAuth,
+		authInfo: authInfo,
 		successReg: successRegistrationSlice,
 		regFields: regFieldsSlice,
 		spiner: spinerSlice,

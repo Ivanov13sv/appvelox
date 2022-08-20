@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import { Navbar } from 'components/UI/Navbar';
 import { NavbarItem } from 'components/UI/Navbar/NavbarItem';
-import { ProfilePhoto } from 'components/UI/ProfilePhoto';
 import { Dropdown } from 'components/UI/Dropdown';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
@@ -14,7 +12,7 @@ import { Avatar } from 'components/UI/Avatar';
 import * as S from './style';
 
 export const Header = () => {
-	const { avatar } = useAppSelector(state => state.userAuth);
+	const { authInfo:{avatar} } = useAppSelector(state => state.authInfo);
 
 	return (
 		<S.Header>
@@ -24,18 +22,7 @@ export const Header = () => {
 					<NavbarItem icon={<Search />} />
 					<NavbarItem icon={<Bell />} />
 					<NavbarItem icon={<Eye />} />
-					<ProfilePhoto width="50px" height="50px" photo={avatar} />
-					<Avatar alt='avatar' src={avatar} />
-					{/* <Avatar
-						border="2px solid white"
-						width="50px"
-						height="50px"
-						alt="avatar"
-						src={avatar}
-						fallback={
-							'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80'
-						}
-					/> */}
+					<Avatar border="2px solid white" alt="avatar" src={avatar} />
 					<NavbarItem icon={<BsFillGrid3X3GapFill />}>
 						<Dropdown isOpen={true} />
 					</NavbarItem>

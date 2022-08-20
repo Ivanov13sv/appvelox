@@ -3,7 +3,6 @@ import { asyncActions } from 'store/actions/asyncActionCreators';
 import { IIUser, IUserState } from 'types/iuser';
 import { IUser } from 'types/user';
 
-
 const initialState: IUserState = {
 	user: {
 		firstName: '',
@@ -13,21 +12,18 @@ const initialState: IUserState = {
 		gender: '',
 		registrationAddress: '',
 		residentialAddress: '',
-		email: '',
-		password:'',
 		phone: '',
 		representativeInfo: {
 			firstName: '',
 			lastName: '',
 			patronymic: '',
-			phone: ''
-		}
-	} ,
+			phone: '',
+		},
+	},
 
 	loading: false,
 	error: null,
 };
-
 
 const currentUserSlice = createSlice({
 	initialState,
@@ -42,9 +38,9 @@ const currentUserSlice = createSlice({
 			state.user.registrationAddress = '';
 			state.user.residentialAddress = '';
 		},
-		updateData: (state,action: PayloadAction<IIUser>) =>{
+		updateData: (state, action: PayloadAction<IIUser>) => {
 			state.user = action.payload;
-		}
+		},
 	},
 	extraReducers(builder) {
 		builder.addCase(asyncActions.fetchCurrentUser.pending, state => {
@@ -52,9 +48,7 @@ const currentUserSlice = createSlice({
 		});
 		builder.addCase(asyncActions.fetchCurrentUser.fulfilled, (state, action) => {
 			state.loading = false;
-			state.user = {...action.payload};
-			// state.user.dOb = action.payload?.dOb as number;
-
+			state.user = { ...action.payload };
 			state.error = null;
 		});
 		builder.addCase(asyncActions.fetchCurrentUser.rejected, (state: IUserState, action) => {
@@ -63,16 +57,16 @@ const currentUserSlice = createSlice({
 		});
 
 		// update user actions
-		builder.addCase(asyncActions.updateUserData.pending, (state: IUserState, action) => {
+		builder.addCase(asyncActions.updateUserData.pending, (state: IUserState) => {
 			state.loading = true;
-		
 		});
-		builder.addCase(asyncActions.updateUserData.fulfilled, (state: IUserState, action) => {
+		builder.addCase(asyncActions.updateUserData.fulfilled, (state: IUserState) => {
 			state.loading = false;
 		});
-		builder.addCase(asyncActions.updateUserData.rejected, (state: IUserState, action) => {
+		builder.addCase(asyncActions.updateUserData.rejected, (state: IUserState) => {
 			state.loading = false;
 		});
+
 	},
 });
 
