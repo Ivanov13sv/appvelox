@@ -13,7 +13,7 @@ const appearance = keyframes`
 `;
 
 export const Overlay = styled.div`
-	z-index: 500;
+	z-index: 30;
 	position: fixed;
 	top: 0px;
 	left: 0px;

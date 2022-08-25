@@ -2,7 +2,7 @@ import { Input } from 'components/UI/Input';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useInput } from 'hooks/useInput';
-import { ChangeEvent,  useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { Avatar } from 'components/UI/Avatar';
 import { Datepicker } from 'components/UI/Datepicker';
@@ -12,190 +12,304 @@ import { Modal } from 'components/UI/Modal';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { LocalLoader } from 'components/UI/LocalLoader';
 import { IIUser } from 'types/iuser';
-import { useAuth} from '../../firebase';
+import { updateEmail, User } from 'firebase/auth';
+import { useFetching } from 'hooks/useFetching';
+import { INotificationType } from 'types/notification';
+import { MdDone } from 'react-icons/md';
+import { reAuth, setNewPassword, upload, useAuth } from '../../firebase';
 
 import * as S from './style';
 
 export const UserInfoPage = () => {
-	const currentUser = useAuth();
-	const {
-		authInfo: { avatar },
-	} = useAppSelector(state => state.authInfo);
-	const { user, loading } = useAppSelector(state => state.currentUser);
-	const { updateUserData, updateUserAvatar, updatePassword, updateUserEmail } = useActions();
-	const [current, setCurrent] = useState(user);
-	const { firstName, lastName, patronymic, dOb } = current;
-	const [newEmailModal, setNewEmailModal] = useState(false);
-	// preview image
-	const [photo, setPhoto] = useState<any>();
-	const [newImage, setNewImage] = useState<any>();
-	// input fields
-	const firstNameInput = useInput(firstName);
-	const lastNameInput = useInput(lastName);
-	const patronymicInput = useInput(patronymic);
-	const [date, setDate] = useState<any>(dOb);
+    const currentUser = useAuth();
+    const {
+        authInfo: { avatar },
+    } = useAppSelector((state) => state.authInfo);
+    const { user, loading } = useAppSelector((state) => state.currentUser);
+    const { isOpenEmailModal } = useAppSelector((state) => state.newEmailModal);
+    const {
+        updateUserData,
+        closeNewEmailModal,
+        openNewEmailModal,
+        addNotification,
+        updateAvatar,
+    } = useActions();
+    const [current, setCurrent] = useState(user);
+    const { firstName, lastName, patronymic, dOb } = current;
 
-	// reauth
-	const [currentPass, setCurrentPass] = useState('');
-	const [newPass, setNewPasss] = useState('');
-	const [confirmNewPass, setConfirmNewpass] = useState('');
-	const [newEmail, setNewEmail] = useState('');
+    // preview image
+    const [photo, setPhoto] = useState<any>();
+    const [newImage, setNewImage] = useState<any>();
 
-	const [emailLogin, setEmailLogin] = useState('');
-	const [passwordlLogin, setPasswordLogin] = useState('');
+    // userInfo fields
+    const firstNameInput = useInput(firstName);
+    const lastNameInput = useInput(lastName);
+    const patronymicInput = useInput(patronymic);
+    const [date, setDate] = useState<any>(dOb);
 
+    // auth fields
+    const currentPass = useInput('');
+    const newPass = useInput('', {});
+    const confimrNewPass = useInput('');
+    const newEmail = useInput('', { isEmpty: true, isEmail: true });
+    const emailLogin = useInput('');
+    const passwordLogin = useInput('');
 
-	const ref = useClickOutside(() => {
-		setNewEmailModal(false);
-	});
+    const [fetchNewEmail, loadingNewEmail] = useFetching(async () => {
+        return reAuth(passwordLogin.value, currentUser, emailLogin.value)
+            .then(() => {
+                updateEmail(currentUser as User, newEmail.value)
+                    .then(() => {
+                        addNotification({
+                            id: Date.now(),
+                            message: 'Вы успешно изменили почту!',
+                            type: INotificationType.success,
+                        });
+                        resetFormFields();
+                        closeNewEmailModal();
+                    })
+                    .catch(() => {
+                        addNotification({
+                            id: Date.now(),
+                            message: 'Что-то пошло не так',
+                            type: INotificationType.warning,
+                        });
+                    });
+            })
+            .catch(() => {
+                addNotification({
+                    id: Date.now(),
+                    message: 'Неверный логин или пароль',
+                    type: INotificationType.warning,
+                });
+            });
+    });
 
-	const imageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		const reader = new FileReader();
-		reader.onload = () => {
-			if (reader.readyState === 2) {
-				setNewImage(reader.result);
-			}
-		};
-		if (e.target.files) {
-			reader.readAsDataURL(e.target.files[0]);
-			setPhoto(e.target.files[0]);
-		}
-	};
+    const [fetchNewPassword, loadingNewPassword] = useFetching(async () => {
+        return setNewPassword(newPass.value, currentPass.value, currentUser)
+            .then(() => {
+                addNotification({
+                    id: Date.now(),
+                    message: 'Пароль успешно изменен!',
+                    type: INotificationType.success,
+                });
+            })
+            .catch(() => {
+                addNotification({
+                    id: Date.now(),
+                    message: 'Что-то пошло не так',
+                    type: INotificationType.warning,
+                });
+            });
+    });
 
-	const updateUserInfo = (e: ChangeEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const updatedUser: IIUser = {
-			firstName: firstNameInput.value,
-			lastName: lastNameInput.value,
-			patronymic: patronymicInput.value,
-			dOb: date.getTime(),
-		};
-		updateUserData(updatedUser);
-		if (photo) {
-			updateUserAvatar({
-				currentUser,
-				loadingPhoto: photo,
-				statePhoto: newImage,
-			});
-			setPhoto(null);
-		}
-	};
+    const [fetchNewPhoto, loadingNewPhoto] = useFetching(async () => {
+        if (photo){
+            return await upload(photo, currentUser).then(() => {
+                addNotification({
+                    id: Date.now(),
+                    message: 'Фото успешно обновлены',
+                    type: INotificationType.success,
+                });
+                setPhoto(null);
+                updateAvatar(newImage);
+            });
+        }else{
+            addNotification({
+                id: Date.now(),
+                message: 'Необходимо выбрать изображение',
+                type: INotificationType.warning,
+            });
 
-	useEffect(() => {
-		setCurrent(user);
-		if (user.dOb) {
-			setDate(new Date(user.dOb));
-		}
-	}, [user]);
+        }
 
-	useEffect(() => {
-		firstNameInput.setValue(user.firstName);
-		lastNameInput.setValue(user.lastName);
-		patronymicInput.setValue(user.patronymic);
-	}, [user]);
+    });
 
-	return (
-		<Section>
-			<S.Body>
-				<S.InfoBlock>
-					<h2>Персональные данные</h2>
-					<S.ProfileImage>
-						<Avatar src={newImage ? newImage : avatar} alt="avatar" />
-						<label>
-							<input type="file" onChange={imageHandler} />
-							<AiOutlineCamera size={30} />
-						</label>
-					</S.ProfileImage>
-					<S.Form>
-						<Input {...firstNameInput} label="Имя" />
-						<Input {...lastNameInput} label="Фамилия" />
-						<Input {...patronymicInput} label="Отчество" />
+    const ref = useClickOutside(() => {
+        closeNewEmailModal();
+    });
 
-						<Datepicker
-							placeholderText="13-13-2005"
-							selected={new Date(date)}
-							onChange={(date: Date) => setDate(date)}
-							dateFormat="d MMMM Y"
-							shouldCloseOnSelect={true}
-						/>
-						<Button onClick={updateUserInfo}>
-							{loading ? <LocalLoader height="35px" width="35px" /> : 'Сохранить'}
-						</Button>
-					</S.Form>
-				</S.InfoBlock>
-				<S.PrivateInfo>
-					<h2>Данные авторизации</h2>
-					<S.Form>
-						<h3>Пароль</h3>
+    const imageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setNewImage(reader.result);
+            }
+        };
+        if (e.target.files) {
+            reader.readAsDataURL(e.target.files[0]);
+            setPhoto(e.target.files[0]);
+        }
+    };
 
-						<Input
-							value={currentPass}
-							onChange={e => setCurrentPass(e.target.value)}
-							label="Текущий пароль"
-							type="password"
-						/>
-						<Input
-							value={newPass}
-							onChange={e => setNewPasss(e.target.value)}
-							label="Новый пароль"
-							type="password"
-						/>
-						<Input
-							value={confirmNewPass}
-							onChange={e => setConfirmNewpass(e.target.value)}
-							label="Повторите пароль"
-							type="password"
-						/>
-						<Button
-							onClick={() => updatePassword({ newPass, currentPass, currentUser })}
-						>
-							Изменить пароль
-						</Button>
-					</S.Form>
+    const resetFormFields = () => {
+        currentPass.setValue('');
+        newPass.setValue('');
+        confimrNewPass.setValue('');
+        newEmail.setValue('');
+        emailLogin.setValue('');
+        passwordLogin.setValue('');
+    };
 
-					<S.Form>
-						<h3>Почта</h3>
-						<Input
-							label="Введите новую почту"
-							value={newEmail}
-							onChange={(e: ChangeEvent<HTMLInputElement>) =>
-								setNewEmail(e.target.value)
-							}
-						/>
-						<Button onClick={() => setNewEmailModal(true)}>Изменить почту</Button>
-					</S.Form>
+    const updateUserInfo = (e: ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const updatedUser: IIUser = {
+            firstName: firstNameInput.value,
+            lastName: lastNameInput.value,
+            patronymic: patronymicInput.value,
+            dOb: date.getTime(),
+        };
+        updateUserData(updatedUser);
+    };
 
-					{newEmailModal && (
-						<Modal isOpen={newEmailModal}>
-							<S.ModalBody ref={ref}>
-								<h2>Нам необходимо убедиться что это действительно Вы.</h2>
-								<Input
-									label="Введите действующую почту"
-									value={emailLogin}
-									onChange={e => setEmailLogin(e.target.value)}
-								/>
-								<Input
-									label="Введите пароль"
-									value={passwordlLogin}
-									onChange={e => setPasswordLogin(e.target.value)}
-								/>
-								<Button
-									onClick={() =>
-										updateUserEmail({
-											currentUser,
-											emailLogin,
-											passwordlLogin,
-											newEmail,
-										})
-									}
-								>
-									{false ? <LocalLoader height="35px" width="35px" /> : 'Ok'}
-								</Button>
-							</S.ModalBody>
-						</Modal>
-					)}
-				</S.PrivateInfo>
-			</S.Body>
-		</Section>
-	);
+    const openEmailModal = () => {
+        !newEmail.errorMessage
+            ? openNewEmailModal()
+            : addNotification({
+                  id: Date.now(),
+                  type: INotificationType.warning,
+                  message: newEmail.errorMessage,
+              });
+    };
+
+    useEffect(() => {
+        setCurrent(user);
+        if (user.dOb) {
+            setDate(new Date(user.dOb));
+        }
+    }, [user]);
+
+    useEffect(() => {
+        firstNameInput.setValue(user.firstName);
+        lastNameInput.setValue(user.lastName);
+        patronymicInput.setValue(user.patronymic);
+        // eslint-disable-next-line
+    }, [user]);
+
+    return (
+        <Section>
+            <S.Body>
+                <S.InfoBlock>
+                    <h2>Персональные данные</h2>
+                    <S.ProfileImage>
+                        <Avatar
+                            src={newImage ? newImage : avatar}
+                            alt="avatar"
+                        />
+                        <label>
+                            <input type="file" onChange={imageHandler} />
+                            <AiOutlineCamera size={30} />
+                        </label>
+                        <S.ConfirmButton onClick={fetchNewPhoto}>
+                            {loadingNewPhoto ? (
+                                <LocalLoader height="30px" width="30px" />
+                            ) : (
+                                <MdDone />
+                            )}
+                        </S.ConfirmButton>
+                    </S.ProfileImage>
+                    <S.Form>
+                        <Input {...firstNameInput} label="Имя" />
+                        <Input {...lastNameInput} label="Фамилия" />
+                        <Input {...patronymicInput} label="Отчество" />
+
+                        <Datepicker
+                            placeholderText="13-13-2005"
+                            selected={new Date(date)}
+                            onChange={(date: Date) => setDate(date)}
+                            dateFormat="d MMMM Y"
+                            shouldCloseOnSelect={true}
+                            showYearDropdown
+                            dateFormatCalendar="MMMM"
+                            yearDropdownItemNumber={80}
+                            scrollableYearDropdown
+                            maxDate={new Date()}
+                        />
+                        <Button onClick={updateUserInfo}>
+                            {loading ? (
+                                <LocalLoader height="35px" width="35px" />
+                            ) : (
+                                'Сохранить'
+                            )}
+                        </Button>
+                    </S.Form>
+                </S.InfoBlock>
+                <S.PrivateInfo>
+                    <h2>Данные авторизации</h2>
+                    <S.Form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            fetchNewPassword();
+                        }}
+                    >
+                        <h3>Пароль</h3>
+
+                        <Input
+                            {...currentPass}
+                            label="Текущий пароль"
+                            type="password"
+                        />
+                        <Input
+                            {...newPass}
+                            label="Новый пароль"
+                            type="password"
+                        />
+                        <Input
+                            {...confimrNewPass}
+                            label="Повторите пароль"
+                            type="password"
+                        />
+                        <Button>
+                            {loadingNewPassword ? (
+                                <LocalLoader height="35px" width="35px" />
+                            ) : (
+                                'Изменить пароль'
+                            )}
+                        </Button>
+                    </S.Form>
+
+                    <S.Form onSubmit={openEmailModal}>
+                        <h3>Почта</h3>
+                        <Input label="Введите новую почту" {...newEmail} />
+                        <Button>Изменить почту</Button>
+                    </S.Form>
+
+                    {isOpenEmailModal && (
+                        <Modal isOpen={isOpenEmailModal}>
+                            <S.ModalBody ref={ref}>
+                                <h2>
+                                    Нам необходимо убедиться что это
+                                    действительно Вы.
+                                </h2>
+                                <S.EmailForm onSubmit={fetchNewEmail}>
+                                    <Input
+                                        autoFocus
+                                        label="Введите действующую почту"
+                                        {...emailLogin}
+                                    />
+                                    <Input
+                                        label="Введите пароль"
+                                        {...passwordLogin}
+                                        type="password"
+                                    />
+                                    <Button>
+                                        {loadingNewEmail ? (
+                                            <LocalLoader
+                                                height="35px"
+                                                width="35px"
+                                            />
+                                        ) : (
+                                            'Ok'
+                                        )}
+                                    </Button>
+                                </S.EmailForm>
+                            </S.ModalBody>
+                        </Modal>
+                    )}
+                </S.PrivateInfo>
+            </S.Body>
+        </Section>
+    );
 };
+
+// сделать календарь

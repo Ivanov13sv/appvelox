@@ -137,7 +137,6 @@ export const RegSecondStep = () => {
 					showYearDropdown
 					dateFormatCalendar="MMMM"
 					yearDropdownItemNumber={80}
-
 					scrollableYearDropdown
 				
 				/>

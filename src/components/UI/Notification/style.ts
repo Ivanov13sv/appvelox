@@ -44,6 +44,8 @@ const slideRight = keyframes`
 `;
 
 export const NotificationItem = styled.div<INotificationItem>`
+	z-index: 600;
+
 	width: 300px;
 	overflow: hidden;
 	background: white;
@@ -108,4 +110,6 @@ export const NotificationItem = styled.div<INotificationItem>`
 		`}
 `;
 
-export const NotificationWrapper = styled.div``;
+export const NotificationWrapper = styled.div`
+	position: relative;
+`;
