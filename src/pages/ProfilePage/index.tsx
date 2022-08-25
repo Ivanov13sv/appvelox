@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppointmentCard } from 'components/UI/AppointmentCard';
-import { ECard } from 'components/ECard';
+import { ECard } from 'components/UI/ECard';
 
 import { ReactComponent as Results } from 'assets/img/ECards-icons/results.svg';
 import { ReactComponent as Info } from 'assets/img/ECards-icons/info.svg';

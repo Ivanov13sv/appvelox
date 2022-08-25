@@ -16,9 +16,9 @@ import * as S from './style';
 export const Sidebar = () => {
     const sidebarItems = [
         { leftIcon: <Heart />, text: 'Профиль', path: 'profile' },
+        { leftIcon: <Test />, text: 'Мои записи', path: 'profile/appointment' },
         { leftIcon: <Stethoscope />, text: 'Врачи и клиника', path: 'doctors' },
         { leftIcon: <Message />, text: 'Сообщения', path: 'messages' },
-        { leftIcon: <Test />, text: 'Тестирование', path: 'test' },
         { leftIcon: <Book />, text: 'Полезно знать', path: 'goodtoknow' },
     ];
     const [activeItem, setActiveItem] = useLocalStorage('sidebarItem', 0);

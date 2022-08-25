@@ -1,48 +1,40 @@
-import React, { FC } from 'react';
-import setHours from 'date-fns/setHours';
-import setMinutes from 'date-fns/setMinutes';
-import subDays from 'date-fns/subDays';
-import * as S from './style';
+import { FC } from 'react';
+import { CalendarProps } from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { BsDot } from 'react-icons/bs';
+import { isReservedDay } from 'utils/isReservedDay';
+import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi';
+import { BigCalendar } from './style';
 
-interface CalendarProps {
-	date: Date;
-	setDate: (date: Date) => void;
-	filterTime?: (date: Date) => boolean;
-	filterDate?: (date: Date) => boolean;
-	reservedDates?: number[];
-	disabled?: boolean;
-	isError: boolean;
+interface IMyCalendar extends CalendarProps {
+    appointments: Date[];
 }
 
-export const Calendar: FC<CalendarProps> = ({
-	date,
-	setDate,
-	filterDate,
-	filterTime,
-	reservedDates,
-	disabled,
-	isError,
+export const MyCalendar: FC<IMyCalendar> = ({
+    value,
+    onChange,
+    onClickDay,
+    appointments,
 }) => {
-	return (
-		<S.DateTimePicker
-			isError={isError}
-			placeholderText="Выберите дату и время"
-			selected={date}
-			onChange={setDate}
-			showTimeSelect
-			timeFormat="HH:mm"
-			timeIntervals={60}
-			timeCaption="Время"
-			dateFormat="d MMMM в HH:mm"
-			minDate={subDays(new Date(), 0)}
-			filterTime={filterTime}
-			disabled={disabled}
-			minTime={setHours(setMinutes(new Date(), 0), 9)}
-			maxTime={setHours(setMinutes(new Date(), 30), 20)}
-			shouldCloseOnSelect={true}
-			filterDate={(date: Date) => {
-				return !reservedDates!.includes(date.getTime());
-			}}
-		/>
-	);
+    return (
+        <BigCalendar
+            value={value}
+            onChange={onChange}
+            nextLabel={<GrFormNext />}
+            prevLabel={<GrFormPrevious />}
+            next2Label={<HiChevronDoubleRight />}
+            prev2Label={<HiChevronDoubleLeft />}
+            onClickDay={onClickDay}
+            tileContent={({ date }) => {
+                return isReservedDay(appointments, date) ? (
+                    <BsDot size={30} />
+                ) : null;
+            }}
+            // tileClassName="tile"
+            tileClassName={({ activeStartDate, date, view }) =>
+                isReservedDay(appointments, date) ? 'tile reserved' : 'tile'
+            }
+        />
+    );
 };

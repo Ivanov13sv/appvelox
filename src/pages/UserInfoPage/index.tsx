@@ -311,5 +311,3 @@ export const UserInfoPage = () => {
         </Section>
     );
 };
-
-// сделать календарь
