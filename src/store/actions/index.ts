@@ -8,6 +8,7 @@ import { dropdownActions } from 'store/slices/dropdownSlice';
 import { modalActions } from 'store/slices/modalSlice';
 import { notificationActions } from 'store/slices/notificationSlice';
 import { asyncActions } from 'store/actions/asyncActionCreators';
+import { newEmailModalActions } from 'store/slices/newEmailModalSlice';
 
 export const allActions = {
 	...successActions,
@@ -19,5 +20,6 @@ export const allActions = {
 	...currentUserActions,
 	...modalActions,
 	...notificationActions,
-	...asyncActions
+	...asyncActions,
+	...newEmailModalActions
 };

@@ -9,70 +9,66 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';
 import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
 import { Modal } from 'components/UI/Modal';
-import { useDisableScroll } from 'hooks/useDisableScroll';
-import { useLocalStorage } from 'hooks/useLocalStorage';
-import { useClickOutside } from 'hooks/useClickOutside';
 
 export const Layout = () => {
-	const { successReg } = useAppSelector(state => state.successReg);
-	const { isModalOpen } = useAppSelector(state => state.modal);
-	const {
-		authInfo: { id: userId },
-	} = useAppSelector(state => state.authInfo);
-	const {
-		hideSuccessReg,
-		fetchCurrentUser,
-		fetchAppointments,
-		fetchDoctors,
-		removeAllAppointments,
-		closeModal,
-	} = useActions();
+    const { successReg } = useAppSelector((state) => state.successReg);
+    const { isModalOpen } = useAppSelector((state) => state.modal);
+    const {
+        authInfo: { id: userId },
+    } = useAppSelector((state) => state.authInfo);
+    const {
+        hideSuccessReg,
+        fetchCurrentUser,
+        fetchAppointments,
+        fetchDoctors,
+        removeAllAppointments,
+    } = useActions();
 
-	useEffect(() => {
-		if (successReg) {
-			setTimeout(() => {
-				hideSuccessReg();
-			}, 2700);
-		}
-	}, [successReg, hideSuccessReg]);
+    useEffect(() => {
+        if (successReg) {
+            setTimeout(() => {
+                hideSuccessReg();
+            }, 2700);
+        }
+    }, [successReg, hideSuccessReg]);
 
-	useEffect(() => {
-		fetchCurrentUser();
-		fetchAppointments(userId as string);
-		fetchDoctors();
-		return () => {
-			removeAllAppointments();
-		};
-		//eslint-disable-next-line
-	}, [userId]);
+    useEffect(() => {
+        fetchCurrentUser();
+        fetchAppointments(userId as string);
+        fetchDoctors();
+        return () => {
+            removeAllAppointments();
+        };
+        //eslint-disable-next-line
+    }, [userId]);
 
-	if (successReg) {
-		return <SuccessScreen />;
-	}
+    if (successReg) {
+        return <SuccessScreen />;
+    }
 
-	return (
-		<Wrapper>
-			<Header />
-			{isModalOpen && (
-				<Modal isOpen={isModalOpen}>
-					<MakeAnAppointment />
-				</Modal>
-			)}
+    return (
+        <Wrapper>
+            <Header />
+            {isModalOpen && (
+                <Modal isOpen={isModalOpen}>
+                    <MakeAnAppointment />
+                </Modal>
+            )}
 
-			<Main>
-				<Outlet />
-			</Main>
-			<Sidebar />
-		</Wrapper>
-	);
+            <Main>
+                <Outlet />
+            </Main>
+            <Sidebar />
+        </Wrapper>
+    );
 };
 
 const Wrapper = styled.div`
-	display: grid;
-	grid-template-areas:
-		'side header'
-		'side main';
-	grid-template-columns: 190px 1fr;
-	grid-template-rows: 55px 1fr;
-	height: 100%;
+    display: grid;
+    grid-template-areas:
+        'side header'
+        'side main';
+    grid-template-columns: 190px 1fr;
+    grid-template-rows: 55px 1fr;
+    height: 100%;
 `;

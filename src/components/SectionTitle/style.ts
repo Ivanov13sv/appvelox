@@ -6,6 +6,7 @@ interface TitleProps {
 }
 
 export const Title = styled.h2<TitleProps>`
+padding-left: 10px;
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;

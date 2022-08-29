@@ -9,6 +9,7 @@ import currentUserSlice from './slices/currentUserSlice';
 import modalSlice from './slices/modalSlice';
 import doctorsSlice from './slices/doctorsSlice';
 import notificationSlice from './slices/notificationSlice';
+import newEmailModalSlice from './slices/newEmailModalSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
 		modal: modalSlice,
 		doctors: doctorsSlice,
 		notification: notificationSlice,
+		newEmailModal: newEmailModalSlice,
 	},
 
 	middleware: getDefaultMiddleware => getDefaultMiddleware(),

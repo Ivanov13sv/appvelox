@@ -49,7 +49,6 @@ export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
 			setMenuHeight(secondaryMenuRef.current?.clientHeight);
 		}
 	}, [menuOpen]);
-	console.log(user)
 
 	return (
 		<S.Overlay>

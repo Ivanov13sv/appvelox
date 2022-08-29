@@ -13,6 +13,7 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
 	type?: string;
 	onBlur?: () => void;
 	error?: string;
+	autoFocus?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -25,6 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 		isPassword = false,
 		onBlur,
 		error = '',
+		autoFocus = false,
 	} = props;
 
 	const [isFocus, setIsFocus] = useState(false);
@@ -60,6 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 				onFocus={() => setIsFocus(true)}
 				onBlur={onBlury}
 				placeholder={isShowPlaceholder}
+				autoFocus={autoFocus}
 			/>
 			{error && <S.ErrorMessage>{error}</S.ErrorMessage>}
 			{isPassword && (

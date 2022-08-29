@@ -6,7 +6,7 @@ export const Appointments = styled.section`
 
 export const AppointmentsBody = styled.div`
 	display: flex;
-	gap: 40px;
+	gap: 15rem;
     padding: 0 20px;
 `;
 
