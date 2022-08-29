@@ -7,14 +7,14 @@ import * as S from './style';
 interface NavbarItemProps {
 	icon: JSX.Element;
 	children?: JSX.Element;
+	onHover?: () => void
 }
 
-export const NavbarItem: FC<NavbarItemProps> = ({ icon, children }) => {
+export const NavbarItem: FC<NavbarItemProps> = ({ icon, children, onHover }) => {
 	const { isOpen } = useAppSelector(state => state.dropdown);
 	const { openDropdown } = useActions();
 
 	const openHandler = () => {
-		
 		if (children) {
 			openDropdown();
 	
@@ -22,7 +22,7 @@ export const NavbarItem: FC<NavbarItemProps> = ({ icon, children }) => {
 	};
 
 	return (
-		<S.NavbarItem>
+		<S.NavbarItem onMouseEnter={onHover}>
 			<IconButton icon={icon} onClick={openHandler} />
 			{isOpen && children}
 		</S.NavbarItem>

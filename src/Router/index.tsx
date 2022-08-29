@@ -22,10 +22,7 @@ export const Router: FC = () => {
                 <Route element={<Layout />}>
                     <Route path="profile" element={<ProfilePage />} />
                     <Route path="profile/userInfo" element={<UserInfoPage />} />
-                    <Route
-                        path="profile/appointment"
-                        element={<AppointmentsPage />}
-                    />
+                    <Route path="appointments" element={<AppointmentsPage />} />
                     <Route path="doctors" element={<DoctorsPage />}></Route>
                     <Route
                         path="doctors/:doctorId"

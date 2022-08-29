@@ -19,7 +19,7 @@ function App() {
             logIn({
                 email: user.email,
                 id: user.uid,
-                //@ts-ignore
+                // @ts-ignore
                 token: user.accessToken,
                 avatar: user.photoURL as string,
             });

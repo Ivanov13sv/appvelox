@@ -31,7 +31,8 @@ export const DoctorDetailsPage = () => {
 
     return (
         <Section>
-            <SectionBackButton />
+            <SectionBackButton text="Назад" />
+
             <S.Body>
                 <S.PersonalInfo>
                     <img src={details?.photo} alt="doctorsPhoto" />

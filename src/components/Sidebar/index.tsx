@@ -1,4 +1,4 @@
-import  { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { ReactComponent as Heart } from 'assets/img/Sidebar-icons/heart.svg';
 import { ReactComponent as Stethoscope } from 'assets/img/Sidebar-icons/stethoscope.svg';
 import { ReactComponent as Message } from 'assets/img/Sidebar-icons/message.svg';
@@ -7,24 +7,45 @@ import { ReactComponent as Book } from 'assets/img/Sidebar-icons/book.svg';
 import { ReactComponent as Help } from 'assets/img/Sidebar-icons/help.svg';
 import { Button } from 'components/UI/Button';
 import logo from 'assets/img/Sidebar-icons/logo.png';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useActions } from 'hooks/useActions';
+import { useLocation } from 'react-router-dom';
 import { SidebarItem } from './SidebarItem';
 
 import * as S from './style';
 
 export const Sidebar = () => {
-    const sidebarItems = [
-        { leftIcon: <Heart />, text: 'Профиль', path: 'profile' },
-        { leftIcon: <Test />, text: 'Мои записи', path: 'profile/appointment' },
-        { leftIcon: <Stethoscope />, text: 'Врачи и клиника', path: 'doctors' },
-        { leftIcon: <Message />, text: 'Сообщения', path: 'messages' },
-        { leftIcon: <Book />, text: 'Полезно знать', path: 'goodtoknow' },
-    ];
-    const [activeItem, setActiveItem] = useLocalStorage('sidebarItem', 0);
+    const sidebarItems = useMemo(() => {
+        return [
+            { leftIcon: <Heart />, text: 'Профиль', path: '/profile' },
+            { leftIcon: <Test />, text: 'Мои записи', path: '/appointments' },
+            {
+                leftIcon: <Stethoscope />,
+                text: 'Врачи и клиника',
+                path: '/doctors',
+            },
+            { leftIcon: <Message />, text: 'Сообщения', path: '/messages' },
+            { leftIcon: <Book />, text: 'Полезно знать', path: '/goodtoknow' },
+        ];
+    }, []);
+
+    const [activeItem, setActiveItem] = useState(0);
     const [height, setHeight] = useState(0);
     const { openModal } = useActions();
     const ref = useRef<HTMLLIElement>(null);
+    const location = useLocation();
+
+    useEffect(() => {
+        const isContainPath = sidebarItems.find(
+            (item) => item.path === location.pathname
+        );
+        if (isContainPath) {
+            setActiveItem(
+                sidebarItems.findIndex(
+                    (item) => item.path === location.pathname
+                )
+            );
+        }
+    }, [location, sidebarItems]);
 
     useEffect(() => {
         if (ref.current) {
@@ -46,12 +67,10 @@ export const Sidebar = () => {
                     <SidebarItem
                         to={item.path}
                         ref={ref}
-                        index={index + 1}
                         key={index}
                         leftIcon={item.leftIcon}
                         text={item.text}
                         isActive={index === activeItem}
-                        setActive={setActiveItem}
                     />
                 ))}
                 <Button onClick={() => openModal()}>Подать заявку</Button>

@@ -14,6 +14,10 @@ import * as S from './style';
 export const Header = () => {
 	const { authInfo:{avatar} } = useAppSelector(state => state.authInfo);
 
+	const test = () =>{
+		console.log('hover')
+	}
+
 	return (
 		<S.Header>
 			<S.HeaderBody>
@@ -21,7 +25,7 @@ export const Header = () => {
 				<Navbar>
 					<NavbarItem icon={<Search />} />
 					<NavbarItem icon={<Bell />} />
-					<NavbarItem icon={<Eye />} />
+					<NavbarItem onHover={test} icon={<Eye />} />
 					<Avatar border="2px solid white" alt="avatar" src={avatar} />
 					<NavbarItem icon={<BsFillGrid3X3GapFill />}>
 						<Dropdown isOpen={true} />

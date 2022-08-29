@@ -7,6 +7,7 @@ import { Modal } from 'components/UI/Modal';
 import { isReservedDay } from 'utils/isReservedDay';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { getFormateDateWithTime } from 'utils/formateDate';
+import { LocalLoader } from 'components/UI/LocalLoader';
 import styled from 'styled-components';
 import * as S from './style';
 
@@ -30,19 +31,27 @@ export const AppointmentsPage: FC = () => {
         month: 'long',
         day: 'numeric',
     });
+    const appointmentsCards = appointments.map((item) => (
+        <AppointmentCard
+            key={item.id}
+            removeAppointment={removeAppointment}
+            loading={loading}
+            {...item}
+        />
+    ));
     return (
         <S.Appointments>
             <S.AppointmentsBody>
                 <S.CardsList>
-                    {appointments.length? appointments.map((item) => (
-                        <AppointmentCard
-                            key={item.id}
-                            removeAppointment={removeAppointment}
-                            loading={loading}
-                            {...item}
-                        />
-                    )):
-                    <div>У вас нет записей</div>}
+                    {loading && !appointments.length ? (
+                        <LocalLoader width="50px" height="50px" />
+                    ) : (
+                        appointmentsCards
+                    )}
+
+                    {!appointments.length && !loading && (
+                        <div>У вас нет активных записей</div>
+                    )}
                 </S.CardsList>
 
                 <MyCalendar
@@ -84,7 +93,7 @@ const ModalWrapper = styled.div`
     padding: 2rem;
     flex-direction: column;
     gap: 2rem;
-    h3{
+    h3 {
         text-align: center;
         font-weight: 500;
     }
@@ -99,7 +108,7 @@ const AppointmentListItem = styled.li`
     flex: 0 0 45%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;    
+    justify-content: space-between;
 `;
 
 const List = styled.ul`
@@ -110,17 +119,16 @@ const List = styled.ul`
     justify-content: center;
     overflow-y: auto;
     &::-webkit-scrollbar {
-        
-		width: 8px;
-	}
-	&::-webkit-scrollbar-track {
-		background: #ebe7ff;
-		border-radius: 5px;
-	}
-	&::-webkit-scrollbar-thumb {
-		background: #003b72;
-		border-radius: 5px;
-	}
-
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #ebe7ff;
+        border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #003b72;
+        border-radius: 5px;
+    }
 `;
 
+// Добавить надпись, если нет записей

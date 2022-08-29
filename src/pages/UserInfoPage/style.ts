@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ProfileImage = styled.div`
     width: 200px;
@@ -53,7 +53,11 @@ export const ProfileImage = styled.div`
     }
 `;
 
-export const ConfirmButton = styled.button`
+interface IConfirmButton {
+    isSelected: boolean;
+}
+
+export const ConfirmButton = styled.button<IConfirmButton>`
     cursor: pointer;
     transition: transform 0.1s ease-in-out;
     position: absolute;
@@ -69,16 +73,31 @@ export const ConfirmButton = styled.button`
     align-items: center;
     justify-content: center;
     border: none;
+ 
+    svg {
+        color: #9b9a9a;
+        transform: scale(1.5);
+    }
     &:hover {
         transform: scale(1.03);
         svg {
-            color: green;
+            color: grey;
         }
     }
-    svg {
-        color: #00800082;
-        transform: scale(1.5);
-    }
+
+    ${(props) =>
+        props.isSelected &&
+        css`
+            svg {
+                color: #00800082;
+                transform: scale(1.5);
+            }
+            &:hover {
+                svg {
+                    color: green;
+                }
+            }
+        `}
 `;
 
 export const Form = styled.form`

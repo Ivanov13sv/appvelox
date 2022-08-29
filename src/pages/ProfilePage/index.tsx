@@ -55,7 +55,7 @@ export const ProfilePage: FC = () => {
 					Еще {appointments.length - 2}
 					{restAdmissions}
 				</span>
-				<Link to="/profile/appointment">Подборнее</Link>
+				<Link to="/appointments">Подборнее</Link>
 			</>
 		) : null;
 
