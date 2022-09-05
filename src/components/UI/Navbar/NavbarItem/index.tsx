@@ -5,26 +5,26 @@ import { useActions } from 'hooks/useActions';
 import * as S from './style';
 
 interface NavbarItemProps {
-	icon: JSX.Element;
-	children?: JSX.Element;
-	onHover?: () => void
+    icon: JSX.Element;
+    children?: JSX.Element;
+    newAction?: boolean;
+
 }
 
-export const NavbarItem: FC<NavbarItemProps> = ({ icon, children, onHover }) => {
-	const { isOpen } = useAppSelector(state => state.dropdown);
-	const { openDropdown } = useActions();
+export const NavbarItem: FC<NavbarItemProps> = ({ icon, children, newAction = false }) => {
+    const { isOpen } = useAppSelector((state) => state.dropdown);
+    const { openDropdown } = useActions();
 
-	const openHandler = () => {
-		if (children) {
-			openDropdown();
-	
-		}
-	};
+    const openHandler = () => {
+        if (children) {
+            openDropdown();
+        }
+    };
 
-	return (
-		<S.NavbarItem onMouseEnter={onHover}>
-			<IconButton icon={icon} onClick={openHandler} />
-			{isOpen && children}
-		</S.NavbarItem>
-	);
+    return (
+        <S.NavbarItem newAction={newAction}>
+            <IconButton icon={icon} onClick={openHandler} />
+            {isOpen && children}
+        </S.NavbarItem>
+    );
 };

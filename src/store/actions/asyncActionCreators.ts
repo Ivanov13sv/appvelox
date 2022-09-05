@@ -9,7 +9,7 @@ import {
     updateDoc,
 } from 'firebase/firestore';
 import { RootState } from 'store';
-import { INotificationType } from 'types/notification';
+import { INotification, INotificationType } from 'types/notification';
 import { appointmentsActions } from 'store/slices/appointmentsSlice';
 import { notificationActions } from 'store/slices/notificationSlice';
 import { currentUserActions } from 'store/slices/currentUserSlice';
@@ -17,30 +17,33 @@ import { modalActions } from 'store/slices/modalSlice';
 import { IAppointment } from 'types/appointment';
 import { IDoctor } from 'types/doctors';
 import { IIUser } from 'types/iuser';
-import { newEmailModalActions } from 'store/slices/newEmailModalSlice';
-import { authInfoActions } from 'store/slices/authInfoSlice';
-import { updateEmail } from 'firebase/auth';
-import { db, reAuth, setNewPassword, upload } from '../../firebase';
+import { IUserActivity, userActivityActions } from 'store/slices/userActivity';
+import { db } from '../../firebase';
 
 const fetchAppointments = createAsyncThunk(
     'appointments/fetchAppointments',
-    async (id: string, { dispatch }) => {
-        const docRef = doc(db, 'user', id);
-        const docSnap = await getDoc(docRef);
-        try {
-            const response = docSnap.data();
-            const result = response?.appointments.map(
-                (item: IAppointment) => item
-            );
-            return result;
-        } catch (error) {
-            dispatch(
-                notificationActions.addNotification({
-                    id: Date.now(),
-                    message: 'Произошла ошибка при загрузке записей',
-                    type: INotificationType.error,
-                })
-            );
+    async (_, { dispatch, getState }) => {
+        const {
+            authInfo: { authInfo },
+        } = getState() as RootState;
+        if (authInfo.id) {
+            const docRef = doc(db, 'user', authInfo.id);
+            const docSnap = await getDoc(docRef);
+            try {
+                const response = docSnap.data();
+                const result = response?.appointments.map(
+                    (item: IAppointment) => item
+                );
+                return result;
+            } catch (error) {
+                dispatch(
+                    notificationActions.addNotification({
+                        id: Date.now(),
+                        message: 'Произошла ошибка при загрузке записей',
+                        type: INotificationType.error,
+                    })
+                );
+            }
         }
     }
 );
@@ -76,19 +79,19 @@ const removeAppointment = createAsyncThunk(
                 }).then(() => {
                     dispatch(appointmentsActions.deleteAppointment(id));
                     dispatch(
-                        notificationActions.addNotification({
+                        addNotificationWithStory({
                             id: Date.now(),
                             message: 'Вы отменили запись',
-                            type: INotificationType.warning,
+                            type: INotificationType.error,
                         })
                     );
                 });
             } catch (error) {
                 dispatch(
-                    notificationActions.addNotification({
+                    addNotificationWithStory({
                         id: Date.now(),
                         message: 'Произошла ошибка',
-                        type: INotificationType.error,
+                        type: INotificationType.warning,
                     })
                 );
             }
@@ -98,7 +101,6 @@ const removeAppointment = createAsyncThunk(
 
 interface IAddAppointment {
     selectedDoctorId: string;
-    currentUserId: string;
     doctorAppointment: {
         id: string;
         date: number;
@@ -108,41 +110,46 @@ interface IAddAppointment {
 
 export const addAppointment = createAsyncThunk(
     'appointments/addAppointment',
-    async (args: IAddAppointment, { dispatch }) => {
+    async (args: IAddAppointment, { dispatch, getState }) => {
+        const {
+            authInfo: { authInfo },
+        } = getState() as RootState;
         const {
             selectedDoctorId,
-            currentUserId,
             doctorAppointment,
             userAppointment,
         } = args;
-        const doctorRef = doc(db, 'doctors', selectedDoctorId);
-        const userRef = doc(db, 'user', currentUserId);
+        if (authInfo.id) {
+            const doctorRef = doc(db, 'doctors', selectedDoctorId);
+            const userRef = doc(db, 'user', authInfo.id);
 
-        try {
-            await updateDoc(doctorRef, {
-                appointments: arrayUnion(doctorAppointment),
-            });
-            await updateDoc(userRef, {
-                appointments: arrayUnion(userAppointment),
-            }).then(() => {
-                dispatch(modalActions.toggleModal());
+            try {
+                await updateDoc(doctorRef, {
+                    appointments: arrayUnion(doctorAppointment),
+                });
+                await updateDoc(userRef, {
+                    appointments: arrayUnion(userAppointment),
+                }).then(() => {
+                    dispatch(modalActions.toggleModal());
+
+                    dispatch(
+                        addNotificationWithStory({
+                            id: Date.now(),
+                            message: 'Вы успешно записались!',
+                            type: INotificationType.success,
+                        })
+                    );
+                });
+                return userAppointment;
+            } catch (error) {
                 dispatch(
-                    notificationActions.addNotification({
+                    addNotificationWithStory({
                         id: Date.now(),
-                        message: 'Вы успешно записались!',
-                        type: INotificationType.success,
+                        message: 'Что-то пошло не так',
+                        type: INotificationType.warning,
                     })
                 );
-            });
-            return userAppointment
-        } catch (error) {
-            dispatch(
-                notificationActions.addNotification({
-                    id: Date.now(),
-                    message: 'Что-то пошло не так',
-                    type: INotificationType.error,
-                })
-            );
+            }
         }
     }
 );
@@ -167,7 +174,7 @@ const fetchCurrentUser = createAsyncThunk(
             }
         } catch (error) {
             dispatch(
-                notificationActions.addNotification({
+                addNotificationWithStory({
                     id: Date.now(),
                     message:
                         'Произошла ошибка при загрузке данных пользователя',
@@ -193,16 +200,16 @@ const updateUserData = createAsyncThunk(
                 }).then(() => {
                     dispatch(currentUserActions.updateData(data));
                     dispatch(
-                        notificationActions.addNotification({
+                        addNotificationWithStory({
                             id: Date.now(),
-                            message: 'Данные успешно обновлены',
+                            message: 'Персональные данные изменены!',
                             type: INotificationType.success,
                         })
                     );
                 });
             } catch (e) {
                 dispatch(
-                    notificationActions.addNotification({
+                    addNotificationWithStory({
                         id: Date.now(),
                         message: 'Произошла ошибка при обновлении данных',
                         type: INotificationType.warning,
@@ -212,14 +219,6 @@ const updateUserData = createAsyncThunk(
         }
     }
 );
-
-interface IUpdateUserAvatar {
-    currentUser: any;
-    loadingPhoto: any;
-    statePhoto: any;
-}
-
-
 
 const fetchDoctors = createAsyncThunk(
     'doctors/fetchDoctors',
@@ -238,6 +237,99 @@ const fetchDoctors = createAsyncThunk(
     }
 );
 
+const fetchUserActivity = createAsyncThunk(
+    'userActivity/fetchUserActivity',
+    async (_, { dispatch, getState }) => {
+        const {
+            authInfo: { authInfo },
+        } = getState() as RootState;
+        if (authInfo.id) {
+            const docRef = doc(db, 'user', authInfo.id);
+            const docSnap = await getDoc(docRef);
+            try {
+                const response = docSnap.data();
+                const result = response?.activities.map(
+                    (item: IUserActivity) => item
+                );
+                return result;
+            } catch (error) {
+                dispatch(
+                    notificationActions.addNotification({
+                        id: Date.now(),
+                        message: 'Произошла ошибка при загрузке истории',
+                        type: INotificationType.error,
+                    })
+                );
+            }
+        }
+    }
+);
+
+const updateUserActivity = createAsyncThunk(
+    'userActivity/updateUserActivity',
+    async (_, { getState }) => {
+        const {
+            authInfo: { authInfo },
+            userActivity: { activities },
+        } = getState() as RootState;
+        const userRef = doc(db, 'user', authInfo.id as string);
+
+        try {
+            await updateDoc(userRef, {
+                activities: activities,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+);
+
+const addNotificationWithStory = createAsyncThunk(
+    'userActivity/addNotificationWithStory',
+    async (activity: INotification, { getState, dispatch }) => {
+        const {
+            authInfo: { authInfo },
+        } = getState() as RootState;
+        if (authInfo.id) {
+            const newActivity = {
+                ...activity,
+                checked: false,
+                date: Date.now(),
+            };
+            dispatch(userActivityActions.addNewActivity(newActivity));
+            dispatch(notificationActions.addNotification(activity));
+            const userRef = doc(db, 'user', authInfo.id);
+            await updateDoc(userRef, {
+                activities: arrayUnion(newActivity),
+            });
+        }
+    }
+);
+
+const toggleActivity = createAsyncThunk(
+    'userActivity/toggleActivity',
+    async (id: number, { getState, dispatch }) => {
+        const {
+            authInfo: { authInfo },
+            userActivity: { activities },
+        } = getState() as RootState;
+        if (authInfo.id) {
+            const userRef = doc(db, 'user', authInfo.id);
+            dispatch(userActivityActions.toggleUserActivity(id));
+            const updatedActivityArr = activities.map((item) => {
+                if (item.id === id) {
+                    return { ...item, checked: true };
+                }
+                return item;
+            });
+            await updateDoc(userRef, {
+                activities: updatedActivityArr,
+            });
+            return updatedActivityArr;
+        }
+    }
+);
+
 export const asyncActions = {
     fetchAppointments,
     removeAppointment,
@@ -245,4 +337,8 @@ export const asyncActions = {
     fetchDoctors,
     updateUserData,
     addAppointment,
+    fetchUserActivity,
+    updateUserActivity,
+    addNotificationWithStory,
+    toggleActivity,
 };

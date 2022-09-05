@@ -13,10 +13,9 @@ import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 
 interface DropdownProps {
-	isOpen: boolean;
 }
 
-export const Dropdown: FC<DropdownProps> = ({ isOpen }) => {
+export const Dropdown: FC<DropdownProps> = () => {
 	const [menuOpen, setMenuOpen] = useState('main');
 	const [menuHeight, setMenuHeight] = useState<null | number>();
 	const { logOut, closeDropdown, toggleModal } = useActions();
