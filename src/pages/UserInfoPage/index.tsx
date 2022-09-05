@@ -2,7 +2,7 @@ import { Input } from 'components/UI/Input';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useInput } from 'hooks/useInput';
-import { ChangeEvent,  useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { Avatar } from 'components/UI/Avatar';
 import { Datepicker } from 'components/UI/Datepicker';
@@ -15,11 +15,11 @@ import { IIUser } from 'types/iuser';
 import { updateEmail, User } from 'firebase/auth';
 import { useFetching } from 'hooks/useFetching';
 import { INotificationType } from 'types/notification';
+import { SectionBackButton } from 'components/UI/SectionBackButton';
 import { MdDone } from 'react-icons/md';
 import { reAuth, setNewPassword, upload, useAuth } from '../../firebase';
 
 import * as S from './style';
-import { SectionBackButton } from 'components/UI/SectionBackButton';
 
 export const UserInfoPage = () => {
     const currentUser = useAuth();
@@ -34,6 +34,7 @@ export const UserInfoPage = () => {
         openNewEmailModal,
         addNotification,
         updateAvatar,
+        addNotificationWithStory,
     } = useActions();
     const [current, setCurrent] = useState(user);
     const { firstName, lastName, patronymic, dOb } = current;
@@ -61,11 +62,12 @@ export const UserInfoPage = () => {
             .then(() => {
                 updateEmail(currentUser as User, newEmail.value)
                     .then(() => {
-                        addNotification({
+                        addNotificationWithStory({
                             id: Date.now(),
                             message: 'Вы успешно изменили почту!',
                             type: INotificationType.success,
                         });
+
                         resetFormFields();
                         closeNewEmailModal();
                     })
@@ -89,25 +91,28 @@ export const UserInfoPage = () => {
     const [fetchNewPassword, loadingNewPassword] = useFetching(async () => {
         return setNewPassword(newPass.value, currentPass.value, currentUser)
             .then(() => {
-                addNotification({
+                addNotificationWithStory({
                     id: Date.now(),
-                    message: 'Пароль успешно изменен!',
+                    message: 'Вы изменили пароль!',
                     type: INotificationType.success,
                 });
+                newPass.setValue('');
+                currentPass.setValue('');
+                confimrNewPass.setValue('');
             })
             .catch(() => {
                 addNotification({
                     id: Date.now(),
-                    message: 'Что-то пошло не так',
+                    message: 'Неверный пароль',
                     type: INotificationType.warning,
                 });
             });
     });
 
     const [fetchNewPhoto, loadingNewPhoto] = useFetching(async () => {
-        if (photo){
+        if (photo) {
             return await upload(photo, currentUser).then(() => {
-                addNotification({
+                addNotificationWithStory({
                     id: Date.now(),
                     message: 'Фото успешно обновлено!',
                     type: INotificationType.success,
@@ -115,15 +120,13 @@ export const UserInfoPage = () => {
                 setPhoto(null);
                 updateAvatar(newImage);
             });
-        }else{
+        } else {
             addNotification({
                 id: Date.now(),
                 message: 'Необходимо выбрать изображение',
                 type: INotificationType.warning,
             });
-
         }
-
     });
 
     const ref = useClickOutside(() => {
@@ -189,7 +192,7 @@ export const UserInfoPage = () => {
 
     return (
         <Section>
-            <SectionBackButton text='Назад'/>
+            <SectionBackButton text="Назад" />
             <S.Body>
                 <S.InfoBlock>
                     <h2>Персональные данные</h2>
@@ -202,7 +205,10 @@ export const UserInfoPage = () => {
                             <input type="file" onChange={imageHandler} />
                             <AiOutlineCamera size={30} />
                         </label>
-                        <S.ConfirmButton isSelected={photo} onClick={fetchNewPhoto}>
+                        <S.ConfirmButton
+                            isSelected={photo}
+                            onClick={fetchNewPhoto}
+                        >
                             {loadingNewPhoto ? (
                                 <LocalLoader height="30px" width="30px" />
                             ) : (
@@ -270,10 +276,10 @@ export const UserInfoPage = () => {
                         </Button>
                     </S.Form>
 
-                    <S.Form onSubmit={openEmailModal}>
+                    <S.Form>
                         <h3>Почта</h3>
                         <Input label="Введите новую почту" {...newEmail} />
-                        <Button>Изменить почту</Button>
+                        <Button onClick={openEmailModal}>Изменить почту</Button>
                     </S.Form>
 
                     {isOpenEmailModal && (

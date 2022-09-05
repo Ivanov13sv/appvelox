@@ -13,6 +13,8 @@ import { Modal } from 'components/UI/Modal';
 export const Layout = () => {
     const { successReg } = useAppSelector((state) => state.successReg);
     const { isModalOpen } = useAppSelector((state) => state.modal);
+    const { activities } = useAppSelector((state) => state.userActivity);
+
     const {
         authInfo: { id: userId },
     } = useAppSelector((state) => state.authInfo);
@@ -22,6 +24,8 @@ export const Layout = () => {
         fetchAppointments,
         fetchDoctors,
         removeAllAppointments,
+        fetchUserActivity,
+        updateUserActivity,
     } = useActions();
 
     useEffect(() => {
@@ -34,13 +38,19 @@ export const Layout = () => {
 
     useEffect(() => {
         fetchCurrentUser();
-        fetchAppointments(userId as string);
+        fetchAppointments();
+        fetchUserActivity();
         fetchDoctors();
         return () => {
             removeAllAppointments();
         };
         //eslint-disable-next-line
     }, [userId]);
+
+
+    // useEffect(() => {
+    //     updateUserActivity();
+    // }, [activities]);
 
     if (successReg) {
         return <SuccessScreen />;
@@ -72,3 +82,11 @@ const Wrapper = styled.div`
     grid-template-rows: 55px 1fr;
     height: 100%;
 `;
+
+// сделать
+// нотификация совместно с добавлением newActivity в состояние
+// и после изменения состояния (попорбовать
+// useEffect (() =>{
+
+// },[fn])
+// ) сделать fetch update Activities

@@ -18,8 +18,9 @@ import setMinutes from 'date-fns/setMinutes';
 import subDays from 'date-fns/subDays';
 import { Datepicker } from 'components/UI/Datepicker';
 import { useClickOutside } from 'hooks/useClickOutside';
-import {  fetchReservedDates } from '../../firebase';
+import { fetchReservedDates } from '../../firebase';
 import * as S from './style';
+
 
 export const MakeAnAppointment = () => {
     const [date, setDate] = useState<any>(null);
@@ -34,6 +35,7 @@ export const MakeAnAppointment = () => {
         id: '',
         option: '',
     });
+
     const [selectedDoctor, setSelectedDoctor] = useState<ISelectItem>({
         id: '',
         option: '',
@@ -69,7 +71,6 @@ export const MakeAnAppointment = () => {
         if (userId) {
             addAppointment({
                 selectedDoctorId: selectedDoctor.id,
-                currentUserId: userId,
                 doctorAppointment,
                 userAppointment,
             });

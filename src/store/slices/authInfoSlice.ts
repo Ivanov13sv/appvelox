@@ -1,19 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { asyncActions } from 'store/actions/asyncActionCreators';
 
-// export interface AuthState {
-// 	email: null | string;
-// 	token: null | string;
-// 	id: null | string;
-// 	avatar: string;
-// }
-
-// const initialState: AuthState = {
-// 	email: null,
-// 	id: null,
-// 	token: null,
-// 	avatar: ''
-// };
 
 interface IAuthInfo {
     email: string | null;
