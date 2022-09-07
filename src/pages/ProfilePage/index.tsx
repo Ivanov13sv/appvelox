@@ -2,15 +2,12 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppointmentCard } from 'components/UI/AppointmentCard';
 import { ECard } from 'components/UI/ECard';
-
 import { ReactComponent as Results } from 'assets/img/ECards-icons/results.svg';
 import { ReactComponent as Info } from 'assets/img/ECards-icons/info.svg';
 import { ReactComponent as AddInfo } from 'assets/img/ECards-icons/addInfo.svg';
 import { ReactComponent as History } from 'assets/img/ECards-icons/history.svg';
-
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';
-
 import { LocalLoader } from 'components/UI/LocalLoader';
 
 import * as S from './style';

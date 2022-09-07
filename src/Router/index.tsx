@@ -14,6 +14,7 @@ import { RecoveryPage } from 'pages/RecoveryPage';
 import { DoctorsPage } from 'pages/DoctorsPage';
 import { DoctorDetailsPage } from 'pages/DoctorDetailsPage';
 import { UserInfoPage } from 'pages/UserInfoPage';
+import { UserActivityPage } from 'pages/UserActivityPage';
 
 export const Router: FC = () => {
     return (
@@ -28,7 +29,10 @@ export const Router: FC = () => {
                         path="doctors/:doctorId"
                         element={<DoctorDetailsPage />}
                     />
-                    <Route path="messages" element={<></>} />
+                    <Route
+                        path="userActivity"
+                        element={<UserActivityPage />}
+                    />
                     <Route path="test" element={<></>} />
                     <Route path="goodtoknow" element={<></>} />
                     <Route path="*" element={<Navigate to="profile" />} />

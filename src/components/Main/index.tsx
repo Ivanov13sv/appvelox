@@ -1,7 +1,6 @@
 import { SectionTitle } from 'components/SectionTitle';
 import React, { FC, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ReactComponent as BackArrow } from 'assets/img/icons/back-arrow.svg';
+import { useLocation} from 'react-router-dom';
 import * as S from './style';
 
 interface MainProps {
@@ -11,7 +10,6 @@ interface MainProps {
 export const Main: FC<MainProps> = ({ children }) => {
     const location = useLocation();
     const [currentPath, setCurrentPath] = useState<string>();
-    const navigate = useNavigate();
 
     useEffect(() => {
         setCurrentPath(location?.pathname);
@@ -21,7 +19,7 @@ export const Main: FC<MainProps> = ({ children }) => {
         { path: '/profile', title: 'Записи на приём', to: null },
         { path: '/appointments', title: 'Мои записи', to: null },
         { path: '/doctors', title: 'Врачи и клиники', to: null },
-        { path: '/messages', title: 'Сообщения', to: null },
+        { path: '/userActivity', title: 'Ваша активность', to: null },
         { path: '/test', title: 'Тестирование', to: null },
         { path: '/goodtoknow', title: 'Полезно знать', to: null },
     ];

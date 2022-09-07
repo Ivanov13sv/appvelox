@@ -32,7 +32,11 @@ export const Header = () => {
                 <S.ProfileTitle>Мой профиль</S.ProfileTitle>
                 <Navbar>
                     <NavbarItem icon={<Search />} />
-                    <Tooltip content={<NotificationStory story={activities} />}>
+                    <Tooltip
+                        hideDelay={300}
+                        labelSide="bottom"
+                        content={<NotificationStory story={activities} />}
+                    >
                         <NavbarItem icon={<Bell />} newAction={newAction} />
                     </Tooltip>
                     <NavbarItem icon={<Eye />} />
