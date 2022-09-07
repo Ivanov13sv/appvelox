@@ -22,7 +22,7 @@ import modalSlice from './slices/modalSlice';
 import doctorsSlice from './slices/doctorsSlice';
 import notificationSlice from './slices/notificationSlice';
 import newEmailModalSlice from './slices/newEmailModalSlice';
-import userActivity from './slices/userActivity';
+import userActivity from './slices/userActivitySlice';
 
 const persistConfig = {
     key: 'root',

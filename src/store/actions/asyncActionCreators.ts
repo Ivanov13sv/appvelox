@@ -17,7 +17,10 @@ import { modalActions } from 'store/slices/modalSlice';
 import { IAppointment } from 'types/appointment';
 import { IDoctor } from 'types/doctors';
 import { IIUser } from 'types/iuser';
-import { IUserActivity, userActivityActions } from 'store/slices/userActivity';
+import {
+    IUserActivity,
+    userActivityActions,
+} from 'store/slices/userActivitySlice';
 import { db } from '../../firebase';
 
 const fetchAppointments = createAsyncThunk(
@@ -114,11 +117,7 @@ export const addAppointment = createAsyncThunk(
         const {
             authInfo: { authInfo },
         } = getState() as RootState;
-        const {
-            selectedDoctorId,
-            doctorAppointment,
-            userAppointment,
-        } = args;
+        const { selectedDoctorId, doctorAppointment, userAppointment } = args;
         if (authInfo.id) {
             const doctorRef = doc(db, 'doctors', selectedDoctorId);
             const userRef = doc(db, 'user', authInfo.id);
@@ -278,9 +277,7 @@ const updateUserActivity = createAsyncThunk(
             await updateDoc(userRef, {
                 activities: activities,
             });
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     }
 );
 
@@ -306,8 +303,8 @@ const addNotificationWithStory = createAsyncThunk(
     }
 );
 
-const toggleActivity = createAsyncThunk(
-    'userActivity/toggleActivity',
+const setActivityChecked = createAsyncThunk(
+    'userActivity/setActivityChecked',
     async (id: number, { getState, dispatch }) => {
         const {
             authInfo: { authInfo },
@@ -315,7 +312,7 @@ const toggleActivity = createAsyncThunk(
         } = getState() as RootState;
         if (authInfo.id) {
             const userRef = doc(db, 'user', authInfo.id);
-            dispatch(userActivityActions.toggleUserActivity(id));
+            dispatch(userActivityActions.toggleActivityChecked(id));
             const updatedActivityArr = activities.map((item) => {
                 if (item.id === id) {
                     return { ...item, checked: true };
@@ -326,6 +323,105 @@ const toggleActivity = createAsyncThunk(
                 activities: updatedActivityArr,
             });
             return updatedActivityArr;
+        }
+    }
+);
+const setActivityUnchecked = createAsyncThunk(
+    'userActivity/setActivityUnchecked',
+    async (id: number, { getState, dispatch }) => {
+        const {
+            authInfo: { authInfo },
+            userActivity: { activities },
+        } = getState() as RootState;
+        if (authInfo.id) {
+            const userRef = doc(db, 'user', authInfo.id);
+            dispatch(userActivityActions.toggleActivityUnchecked(id));
+            const updatedActivityArr = activities.map((item) => {
+                if (item.id === id) {
+                    return { ...item, checked: false };
+                }
+                return item;
+            });
+            await updateDoc(userRef, {
+                activities: updatedActivityArr,
+            });
+            return updatedActivityArr;
+        }
+    }
+);
+
+const removeActivity = createAsyncThunk(
+    'userActivity/removeActivity',
+    async (id: number, { getState, dispatch }) => {
+        const {
+            userActivity: { activities },
+            authInfo: { authInfo },
+        } = getState() as RootState;
+        if (authInfo.id) {
+            const userRef = doc(db, 'user', authInfo.id);
+            const filtredActivities = activities.filter(
+                (item) => item.id !== id
+            );
+            await updateDoc(userRef, {
+                activities: filtredActivities,
+            });
+            return filtredActivities;
+        }
+    }
+);
+
+const clearActivityStory = createAsyncThunk(
+    'userActivity/clearActivityStory',
+    async (_, { getState, dispatch }) => {
+        const {
+            authInfo: { authInfo },
+        } = getState() as RootState;
+
+        if (authInfo.id) {
+            const userRef = doc(db, 'user', authInfo.id);
+            dispatch(
+                notificationActions.addNotification({
+                    id: Date.now(),
+                    message: 'История очищена!',
+                    type: INotificationType.success,
+                })
+            );
+            await updateDoc(userRef, {
+                activities: [],
+            });
+        }
+    }
+);
+
+const checkedAllActivities = createAsyncThunk(
+    'userActivity/checkedAllActivities',
+    async (_, { getState, rejectWithValue, dispatch }) => {
+        const {
+            authInfo: { authInfo },
+            userActivity: { activities },
+        } = getState() as RootState;
+
+        if (authInfo.id) {
+            try {
+                const userRef = doc(db, 'user', authInfo.id);
+                const checkedActivitiesArr = activities.map((item) => ({
+                    ...item,
+                    checked: true,
+                }));
+                dispatch(userActivityActions.toggleAllActivities());
+
+                await updateDoc(userRef, {
+                    activities: checkedActivitiesArr,
+                });
+            } catch (error) {
+                dispatch(
+                    notificationActions.addNotification({
+                        id: Date.now(),
+                        message: 'Не удалось отметить как прочитанное',
+                        type: INotificationType.error,
+                    })
+                );
+            }
         }
     }
 );
@@ -340,5 +436,9 @@ export const asyncActions = {
     fetchUserActivity,
     updateUserActivity,
     addNotificationWithStory,
-    toggleActivity,
+    setActivityChecked,
+    setActivityUnchecked,
+    removeActivity,
+    clearActivityStory,
+    checkedAllActivities,
 };

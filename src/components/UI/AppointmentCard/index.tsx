@@ -1,66 +1,74 @@
 import { FC, useState } from 'react';
 import { IAppointment } from 'types/appointment';
-import { ImCheckmark, ImCross } from 'react-icons/im';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { format } from 'date-fns';
+import { getFormateDateWithTime } from 'utils/formateDate';
+import { ConfirmButtons } from 'components/UI/ConfirmButtons';
 import { Button } from '../Button';
-import { Loader } from '../LocalLoader/style';
 import { Avatar } from '../Avatar';
 
 import * as S from './style';
 
 interface AppointmentCardProps extends IAppointment {
-	removeAppointment: (id: string) => void;
-	loading?: boolean;
+    removeAppointment: (id: string) => void;
+    loading?: boolean;
 }
 
-export const AppointmentCard: FC<AppointmentCardProps> = props => {
-	const { date, address, hospital, speciality, name, removeAppointment, id, photo, loading } =
-		props;
-	const [confirmRemoving, setConfirmRemoving] = useState(false);
-	const ref = useClickOutside(() => {
-		setConfirmRemoving(false);
-	});
+export const AppointmentCard: FC<AppointmentCardProps> = (props) => {
+    const {
+        date,
+        address,
+        hospital,
+        speciality,
+        name,
+        removeAppointment,
+        id,
+        photo,
+        loading,
+    } = props;
+    const [confirmRemoving, setConfirmRemoving] = useState(false);
+    const ref = useClickOutside(() => {
+        setConfirmRemoving(false);
+    });
 
-	const toggleConfirm = () => setConfirmRemoving(!confirmRemoving);
-	const deleteAppointment = () => {
-		removeAppointment(id);
-	};
+    const toggleConfirm = () => setConfirmRemoving(!confirmRemoving);
+    const deleteAppointment = () => {
+        removeAppointment(id);
+    };
 
-	const confirmRemove = !confirmRemoving ? (
-		<Button onClick={toggleConfirm}>Отменить</Button>
-	) : (
-		<S.ConfirmButtons>
-			{loading ? (
-				<Loader width="30px" height="30px" />
-			) : (
-				<>
-					<ImCheckmark onClick={deleteAppointment} size={30} color="green" />
-					<ImCross size={25} color="red" onClick={toggleConfirm} />
-				</>
-			)}
-		</S.ConfirmButtons>
-	);
+    const confirmRemove = !confirmRemoving ? (
+        <Button onClick={toggleConfirm}>Отменить</Button>
+    ) : (
+        <ConfirmButtons
+            callback={deleteAppointment}
+            closeModal={() => setConfirmRemoving(false)}
+            loading={loading ? true : false}
+        />
+    );
 
-	const formattedDate = format(date, 'MMMM d, yyyy H:mm');
+    const formattedDate = getFormateDateWithTime(date);
 
-	return (
-		<S.Card>
-			<S.CardBody ref={ref}>
-				<S.Date>{formattedDate}</S.Date>
-				<S.Hospital>{hospital}</S.Hospital>
-				<S.Address>{address}</S.Address>
-				<S.DoctorInfo>
-					<div>
-						<Avatar width="60px" height="60px" src={photo} alt="Доктор" />
-						<S.PersonalInfo>
-							<S.DoctorName>{name}</S.DoctorName>
-							<S.Speciality>{speciality}</S.Speciality>
-						</S.PersonalInfo>
-					</div>
-					{confirmRemove}
-				</S.DoctorInfo>
-			</S.CardBody>
-		</S.Card>
-	);
+    return (
+        <S.Card>
+            <S.CardBody ref={ref}>
+                <S.Date>{formattedDate}</S.Date>
+                <S.Hospital>{hospital}</S.Hospital>
+                <S.Address>{address}</S.Address>
+                <S.DoctorInfo>
+                    <div>
+                        <Avatar
+                            width="60px"
+                            height="60px"
+                            src={photo}
+                            alt="Доктор"
+                        />
+                        <S.PersonalInfo>
+                            <S.DoctorName>{name}</S.DoctorName>
+                            <S.Speciality>{speciality}</S.Speciality>
+                        </S.PersonalInfo>
+                    </div>
+                    {confirmRemove}
+                </S.DoctorInfo>
+            </S.CardBody>
+        </S.Card>
+    );
 };

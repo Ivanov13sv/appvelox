@@ -12,13 +12,13 @@ interface INotificationStory {
 }
 
 export const NotificationStory: FC<INotificationStory> = ({ story }) => {
-    const { toggleActivity } = useActions();
+    const { setActivityChecked } = useActions();
     const { loading } = useAppSelector((state) => state.userActivity);
 
     const [test, setTest] = useLocalStorage('test', []);
 
     const setNewTest = (id: number) => {
-        toggleActivity(id);
+        setActivityChecked(id);
         if (!test.includes(id)) {
             setTest([...test, id]);
         }
