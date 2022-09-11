@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const DropdownItem = styled.li`
-
 	padding: 10px;
 	display: flex;
 	align-items: center;
@@ -11,11 +10,10 @@ export const DropdownItem = styled.li`
 	cursor: pointer;
 
 	svg {
+		font-size: 22px;
 		> * {
 			color: white;
-
 		}
-
 	}
 
 	span {
@@ -26,5 +24,3 @@ export const DropdownItem = styled.li`
 		background-color: #36a2d0;
 	}
 `;
-
-

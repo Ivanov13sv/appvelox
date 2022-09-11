@@ -81,12 +81,5 @@ const Wrapper = styled.div`
     grid-template-columns: 190px 1fr;
     grid-template-rows: 55px 1fr;
     height: 100%;
+    
 `;
-
-// сделать
-// нотификация совместно с добавлением newActivity в состояние
-// и после изменения состояния (попорбовать
-// useEffect (() =>{
-
-// },[fn])
-// ) сделать fetch update Activities
