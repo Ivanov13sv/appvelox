@@ -1,8 +1,6 @@
 import { FC, MouseEvent } from 'react';
 import { Section } from 'components/Section';
 import { useAppSelector } from 'hooks/useAppSelector';
-import styled, { css } from 'styled-components';
-import { INotificationType } from 'types/notification';
 import { getFormateDateWithTime } from 'utils/formateDate';
 import { BsAppIndicator, BsTrash } from 'react-icons/bs';
 import { Tooltip } from 'components/UI/Tooltip';
@@ -25,7 +23,7 @@ export const UserActivityPage = () => {
     return (
         <Section>
             <S.ListControllButtons>
-                <Tooltip label="Очистить историю" labelSide="top">
+                <Tooltip label="Очистить историю" labelSide="top" >
                     <S.DeleteAll onClick={clearActivityStory} />
                 </Tooltip>
 

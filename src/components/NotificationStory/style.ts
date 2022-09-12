@@ -1,22 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { INotificationType } from 'types/notification';
 
-const appearance = keyframes`
-0%{
-    transform: scale(0.85);
-}
-100%{
-    transform: scale(1);
-}
-`;
 
 export const Wrapper = styled.article`
     box-shadow: 0px 0px 5px #c0c0c0;
     border-radius: 5px;
     width: 300px;
     background: #f8f8f8;
-    animation: ${appearance} 0.3s;
     transition: opacity 3s ease-in-out;
     padding: 15px;
 
