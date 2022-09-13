@@ -5,13 +5,11 @@ import { IAppointment } from 'types/appointment';
 interface IAppointmentsState {
     appointments: IAppointment[];
     loading: boolean;
-    error: null | string;
 }
 
 const initialState: IAppointmentsState = {
     appointments: [],
     loading: false,
-    error: null,
 };
 
 const { fetchAppointments, removeAppointment,addAppointment } = asyncActions;
@@ -36,7 +34,6 @@ const appointmentsSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchAppointments.pending, (state) => {
             state.loading = true;
-            state.error = null;
         });
         builder.addCase(
             asyncActions.fetchAppointments.fulfilled,
@@ -58,7 +55,6 @@ const appointmentsSlice = createSlice({
         });
         builder.addCase(removeAppointment.fulfilled, (state) => {
             state.loading = false;
-            state.error = null;
         });
         builder.addCase(removeAppointment.rejected, (state) => {
             state.loading = false;
@@ -68,10 +64,8 @@ const appointmentsSlice = createSlice({
         builder.addCase(addAppointment.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(addAppointment.fulfilled, (state, action) => {
+        builder.addCase(addAppointment.fulfilled, (state) => {
             state.loading = false;
-            state.error = null;
-            state.appointments.push(action.payload as IAppointment);
         });
         builder.addCase(addAppointment.rejected, (state) => {
             state.loading = false;

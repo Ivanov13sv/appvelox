@@ -6,7 +6,7 @@ import { LocalLoader } from '../LocalLoader';
 
 interface IConfirmButtons {
     loading: boolean;
-    callback: (e: MouseEvent<SVGAElement>) => void;
+    callback: (e: MouseEvent) => void;
     closeModal: () => void;
 }
 

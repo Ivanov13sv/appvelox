@@ -139,7 +139,9 @@ export const addAppointment = createAsyncThunk(
                         })
                     );
                 });
-                return userAppointment;
+                dispatch(
+                    appointmentsActions.addNewAppointment(userAppointment)
+                );
             } catch (error) {
                 dispatch(
                     addNotificationWithStory({
@@ -155,7 +157,7 @@ export const addAppointment = createAsyncThunk(
 
 const fetchCurrentUser = createAsyncThunk(
     'user/fetchUser',
-    async (_, { rejectWithValue, getState, dispatch }) => {
+    async (_, { getState, dispatch }) => {
         const {
             authInfo: { authInfo },
         } = getState() as RootState;
@@ -345,7 +347,6 @@ const setActivityUnchecked = createAsyncThunk(
             await updateDoc(userRef, {
                 activities: updatedActivityArr,
             });
-            return updatedActivityArr;
         }
     }
 );
@@ -364,8 +365,7 @@ const removeActivity = createAsyncThunk(
             );
             await updateDoc(userRef, {
                 activities: filtredActivities,
-            });
-            return filtredActivities;
+            }).then(() => dispatch(userActivityActions.deleteActivity(id)));
         }
     }
 );
@@ -379,15 +379,18 @@ const clearActivityStory = createAsyncThunk(
 
         if (authInfo.id) {
             const userRef = doc(db, 'user', authInfo.id);
-            dispatch(
-                notificationActions.addNotification({
-                    id: Date.now(),
-                    message: 'История очищена!',
-                    type: INotificationType.success,
-                })
-            );
+
             await updateDoc(userRef, {
                 activities: [],
+            }).then(() => {
+                dispatch(userActivityActions.clearStory());
+                dispatch(
+                    notificationActions.addNotification({
+                        id: Date.now(),
+                        message: 'История очищена!',
+                        type: INotificationType.success,
+                    })
+                );
             });
         }
     }
@@ -395,7 +398,7 @@ const clearActivityStory = createAsyncThunk(
 
 const checkedAllActivities = createAsyncThunk(
     'userActivity/checkedAllActivities',
-    async (_, { getState, rejectWithValue, dispatch }) => {
+    async (_, { getState, dispatch }) => {
         const {
             authInfo: { authInfo },
             userActivity: { activities },
@@ -408,11 +411,12 @@ const checkedAllActivities = createAsyncThunk(
                     ...item,
                     checked: true,
                 }));
-                dispatch(userActivityActions.toggleAllActivities());
 
                 await updateDoc(userRef, {
                     activities: checkedActivitiesArr,
-                });
+                }).then(() =>
+                    dispatch(userActivityActions.toggleAllActivities())
+                );
             } catch (error) {
                 dispatch(
                     notificationActions.addNotification({
