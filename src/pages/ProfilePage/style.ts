@@ -8,6 +8,7 @@ export const Title = styled.h3``;
 
 export const CardsList = styled.ul`
 	display: flex;
+	justify-content: flex-start;
 	gap: 20px;
 	align-items: center;
 	flex-wrap: wrap;

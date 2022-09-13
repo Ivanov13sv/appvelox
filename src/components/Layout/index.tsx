@@ -13,7 +13,6 @@ import { Modal } from 'components/UI/Modal';
 export const Layout = () => {
     const { successReg } = useAppSelector((state) => state.successReg);
     const { isModalOpen } = useAppSelector((state) => state.modal);
-    const { activities } = useAppSelector((state) => state.userActivity);
 
     const {
         authInfo: { id: userId },
@@ -25,14 +24,14 @@ export const Layout = () => {
         fetchDoctors,
         removeAllAppointments,
         fetchUserActivity,
-        updateUserActivity,
     } = useActions();
 
     useEffect(() => {
         if (successReg) {
-            setTimeout(() => {
+            const timerId = setTimeout(() => {
                 hideSuccessReg();
             }, 2700);
+            return () => clearTimeout(timerId);
         }
     }, [successReg, hideSuccessReg]);
 
@@ -46,11 +45,6 @@ export const Layout = () => {
         };
         //eslint-disable-next-line
     }, [userId]);
-
-
-    // useEffect(() => {
-    //     updateUserActivity();
-    // }, [activities]);
 
     if (successReg) {
         return <SuccessScreen />;
@@ -81,5 +75,4 @@ const Wrapper = styled.div`
     grid-template-columns: 190px 1fr;
     grid-template-rows: 55px 1fr;
     height: 100%;
-    
 `;

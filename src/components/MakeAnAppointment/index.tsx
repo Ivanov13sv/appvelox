@@ -20,10 +20,10 @@ import { Datepicker } from 'components/UI/Datepicker';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { fetchReservedDates } from '../../firebase';
 import * as S from './style';
-
+import { getFormateDate } from 'utils/formateDate';
 
 export const MakeAnAppointment = () => {
-    const [date, setDate] = useState<any>(null);
+    const [date, setDate] = useState<Date | null>(null);
     const {
         authInfo: { id: userId },
     } = useAppSelector((state) => state.authInfo);
@@ -41,34 +41,38 @@ export const MakeAnAppointment = () => {
         option: '',
     });
 
-    const [reservedDates, setReservedDates] = useState<any>();
+    const [reservedDates = [], setReservedDates] = useState<any>();
 
     const fetchDates = async () => {
         const result = await fetchReservedDates(selectedDoctor);
         setReservedDates(result);
     };
 
+    console.log(new Date('2022-09-21T11:00:00.000Z'));
+
     const postNewAppointment = () => {
         const doctor = doctors.find(
             (item) => item.id === selectedDoctor.id
         ) as IDoctor;
         const id = Date.now();
-        const userAppointment: IAppointment = {
-            id: `${id}`,
-            doctorId: doctor.id,
-            name: doctor.name,
-            speciality: doctor.speciality,
-            address: doctor.address,
-            date: new Date(date).getTime(),
-            hospital: doctor.hospital,
-            photo: doctor.photo,
-        };
 
-        const doctorAppointment = {
-            id: `${id}`,
-            date: new Date(date).getTime(),
-        };
-        if (userId) {
+        if (userId && date) {
+            const userAppointment: IAppointment = {
+                id: `${id}`,
+                doctorId: doctor.id,
+                name: doctor.name,
+                speciality: doctor.speciality,
+                address: doctor.address,
+                date: date.getTime(),
+                hospital: doctor.hospital,
+                photo: doctor.photo,
+            };
+
+            const doctorAppointment = {
+                id: `${id}`,
+                // date: new Date(date).getTime(),
+                date: date.getTime(),
+            };
             addAppointment({
                 selectedDoctorId: selectedDoctor.id,
                 doctorAppointment,

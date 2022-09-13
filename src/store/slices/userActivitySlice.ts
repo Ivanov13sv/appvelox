@@ -44,7 +44,6 @@ const userActivitySlice = createSlice({
                 }
                 return item;
             });
-            console.log(updatedActivityArr);
             state.activities = updatedActivityArr;
         },
         toggleAllActivities: (state) => {
@@ -54,6 +53,13 @@ const userActivitySlice = createSlice({
             }));
             state.activities = toggledActivityArr;
         },
+        deleteActivity: (state, action) =>{
+            const filtredArray = state.activities.filter(item => item.id !== action.payload);
+            state.activities = filtredArray;
+        },
+        clearStory: (state) =>{
+            state.activities = []
+        }
     },
     extraReducers: (builder) => {
         // builder.addCase(asyncActions.addActivity.pending, (state) => {
@@ -77,16 +83,23 @@ const userActivitySlice = createSlice({
                 state.activities = action.payload;
             }
         );
+
         builder.addCase(asyncActions.removeActivity.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(
-            asyncActions.removeActivity.fulfilled,
-            (state, action) => {
-                state.loading = false;
-                state.activities = action.payload as IUserActivity[];
-            }
-        );
+        builder.addCase(asyncActions.removeActivity.fulfilled, (state) => {
+            state.loading = false;
+        });
+        // builder.addCase(asyncActions.removeActivity.pending, (state) => {
+        //     state.loading = true;
+        // });
+        // builder.addCase(
+        //     asyncActions.removeActivity.fulfilled,
+        //     (state, action) => {
+        //         state.loading = false;
+        //         state.activities = action.payload as IUserActivity[];
+        //     }
+        // );
         builder.addCase(asyncActions.clearActivityStory.pending, (state) => {
             state.loading = true;
         });
@@ -97,13 +110,16 @@ const userActivitySlice = createSlice({
         builder.addCase(asyncActions.checkedAllActivities.pending, (state) => {
             state.loading = true;
         });
+        builder.addCase(asyncActions.checkedAllActivities.fulfilled, (state) => {
+            state.loading = false;
+        });
 
-        builder.addCase(
-            asyncActions.checkedAllActivities.fulfilled,
-            (state: IUserActivityState) => {
-                state.loading = false;
-            }
-        );
+        // builder.addCase(
+        //     asyncActions.checkedAllActivities.fulfilled,
+        //     (state: IUserActivityState) => {
+        //         state.loading = false;
+        //     }
+        // );
     },
 });
 

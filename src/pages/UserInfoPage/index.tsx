@@ -34,7 +34,7 @@ export const UserInfoPage = () => {
         openNewEmailModal,
         addNotification,
         updateAvatar,
-        addNotificationWithStory,
+        addNotificationWithStory
     } = useActions();
     const [current, setCurrent] = useState(user);
     const { firstName, lastName, patronymic, dOb } = current;
@@ -233,7 +233,7 @@ export const UserInfoPage = () => {
                             scrollableYearDropdown
                             maxDate={new Date()}
                         />
-                        <Button onClick={updateUserInfo}>
+                        <Button disabled={loading} onClick={updateUserInfo}>
                             {loading ? (
                                 <LocalLoader height="35px" width="35px" />
                             ) : (

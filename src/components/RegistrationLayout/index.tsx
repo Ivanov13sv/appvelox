@@ -38,7 +38,7 @@ export const RegistrationLayout = () => {
                     residentialAddress,
                     email,
                     appointments: [],
-
+                    activities: [],
                     dOb: new Date(dOb as number),
                 };
                 setSuccessReg();

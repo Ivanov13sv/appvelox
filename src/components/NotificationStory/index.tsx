@@ -51,7 +51,7 @@ export const NotificationStory: FC<INotificationStory> = ({ story }) => {
             ) : (
                 storyItems
             )}
-            {story.length > 1 && <ShowMore to="notifications">Подробнее</ShowMore>}
+            {story.length > 1 && <ShowMore to="userActivity">Подробнее</ShowMore>}
         </Wrapper>
     );
 };

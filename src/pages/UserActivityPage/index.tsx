@@ -1,5 +1,4 @@
-import { FC, MouseEvent } from 'react';
-import { Section } from 'components/Section';
+import { FC, MouseEvent, useMemo } from 'react';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getFormateDateWithTime } from 'utils/formateDate';
 import { BsAppIndicator, BsTrash } from 'react-icons/bs';
@@ -8,34 +7,64 @@ import { useActions } from 'hooks/useActions';
 import { useState } from 'react';
 import { IActivity } from 'types/activity';
 import { ConfirmButtons } from 'components/UI/ConfirmButtons';
+import { LocalLoader } from 'components/UI/LocalLoader';
 
-import *  as S from './style'
-
+import * as S from './style';
 
 export const UserActivityPage = () => {
     const { activities, loading } = useAppSelector(
         (state) => state.userActivity
     );
+    const [confirmClearStory, setConfirmClearStory] = useState(false);
+
     const { clearActivityStory, checkedAllActivities } = useActions();
+
+    const handleClearStory = async () => {
+        await clearActivityStory();
+        setConfirmClearStory(false);
+    };
+
     const activitiesArr = activities.map((item) => (
         <Activity key={item.id} isLoading={loading} {...item} />
     ));
-    return (
-        <Section>
-            <S.ListControllButtons>
-                <Tooltip label="Очистить историю" labelSide="top" >
-                    <S.DeleteAll onClick={clearActivityStory} />
-                </Tooltip>
 
+    const controllButtons = confirmClearStory ? (
+        <ConfirmButtons
+            loading={loading}
+            callback={handleClearStory}
+            closeModal={() => setConfirmClearStory(false)}
+        />
+    ) : (
+        <>
+            <Tooltip label="Очистить историю" labelSide="top">
+                <S.DeleteAll onClick={() => setConfirmClearStory(true)} />
+            </Tooltip>
+            {loading ? (
+                <LocalLoader width="35px" height="35px" />
+            ) : (
                 <Tooltip label="Отметить как прочитанное" labelSide="right">
                     <S.ToggleAll onClick={checkedAllActivities} />
                 </Tooltip>
-            </S.ListControllButtons>
-            <S.ActivityList>{activitiesArr}</S.ActivityList>
-        </Section>
+            )}
+        </>
+    );
+
+    return (
+        <S.ActivitySection>
+            <S.ListControllButtons>{controllButtons}</S.ListControllButtons>
+
+            <S.ActivityList>
+                {!loading && !activitiesArr.length ? (
+                    <h2>Ваша история пуста</h2>
+                ) : (
+                    activitiesArr
+                )}
+            </S.ActivityList>
+        </S.ActivitySection>
     );
 };
 
+// Activity item
 
 interface IActivityProps extends IActivity {
     isLoading: boolean;
@@ -53,7 +82,7 @@ const Activity: FC<IActivityProps> = ({
     const { setActivityChecked, setActivityUnchecked, removeActivity } =
         useActions();
 
-    const removeHandler = (e: MouseEvent<SVGAElement>) => {
+    const removeHandler = (e: MouseEvent) => {
         e.stopPropagation();
         removeActivity(id);
     };
@@ -82,7 +111,7 @@ const Activity: FC<IActivityProps> = ({
                         loading={isLoading}
                         callback={removeHandler}
                         closeModal={() => setConfirmModal(false)}
-                    ></ConfirmButtons>
+                    />
                 ) : (
                     <>
                         <Tooltip

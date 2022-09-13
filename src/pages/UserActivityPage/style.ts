@@ -2,11 +2,18 @@ import styled, { css } from 'styled-components';
 import { BsListCheck } from 'react-icons/bs';
 import { MdOutlineDeleteSweep } from 'react-icons/md';
 import { INotificationType } from 'types/notification';
+import { Section } from 'components/Section';
 
 interface StyledActivityItemProps {
     type: INotificationType;
     checked: boolean;
 }
+
+export const ActivitySection = styled(Section)`
+display: flex;
+flex-direction: column;
+`
+
 
 export const ActivityItem = styled.li<StyledActivityItemProps>`
     border-radius: 5px;
@@ -84,7 +91,25 @@ export const ActivityList = styled.ul`
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;
-    padding-top: 15px;
+    padding: 15px 30px;
+    max-height: 700px;
+    overflow-y: auto;
+
+    h2{
+        text-align: center;
+        font-weight: 400;
+    }
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #ebe7ff;
+        border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #003b72;
+        border-radius: 5px;
+    }
 `;
 
 export const DeleteAll = styled(MdOutlineDeleteSweep)``;
@@ -95,6 +120,7 @@ export const ListControllButtons = styled.div`
     justify-content: center;
     align-items: center;
     gap: 10px;
+    height: 40px;
     svg {
         cursor: pointer;
         font-size: 30px;
