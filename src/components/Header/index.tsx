@@ -24,10 +24,10 @@ export const Header = () => {
 	return (
 		<S.Header>
 			<S.HeaderBody>
-				<S.ProfileTitle>Мой профиль</S.ProfileTitle>
+				<S.ProfileTitle to='profile'>Appvelox</S.ProfileTitle>
 				<Navbar>
 					<NavbarItem icon={<Bell />} newAction={newAction} >
-                        <NotificationStory story={activities}/>
+                        <NotificationStory  story={activities}/>
                     </NavbarItem>
 					<Avatar border="2px solid white" alt="avatar" src={avatar} />
 					<NavbarItem icon={<BsFillGrid3X3GapFill />}>

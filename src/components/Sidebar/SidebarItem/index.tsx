@@ -16,11 +16,12 @@ export const SidebarItem = forwardRef<HTMLLIElement, SidebarItemProps>(
 
         return (
             <S.SidebarItem ref={ref} to={to}>
-                <S.SidebarText isActive={isActive}>
+                <S.SidebarBody isActive={isActive}>
                     <IconButton icon={leftIcon} />
-                    {text}
+                    <S.SidebarText>{text}</S.SidebarText>
+
                     {rightIcon && <IconButton icon={rightIcon} />}
-                </S.SidebarText>
+                </S.SidebarBody>
             </S.SidebarItem>
         );
     }

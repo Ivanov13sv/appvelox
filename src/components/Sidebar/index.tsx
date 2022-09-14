@@ -24,7 +24,6 @@ export const Sidebar = () => {
                 path: '/doctors',
             },
             { leftIcon: <Message />, text: 'Уведомления', path: '/userActivity' },
-            { leftIcon: <Book />, text: 'Полезно знать', path: '/goodtoknow' },
         ];
     }, []);
 
@@ -56,7 +55,7 @@ export const Sidebar = () => {
     return (
         <S.Sidebar>
             <S.SidebarTop>
-                <S.SidebarLogo>Логотип</S.SidebarLogo>
+                <S.SidebarLogo></S.SidebarLogo>
             </S.SidebarTop>
 
             <S.SidebarMain>

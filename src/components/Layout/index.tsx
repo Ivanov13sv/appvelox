@@ -68,11 +68,16 @@ export const Layout = () => {
 };
 
 const Wrapper = styled.div`
-    display: grid;
-    grid-template-areas:
-        'side header'
-        'side main';
-    grid-template-columns: 190px 1fr;
-    grid-template-rows: 55px 1fr;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    @media ${({ theme }) => theme.media.desktop} {
+        display: grid;
+        grid-template-areas:
+            'side header'
+            'side main';
+        grid-template-columns: 190px 1fr;
+        grid-template-rows: 55px 1fr;
+    }
+
 `;

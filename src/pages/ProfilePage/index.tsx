@@ -68,7 +68,7 @@ export const ProfilePage: FC = () => {
         );
 
     return (
-        <S.AppointemntPage>
+        <S.AppointemntSection>
             <S.CardsList>
                 {appointmentList}
                 {appointments.length - 2 ? (
@@ -107,6 +107,6 @@ export const ProfilePage: FC = () => {
                     </ECard>
                 </S.ECards>
             </S.PatientInfo>
-        </S.AppointemntPage>
+        </S.AppointemntSection>
     );
 };
