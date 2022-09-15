@@ -55,7 +55,7 @@ export const NavbarItem: FC<NavbarItemProps> = ({
             onMouseLeave={handleEndHovering}
         >
             <IconButton icon={icon} />
-            {showContent && <S.Content ref={ref}>{children}</S.Content>}
+            {showContent && <S.Content  ref={ref}>{children}</S.Content>}
         </S.NavbarItem>
     );
 };

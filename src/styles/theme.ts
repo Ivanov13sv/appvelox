@@ -13,8 +13,9 @@ export const myTheme: DefaultTheme = {
         phoneMD: '(min-width:480px)',
         tablet: '(min-width:600px)',
         desktop: '(min-width:801px)',
+        desktopPlus: '(min-width:1281px)',
     },
-    other:{
-        boxShadow: '0px 0px 5px #979797'
-    }
+    other: {
+        boxShadow: '0px 0px 5px #979797',
+    },
 };

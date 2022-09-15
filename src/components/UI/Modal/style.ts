@@ -30,11 +30,17 @@ export const Modal = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 60vw;
+	width: 90vw;
 	height: 50vh;
 	background: white;
 	transition: 0.3s all;
 	opacity: 1;
 	animation: ${appearance} linear 0.1s;
 	border-radius: 5px;
+	@media ${({theme}) => theme.media.desktop}{
+		width: 60vw;
+	}
+	@media ${({theme}) => theme.media.desktopPlus}{
+		width: 40vw;
+	}
 `;

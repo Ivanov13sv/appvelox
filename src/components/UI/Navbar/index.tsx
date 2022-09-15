@@ -12,9 +12,7 @@ interface NavbarProps {
 export const Navbar: FC<NavbarProps> = ({ children }) => {
     return (
         <S.Navbar>
-            <S.NavBody>
                 <S.NavList>{children}</S.NavList>
-            </S.NavBody>
         </S.Navbar>
     );
 };

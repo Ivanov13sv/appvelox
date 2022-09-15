@@ -17,6 +17,7 @@ declare module 'styled-components' {
 			phoneMD: string;
 			tablet: string;
 			desktop: string;
+			desktopPlus: string;
 		}
 		other: {
 			boxShadow: string;

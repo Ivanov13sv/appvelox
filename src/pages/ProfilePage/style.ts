@@ -9,11 +9,17 @@ export const Title = styled.h3``;
 
 export const CardsList = styled.ul`
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 20px;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     margin: 0 auto;
+    @media ${({theme}) => theme.media.desktopPlus}{
+        align-items: center;
+    }
+    @media ${({theme}) => theme.media.phoneMD}{
+        justify-content: flex-start;
+    }
 `;
 
 export const ShowMoreBlock = styled.div`
@@ -38,7 +44,7 @@ export const ShowMoreBlock = styled.div`
 `;
 
 export const PatientInfo = styled.div`
-    padding-top: 15px;
+    padding-top: 35px;
     h3 {
         text-align: center;
         margin-bottom: 15px;
@@ -47,10 +53,8 @@ export const PatientInfo = styled.div`
         line-height: 19px;
         color: #000000;
     }
-    @media ${({ theme }) => theme.media.phoneMD} {
-    }
+
     @media ${({ theme }) => theme.media.tablet} {
-        padding-top: 35px;
         h3 {
             text-align: start;
         }

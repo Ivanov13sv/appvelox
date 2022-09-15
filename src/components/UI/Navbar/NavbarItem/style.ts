@@ -8,6 +8,7 @@ export const NavbarItem = styled.li<INavbarItem>`
     -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
     backface-visibility: hidden;
     z-index: 20;
+    position: relative;
     svg {
         transition: transform 0.2s ease;
         color: white;
@@ -37,29 +38,40 @@ export const NavbarItem = styled.li<INavbarItem>`
             }
         `}
     @media ${({ theme }) => theme.media.tablet} {
-        position: relative;
     }
 `;
-const appearance = keyframes`
+const appearancePhone = keyframes`
 0%{
-	/* transform: translate(10%, 20%); */
-    transform: scale(0.85) ;
+	transform: translateY(-100%);
 }
 100%{
-    transform: scale(1);
-	/* transform: translate(30%, 40px); */
-
+    transform: translateY(0);
+}
+`;
+const appearanceTabletPlus = keyframes`
+0%{
+    transform: translateX(-100%) scale(0.85);
+}
+100%{
+    transform: translateX(-100%)  scale(1);
 }
 `;
 
-export const Content = styled.div`
-    position: absolute;
-    top: 60px;
-    right: 5%;
-    animation: ${appearance} 0.3s;
+export const Content = styled.article`
+    z-index: 5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: transform 1s;
+    width: 100%;
+    animation: ${appearancePhone} 0.3s;
     @media ${({ theme }) => theme.media.tablet} {
-        top: 30px;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        width: 300px;
+        animation: ${appearanceTabletPlus} 0.3s;
+        transform: translateX(-100%);
     }
 `;
-
-// keyframes

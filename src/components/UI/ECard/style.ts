@@ -111,17 +111,19 @@ export const CardItemBody = styled.div`
             }
         }
         p {
-            font-size: 28px;
+            font-size: 18px;
 			max-width: 324px;
 			text-align: start;
+            padding: 0;
 
         }
         ul {
+            padding: 0;
             li {
                 position: relative;
                 padding-left: 11px;
                 font-weight: 400;
-                font-size: 14px;
+                font-size: 18px;
                 line-height: 24px;
                 &:not(last-child) {
                     margin-bottom: 8px;
@@ -150,6 +152,7 @@ export const ECardItem = styled.article`
         height: 183px;
         padding: 0;
         flex-direction: row;
+        align-items: flex-start;
         &:hover {
             ${CardItemIcon} {
                 svg {

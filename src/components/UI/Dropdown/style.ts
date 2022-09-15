@@ -1,15 +1,17 @@
 import styled, { css } from 'styled-components';
 
 export const Dropdown = styled.div`
-    width: 300px;
     height: 50px;
     background: ${({ theme }) => theme.color.secondary};
-    border: 2px solid white;
-    border-radius: 5px;
     position: relative;
     transition: all 0.3s ease;
     padding: 1rem;
     overflow: hidden;
+    @media ${({ theme }) => theme.media.tablet} {
+        width: 300px;
+        border-radius: 5px;
+        border: 2px solid white;
+    }
 `;
 
 interface MenuProps {

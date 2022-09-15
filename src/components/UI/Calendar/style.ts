@@ -5,8 +5,8 @@ export const BigCalendar = styled(Calendar)`
     box-shadow: 0px 0px 5px #ebe7ff;
     border: none;
     border-radius: 10px;
-    width: 650px;
     padding: 2rem;
+    width: 100%;
     svg {
         font-size: 16px;
     }
@@ -25,7 +25,11 @@ export const BigCalendar = styled(Calendar)`
         color: #000000;
     }
     .react-calendar__viewContainer{
-        padding-top: 50px;
+        
+        @media ${({theme}) => theme.media.tablet}{
+            padding-top: 50px;
+            
+        }
     }
 
     .tile {
@@ -34,7 +38,7 @@ export const BigCalendar = styled(Calendar)`
         align-items: center;
         justify-content: center;
         border-radius: 4px;
-        height: 80px;
+        height: 60px;
         &:hover {
             background: #f5f5f5;
         }
@@ -43,6 +47,10 @@ export const BigCalendar = styled(Calendar)`
         }
         svg {
             color: ${({ theme }) => theme.color.accent};
+        }
+                
+        @media ${({theme}) => theme.media.tablet}{
+            height: 80px;
         }
     }
     .react-calendar__tile--active {
@@ -53,4 +61,16 @@ export const BigCalendar = styled(Calendar)`
             background: ${({ theme }) => theme.color.main};
         }
     }
+    @media ${({theme}) => theme.media.desktop}{
+        width: 500px;
+            
+        }
+    @media ${({theme}) => theme.media.desktopPlus}{
+        width: 490px;
+            
+        }
+    @media (min-width: 1450px){
+        width: 650px;
+    }
+
 `;
