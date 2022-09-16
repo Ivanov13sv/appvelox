@@ -87,6 +87,7 @@ export const RegThirdStep = () => {
 				onBlur={phone.onBlur}
 				onChange={e => getMaskedPhone(e, phone.setValue)}
 				error={phone.isDirty ? phone.errorMessage : ''}
+				type='tel'
 			/>
 			<Button type={validForm ? 'submit' : 'button'} onClick={setData}>
 				Зарегистрироваться

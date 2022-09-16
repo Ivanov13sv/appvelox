@@ -7,7 +7,6 @@ interface INavbarItem {
 export const NavbarItem = styled.li<INavbarItem>`
     -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
     backface-visibility: hidden;
-    z-index: 20;
     position: relative;
     svg {
         transition: transform 0.2s ease;

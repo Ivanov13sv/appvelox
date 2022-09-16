@@ -8,6 +8,7 @@ import { NotificationProvider } from 'components/UI/Notification/NotificationPro
 import { myTheme } from './styles/theme';
 import { GlobalStyles } from './styles/global';
 import { auth } from './firebase';
+import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
 
 function App() {
     const { logIn, logOut, cleanUser, closeDropdown } = useActions();

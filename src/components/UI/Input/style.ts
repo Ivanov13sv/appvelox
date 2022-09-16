@@ -89,14 +89,23 @@ export const PasswordIcon = styled.div<PasswordIconProps>`
 
 export const ErrorMessage = styled.span`
 	position: absolute;
-	left: 10px;
+	font-size: 12px;
+	left: 5px;
 	bottom: -15%;
-	font-size: 13px;
 	padding: 0 5px;
 	border-radius: 15px;
 	background: white;
 	color: red;
 	font-weight: 300;
-	font-size: 14px;
 	line-height: 17px;
+	@media ${({theme}) => theme.media.phoneSM}{
+		font-size: 13px;
+		left: 10px;
+
+	}
+	@media ${({theme}) => theme.media.phoneMD}{
+		font-size: 14px;
+		left: 10px;
+
+	}
 `;

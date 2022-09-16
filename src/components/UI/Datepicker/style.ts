@@ -4,18 +4,19 @@ import { DatepickerProps } from './index';
 
 export const DatePickerWrapper = styled.div`
 	
-    z-index: 30;
+    z-index: 10;
 	width: 100%;
 `;
 
 export const DateTimepicker = styled(DatePicker)<DatepickerProps>`
 	width: 100%;
 	height: 45px;
-	padding: 0 24px;
+	padding: 0 10px;
+	text-align: center;
 	border-radius: 5px;
 	border: 1px solid black;
 	outline: none;
-	font-size: 16px;
+	font-size: 14px;
 	position: relative;
 	&.react-datepicker__month-container {
 		z-index: 50;
@@ -33,4 +34,7 @@ export const DateTimepicker = styled(DatePicker)<DatepickerProps>`
 		css`
 			border: 1px solid red;
 		`}
+	@media ${({theme}) => theme.media.phoneMD}{
+		font-size: 16px;
+	}
 `;

@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import { Section } from 'components/Section';
 
-export const AppointemntSection = styled(Section)`
-    padding: 3px 20px;
-`;
 
 export const Title = styled.h3``;
 

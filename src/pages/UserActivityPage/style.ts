@@ -10,20 +10,18 @@ interface StyledActivityItemProps {
 }
 
 export const ActivitySection = styled(Section)`
-display: flex;
-flex-direction: column;
-`
-
+    display: flex;
+    flex-direction: column;
+`;
 
 export const ActivityItem = styled.li<StyledActivityItemProps>`
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    box-shadow: 0px 0px 5px 0px green;
     background-color: white;
     position: relative;
     color: black;
-    border: 1.6px solid green;
+    border: 2px solid green;
 
     .message {
         font-weight: 500;
@@ -70,8 +68,17 @@ export const ActivityItem = styled.li<StyledActivityItemProps>`
     ${(props) =>
         props.type === 'error' &&
         css`
-            box-shadow: 0px 0px 5px 0px red;
-            border: 1px solid red;
+            border: 2px solid red;
+        `}
+    ${(props) =>
+        props.type === 'error' && props.checked && 
+        css`
+            border: 2px solid #e3000061;
+        `}
+    ${(props) =>
+        props.type === 'success' && props.checked && 
+        css`
+            border: 2px solid #0076006b;
         `}
 
     ${(props) =>
@@ -91,24 +98,29 @@ export const ActivityList = styled.ul`
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;
-    padding: 15px 30px;
-    max-height: 700px;
+    max-height: 400px;
     overflow-y: auto;
-
-    h2{
+    padding: 10px 0;
+    h2 {
         text-align: center;
         font-weight: 400;
     }
-    &::-webkit-scrollbar {
-        width: 8px;
-    }
-    &::-webkit-scrollbar-track {
-        background: #ebe7ff;
-        border-radius: 5px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: #003b72;
-        border-radius: 5px;
+    @media ${({ theme }) => theme.media.desktop} {
+        width: 800px;
+        margin: 0 auto;
+        padding: 15px 20px;
+        max-height: 700px;
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        &::-webkit-scrollbar-track {
+            background: #ebe7ff;
+            border-radius: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #003b72;
+            border-radius: 5px;
+        }
     }
 `;
 

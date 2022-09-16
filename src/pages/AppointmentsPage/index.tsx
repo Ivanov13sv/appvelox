@@ -126,12 +126,13 @@ const List = styled.ul`
     flex-direction: column;
     flex-wrap: wrap;
     gap: 2rem;
-
+    padding: 10px;
     /* align-items: center; */
     /* justify-content: center; */
     overflow-y: auto;
     &::-webkit-scrollbar {
         width: 8px;
+        height: 8px;
     }
     &::-webkit-scrollbar-track {
         background: #ebe7ff;

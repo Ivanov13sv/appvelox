@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Main = styled.main`
     grid-area: main;
-    /* overflow: hidden; */
     padding-bottom: 4.5rem;
 `;
 

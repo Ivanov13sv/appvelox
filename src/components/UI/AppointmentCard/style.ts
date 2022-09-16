@@ -4,6 +4,7 @@ export const Card = styled.li`
     height: 174px;
     box-shadow: 0px 0px 5px #ebe7ff;
     border-radius: 5px;
+    width: 320px;
     @media ${({ theme }) => theme.media.tablet} {
         width: 475px;
     }
@@ -63,7 +64,7 @@ export const Speciality = styled.span`
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    color: #ebe7ff;
+    color: #bcb9cf;
 `;
 
 export const PersonalInfo = styled.div`
