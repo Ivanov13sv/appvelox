@@ -1,8 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, MouseEvent } from 'react';
 import { IconButton } from 'components/UI/IconButton';
 import * as S from './style';
 import { useClickOutside } from 'hooks/useClickOutside';
 import useWindowDimensions from 'hooks/useWindowDimensions';
+import { IconType } from 'react-icons';
 
 interface NavbarItemProps {
     icon: JSX.Element;
@@ -21,7 +22,7 @@ export const NavbarItem: FC<NavbarItemProps> = ({
     const handleStartHovering = () => setHovering(true);
     const handleEndHovering = () => setHovering(false);
 
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     const isDesktopScreen = width > 800;
 
     const openContent = () => {
@@ -30,7 +31,10 @@ export const NavbarItem: FC<NavbarItemProps> = ({
         }
     };
 
-    console.log(isDesktopScreen);
+    const hideContent = (e: MouseEvent<SVGElement>) => {
+        e.stopPropagation();
+        setShowContent(false);
+    };
 
     useEffect(() => {
         if (isHovering) {
@@ -55,7 +59,14 @@ export const NavbarItem: FC<NavbarItemProps> = ({
             onMouseLeave={handleEndHovering}
         >
             <IconButton icon={icon} />
-            {showContent && <S.Content  ref={ref}>{children}</S.Content>}
+
+            {showContent && (
+                <S.Content ref={ref}>
+                    {/* <IoMdClose onClick={hideContent} /> */}
+                    <S.CloseContentButton  onClick={hideContent}/>
+                    {children}
+                </S.Content>
+            )}
         </S.NavbarItem>
     );
 };

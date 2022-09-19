@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import { IoMdClose } from 'react-icons/io';
 
 interface INavbarItem {
     newAction: boolean;
@@ -72,5 +73,23 @@ export const Content = styled.article`
         width: 300px;
         animation: ${appearanceTabletPlus} 0.3s;
         transform: translateX(-100%);
+    }
+`;
+
+export const CloseContentButton = styled(IoMdClose)`
+    position: absolute;
+    z-index: 5;
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+
+    > * {
+        fill: ${({theme}) => theme.color.main};
+        stroke: ${({theme}) => theme.color.main};
+    }
+
+    @media ${({ theme }) => theme.media.tablet} {
+        display: none;
     }
 `;

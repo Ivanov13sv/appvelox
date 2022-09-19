@@ -34,6 +34,7 @@ export const RegFirstStep = () => {
         isChecked: false,
         showError: false,
     });
+    const test = useInput('', { isEmpty: true });
     const [validForm, setValidForm] = useState(false);
 
     const checkedPass = checkPasswordMatch(pass.value, repeatPass.value);
@@ -107,6 +108,7 @@ export const RegFirstStep = () => {
                 label="Почта"
                 type="text"
             />
+
             <Input
                 value={phone.value}
                 placeholder="+7 (999) 999-99-99"

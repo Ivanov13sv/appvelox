@@ -37,6 +37,7 @@ export const Label = styled.label<LabelProps>`
 
 interface InputProps {
 	isError?: boolean;
+	showValue?: boolean;
 }
 
 export const Input = styled.input<InputProps>`
@@ -56,7 +57,8 @@ export const Input = styled.input<InputProps>`
 `;
 
 interface PasswordIconProps {
-	isShowedPass: boolean;
+	isShowedValue: boolean;
+
 }
 
 export const PasswordIcon = styled.div<PasswordIconProps>`
@@ -79,7 +81,7 @@ export const PasswordIcon = styled.div<PasswordIconProps>`
 		pointer-events: none;
 	}
 	${props =>
-		props.isShowedPass &&
+		props.isShowedValue &&
 		css`
 			&::after {
 				opacity: 1;

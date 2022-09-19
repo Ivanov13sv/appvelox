@@ -66,7 +66,7 @@ export const ConfirmButton = styled.button<IConfirmButton>`
     cursor: pointer;
     transition: transform 0.1s ease-in-out;
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     width: 30px;
     height: 30px;
     box-shadow: 0px 0px 5px #abaaaf;

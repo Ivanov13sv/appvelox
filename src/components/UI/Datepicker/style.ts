@@ -4,7 +4,7 @@ import { DatepickerProps } from './index';
 
 export const DatePickerWrapper = styled.div`
 	
-    z-index: 10;
+    z-index:2;
 	width: 100%;
 `;
 
@@ -19,7 +19,7 @@ export const DateTimepicker = styled(DatePicker)<DatepickerProps>`
 	font-size: 14px;
 	position: relative;
 	&.react-datepicker__month-container {
-		z-index: 50;
+		z-index: 10;
 	}
 	&:disabled {
 		background: #dbdbdb;

@@ -11,7 +11,7 @@ import { auth } from './firebase';
 import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
 
 function App() {
-    const { logIn, logOut, cleanUser, closeDropdown } = useActions();
+    const { logIn, logOut, cleanUser } = useActions();
     //eslint-disable-next-line
     const [user, loading, error] = useAuthState(auth);
 
@@ -27,7 +27,6 @@ function App() {
         } else {
             cleanUser();
             logOut();
-            closeDropdown();
         }
     });
 

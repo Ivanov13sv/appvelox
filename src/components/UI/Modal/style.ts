@@ -31,7 +31,7 @@ export const Modal = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: 90vw;
-	height: 50vh;
+	height: 400px;
 	background: white;
 	transition: 0.3s all;
 	opacity: 1;

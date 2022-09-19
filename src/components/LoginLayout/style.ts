@@ -27,7 +27,7 @@ interface ThemeProps {
 
 export const ThemesRow = styled.div`
     display: none;
-    @media ${({ theme }) => theme.media.desktop} {
+    @media ${({ theme }) => theme.media.desktopPlus} {
         background-color: ${({ theme }) => theme.color.main};
         display: flex;
         width: 584px;
@@ -56,7 +56,8 @@ export const Theme = styled.div<ThemeProps>`
     }
 
     > img {
-        padding: 55px 0px;
+        padding: 55px 5px;
+
     }
 
     > p {
@@ -91,9 +92,9 @@ export const LoginHeader = styled.header`
         text-decoration: none;
         color: #000;
     }
-	@media ${({ theme }) => theme.media.tablet} {
-		justify-content: space-between;
-	}
+    @media ${({ theme }) => theme.media.tablet} {
+        justify-content: space-between;
+    }
 `;
 
 export const VisuallyImpaired = styled.a`
@@ -196,15 +197,15 @@ export const LoginForm = styled.section`
     input {
         margin-bottom: 20px;
     }
-	@media ${({theme}) => theme.media.tablet}{
-		width: 347px;
-
-	}
+    @media ${({ theme }) => theme.media.tablet} {
+        width: 347px;
+    }
 `;
 
 export const LoginFooter = styled.footer`
-display: none;
-@media ${({theme}) => theme.media.desktop} {
-    display: block;
-    padding: 10px 0;
-}`;
+    display: none;
+    @media ${({ theme }) => theme.media.desktop} {
+        display: block;
+        padding: 10px 0;
+    }
+`;
