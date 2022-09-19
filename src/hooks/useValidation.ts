@@ -70,7 +70,7 @@ export const useValidation = (value: string, validations: any) => {
 						setErrorMessage('Введите корректный номер телефона');
 					} else {
 						setIncorrectPhone(false);
-						setErrorMessage('');
+						// setErrorMessage('');
 					}
 					break;
 

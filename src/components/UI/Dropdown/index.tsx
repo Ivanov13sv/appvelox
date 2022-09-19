@@ -12,77 +12,82 @@ import { DropdownItem } from './DropdownItem';
 
 import * as S from './style';
 
-interface DropdownProps {}
+export const Dropdown = () => {
+    const [menuOpen, setMenuOpen] = useState('main');
+    const [menuHeight, setMenuHeight] = useState<null | number>();
+    const { logOut } = useActions();
+    const { user } = useAppSelector((state) => state.currentUser);
 
-export const Dropdown: FC<DropdownProps> = () => {
-	const [menuOpen, setMenuOpen] = useState('main');
-	const [menuHeight, setMenuHeight] = useState<null | number>();
-	const { logOut, closeDropdown } = useActions();
-	const { user } = useAppSelector(state => state.currentUser);
+    const mainMenuRef = useRef<HTMLUListElement>(null);
+    const secondaryMenuRef = useRef<HTMLUListElement>(null);
+    const auth = getAuth();
 
-	const mainMenuRef = useRef<HTMLUListElement>(null);
-	const secondaryMenuRef = useRef<HTMLUListElement>(null);
-	const auth = getAuth();
+    const navigate = useNavigate();
+	
+    const exit = () => {
+        signOut(auth)
+            .then(() => {
+                logOut();
+            })
+            .catch((error) => {
+                // An error happened.
+            });
+    };
 
-	const dropdownRef = useClickOutside(() => {
-		closeDropdown();
-	});
+    useEffect(() => {
+        if (menuOpen === 'main') {
+            setMenuHeight(mainMenuRef.current?.clientHeight);
+        } else {
+            setMenuHeight(secondaryMenuRef.current?.clientHeight);
+        }
 
-	const navigate = useNavigate();
+    }, [menuOpen]);
 
-	const exit = () => {
-		signOut(auth)
-			.then(() => {
-				logOut();
-			})
-			.catch(error => {
-				// An error happened.
-			});
-	};
-
-	useEffect(() => {
-		if (menuOpen === 'main') {
-			setMenuHeight(mainMenuRef.current?.clientHeight);
-		} else {
-			setMenuHeight(secondaryMenuRef.current?.clientHeight);
-		}
-	}, [menuOpen]);
-
-	return (
-		<S.Dropdown ref={dropdownRef} style={{ height: `${menuHeight && menuHeight + 35}px` }}>
-			<S.Menu ref={mainMenuRef} menuOpen={menuOpen === 'main'}>
-				<S.Title>Привет, {user.firstName}! </S.Title>
-				<DropdownItem
-					text="Мой профиль"
-					leftIcon={<MdPerson />}
-					callback={() => navigate('/profile/userInfo')}
-				/>
-				<DropdownItem
-					goTo="settings"
-					setMenuOpen={setMenuOpen}
-					text="Настойки"
-					leftIcon={<BsGearFill />}
-					rightIcon={<MdChevronRight size={'1.5em'} />}
-				/>
-			</S.Menu>
-			<S.SecondaryMenu ref={secondaryMenuRef} menuOpen={menuOpen === 'settings'}>
-				<DropdownItem
-					goTo="main"
-					setMenuOpen={setMenuOpen}
-					leftIcon={
-						<MdChevronRight size={'1.5em'} style={{ transform: 'rotate(180deg)' }} />
-					}
-				/>
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-				<DropdownItem callback={exit} text="Выйти" leftIcon={<MdOutlineExitToApp />} />
-			</S.SecondaryMenu>
-		</S.Dropdown>
-	);
+    return (
+        <S.Dropdown style={{ height: `${menuHeight && menuHeight + 35}px` }}>
+            <S.Menu ref={mainMenuRef} menuOpen={menuOpen === 'main'}>
+                <S.Title>Привет, {user.firstName}! </S.Title>
+                <DropdownItem
+                    text="Мой профиль"
+                    leftIcon={<MdPerson />}
+                    goTo={() => navigate('/profile/userInfo')}
+                />
+                <DropdownItem
+                    switchMenu="settings"
+                    setMenuOpen={setMenuOpen}
+                    text="Настойки"
+                    leftIcon={<BsGearFill />}
+                    rightIcon={<MdChevronRight size={'1.5em'} />}
+                />
+            </S.Menu>
+            <S.SecondaryMenu
+                ref={secondaryMenuRef}
+                menuOpen={menuOpen === 'settings'}
+            >
+                <DropdownItem
+                    switchMenu="main"
+                    setMenuOpen={setMenuOpen}
+                    leftIcon={
+                        <MdChevronRight
+                            size={'1.5em'}
+                            style={{ transform: 'rotate(180deg)' }}
+                        />
+                    }
+                />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+                <DropdownItem
+                    goTo={exit}
+                    text="Выйти"
+                    leftIcon={<MdOutlineExitToApp />}
+                />
+            </S.SecondaryMenu>
+        </S.Dropdown>
+    );
 };

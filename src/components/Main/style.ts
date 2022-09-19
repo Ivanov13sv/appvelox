@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
-	grid-area: main;
-	height: 100%;
-	/* overflow: hidden; */
+    grid-area: main;
+    padding-bottom: 4.5rem;
 `;
 
 export const Titles = styled.div`
-	height: 46px;
-	display: flex;
-	margin-left: 40px;
-	display: flex;
-	align-items: center;
-	position: relative;
+    height: 46px;
+    display: flex;
+    display: flex;
+    align-items: center;
+    position: relative;
+    @media ${({ theme }) => theme.media.desktop} {
+        margin-left: 40px;
+    }
 `;

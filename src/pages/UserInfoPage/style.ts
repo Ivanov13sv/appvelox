@@ -1,4 +1,9 @@
 import styled, { css } from 'styled-components';
+import { Section } from 'components/Section';
+
+export const UserInfoSection = styled(Section)`
+    padding-bottom: 3rem;
+`
 
 export const ProfileImage = styled.div`
     width: 200px;
@@ -61,7 +66,7 @@ export const ConfirmButton = styled.button<IConfirmButton>`
     cursor: pointer;
     transition: transform 0.1s ease-in-out;
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     width: 30px;
     height: 30px;
     box-shadow: 0px 0px 5px #abaaaf;
@@ -73,7 +78,7 @@ export const ConfirmButton = styled.button<IConfirmButton>`
     align-items: center;
     justify-content: center;
     border: none;
- 
+
     svg {
         color: #9b9a9a;
         transform: scale(1.5);
@@ -117,19 +122,32 @@ export const Form = styled.form`
 export const Body = styled.div`
     display: flex;
     justify-content: space-around;
-    padding: 2rem;
+    padding: 1rem;
     flex: 1 1 50%;
-    gap: 3rem;
+    gap: 2rem;
     flex-wrap: wrap;
+    @media ${({ theme }) => theme.media.tablet} {
+        padding: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        gap: 3rem;
+    }
 `;
 
 export const InfoBlock = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     h2 {
+        font-size: 22px;
         font-weight: 400;
+    }
+    @media ${({ theme }) => theme.media.tablet} {
+        h2 {
+            font-size: 26px;
+        }
+        gap: 2rem;
     }
 `;
 

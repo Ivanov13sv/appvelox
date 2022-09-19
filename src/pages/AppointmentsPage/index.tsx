@@ -71,7 +71,9 @@ export const AppointmentsPage: FC = () => {
                             <List>
                                 {filtredAppointments.map((item) => (
                                     <AppointmentListItem key={item.id}>
-                                        {getFormateDateWithTime(item.date)}
+                                        <div className='date'>
+                                            {getFormateDateWithTime(item.date)}
+                                        </div>
                                         <div>{item.hospital}</div>
                                         <div>{item.address}</div>
                                         <div>Врач - {item.name}</div>
@@ -100,26 +102,37 @@ const ModalWrapper = styled.div`
 `;
 
 const AppointmentListItem = styled.li`
-    width: 300px;
-    height: 120px;
+
+    /* height: 120px; */
     background-color: whitesmoke;
     border-radius: 10px;
     padding: 15px;
     flex: 0 0 45%;
     display: flex;
+    gap: 10px;
     flex-direction: column;
     justify-content: space-between;
+    .date{
+        font-weight: 500;
+    }
+
+    @media ${({theme}) => theme.media.phoneMD}{
+        max-width: 300px;
+    }
 `;
 
 const List = styled.ul`
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    justify-content: center;
+    gap: 2rem;
+    padding: 10px;
+    /* align-items: center; */
+    /* justify-content: center; */
     overflow-y: auto;
     &::-webkit-scrollbar {
         width: 8px;
+        height: 8px;
     }
     &::-webkit-scrollbar-track {
         background: #ebe7ff;
@@ -130,4 +143,3 @@ const List = styled.ul`
         border-radius: 5px;
     }
 `;
-

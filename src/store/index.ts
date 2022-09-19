@@ -11,7 +11,6 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import dropdownReducer from 'store/slices/dropdownSlice';
 import authInfo from 'store/slices/authInfoSlice';
 import successRegistrationSlice from 'store/slices/successRegistrationSlice';
 import regFieldsSlice from 'store/slices/regFieldsSlice';
@@ -31,7 +30,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    dropdown: dropdownReducer,
     authInfo: authInfo,
     successReg: successRegistrationSlice,
     regFields: regFieldsSlice,

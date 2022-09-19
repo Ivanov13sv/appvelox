@@ -11,6 +11,7 @@ import { useActions } from 'hooks/useActions';
 import { LocalLoader } from 'components/UI/LocalLoader';
 
 import * as S from './style';
+import { Section } from 'components/Section';
 
 export const ProfilePage: FC = () => {
     const { appointments = [], loading } = useAppSelector(
@@ -68,7 +69,7 @@ export const ProfilePage: FC = () => {
         );
 
     return (
-        <S.AppointemntPage>
+        <Section>
             <S.CardsList>
                 {appointmentList}
                 {appointments.length - 2 ? (
@@ -107,6 +108,6 @@ export const ProfilePage: FC = () => {
                     </ECard>
                 </S.ECards>
             </S.PatientInfo>
-        </S.AppointemntPage>
+        </Section>
     );
 };

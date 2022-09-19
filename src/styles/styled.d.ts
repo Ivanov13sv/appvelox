@@ -12,5 +12,15 @@ declare module 'styled-components' {
 		font?: {
 
 		};
+		media:{
+			phoneSM: string;
+			phoneMD: string;
+			tablet: string;
+			desktop: string;
+			desktopPlus: string;
+		}
+		other: {
+			boxShadow: string;
+		}
 	}
 }

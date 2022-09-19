@@ -20,8 +20,6 @@ export const Main: FC<MainProps> = ({ children }) => {
         { path: '/appointments', title: 'Мои записи', to: null },
         { path: '/doctors', title: 'Врачи и клиники', to: null },
         { path: '/userActivity', title: 'Ваша активность', to: null },
-        { path: '/test', title: 'Тестирование', to: null },
-        { path: '/goodtoknow', title: 'Полезно знать', to: null },
     ];
 
     return (

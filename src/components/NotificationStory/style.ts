@@ -2,11 +2,9 @@ import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { INotificationType } from 'types/notification';
 
-
 export const Wrapper = styled.article`
     box-shadow: 0px 0px 5px #c0c0c0;
     border-radius: 5px;
-    width: 300px;
     background: #f8f8f8;
     transition: opacity 3s ease-in-out;
     padding: 15px;
@@ -17,6 +15,9 @@ export const Wrapper = styled.article`
         padding: 10px 0;
     }
     .showMore {
+    }
+    @media ${({ theme }) => theme.media.tablet} {
+        width: 300px;
     }
 `;
 

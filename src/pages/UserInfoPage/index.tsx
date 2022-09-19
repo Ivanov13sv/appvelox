@@ -191,7 +191,7 @@ export const UserInfoPage = () => {
     }, [user]);
 
     return (
-        <Section>
+        <S.UserInfoSection>
             <SectionBackButton text="Назад" />
             <S.Body>
                 <S.InfoBlock>
@@ -316,6 +316,6 @@ export const UserInfoPage = () => {
                     )}
                 </S.PrivateInfo>
             </S.Body>
-        </Section>
+        </S.UserInfoSection>
     );
 };

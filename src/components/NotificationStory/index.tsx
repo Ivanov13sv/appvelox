@@ -6,6 +6,7 @@ import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { LocalLoader } from 'components/UI/LocalLoader';
 import { ShowMore, StoryItem, Wrapper } from './style';
+import { useClickOutside } from 'hooks/useClickOutside';
 
 interface INotificationStory {
     story: IStoryItem[];
@@ -23,6 +24,7 @@ export const NotificationStory: FC<INotificationStory> = ({ story }) => {
             setTest([...test, id]);
         }
     };
+
 
     const storyItems = story
         .slice(-3)
