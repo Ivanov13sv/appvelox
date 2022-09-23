@@ -12,7 +12,7 @@ export const WrapperCheckbox = styled.label`
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		box-shadow: 0 0 0 0.1em ${({ theme }) => theme.color.accent};
+		box-shadow: ${({theme}) => theme.other.boxShadow};
 		border-radius: 5px;
 		background-color: white;
 		transition: 0.3s;

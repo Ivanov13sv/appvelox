@@ -16,7 +16,7 @@ export const Layout = styled.section`
         font-size: 14px;
         line-height: 17px;
         text-align: center;
-        color: #000000;
+        color: ${({theme}) => theme.color.text};
         span {
             font-weight: 300;
             font-size: 14px;

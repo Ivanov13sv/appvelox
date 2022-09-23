@@ -1,4 +1,4 @@
-import { FormEvent} from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { RegistrationStatus } from 'components/UI/RegistrationStatus';
 import { useActions } from 'hooks/useActions';
@@ -10,7 +10,7 @@ import { db } from '../../firebase';
 import * as S from './style';
 
 export const RegistrationLayout = () => {
-    const { setSuccessReg} = useActions();
+    const { setSuccessReg } = useActions();
 
     const { user } = useAppSelector((state) => state.regFields);
     const { spinerOff, spinerOn } = useActions();

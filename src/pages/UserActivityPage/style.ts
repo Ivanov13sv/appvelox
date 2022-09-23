@@ -18,17 +18,20 @@ export const ActivityItem = styled.li<StyledActivityItemProps>`
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: white;
+    background-color: ${({ theme }) => theme.color.uiBase};
     position: relative;
-    color: black;
-    border: 2px solid green;
+    color: ${({ theme }) => theme.color.text};
+    border: 2px solid ${({ theme }) => theme.color.success};
 
     .message {
         font-weight: 500;
+        color: ${({ theme }) => theme.color.text};
     }
     .date {
-        color: #5a5a5a;
+        /* color: #5a5a5a; */
+        color: ${({ theme }) => theme.color.text};
         flex: 0 1 auto;
+        font-weight: 500;
         font-size: 15px;
     }
     .controllers {
@@ -37,12 +40,11 @@ export const ActivityItem = styled.li<StyledActivityItemProps>`
         gap: 10px;
     }
     svg {
-        color: #555555;
+        color: ${({ theme }) => theme.color.text};
         font-size: 18px;
         transition: transform 0.1s ease-in-out;
         &:hover {
             transform: scale(1.3);
-            color: black;
         }
     }
     .status {
@@ -52,31 +54,27 @@ export const ActivityItem = styled.li<StyledActivityItemProps>`
         transform: translateY(-55%);
         padding: 0 10px;
         border-radius: 5px;
-        background-color: white;
+        background-color: ${({ theme }) => theme.color.uiBase};
+        color: ${({ theme }) => theme.color.text};
     }
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    &:hover {
-        background-color: whitesmoke;
-    }
-    &:active {
-        background-color: #e9e9e9;
-    }
-
     ${(props) =>
         props.type === 'error' &&
         css`
-            border: 2px solid red;
+            border: 2px solid ${({ theme }) => theme.color.error};
         `}
     ${(props) =>
-        props.type === 'error' && props.checked && 
+        props.type === 'error' &&
+        props.checked &&
         css`
             border: 2px solid #e3000061;
         `}
     ${(props) =>
-        props.type === 'success' && props.checked && 
+        props.type === 'success' &&
+        props.checked &&
         css`
             border: 2px solid #0076006b;
         `}
@@ -85,13 +83,32 @@ export const ActivityItem = styled.li<StyledActivityItemProps>`
         props.checked &&
         css`
             .message {
-                font-weight: 400;
-                color: #5c5c5c;
+                font-weight: 100;
+                /* color: #5c5c5c; */
+            }
+            .date {
+                font-weight: 100;
             }
             & {
                 box-shadow: none;
             }
         `}
+        @media ${({ theme }) => theme.media.tablet} {
+        &:active {
+            background-color: #e9e9e9;
+        }
+        &:hover {
+            svg {
+                font-size: 18px;
+                transition: transform 0.1s ease-in-out;
+                &:hover {
+                    transform: scale(1.3);
+                }
+            }
+            filter: brightness(85%);
+
+        }
+    }
 `;
 
 export const ActivityList = styled.ul`
@@ -100,7 +117,7 @@ export const ActivityList = styled.ul`
     gap: 15px;
     max-height: 400px;
     overflow-y: auto;
-    padding: 10px 0;
+    padding: 0 10px;
     h2 {
         text-align: center;
         font-weight: 400;
@@ -137,10 +154,11 @@ export const ListControllButtons = styled.div`
         cursor: pointer;
         font-size: 30px;
         transition: transform 0.1s ease-in-out;
-        color: #5c5c5c;
+        /* color: #5c5c5c; */
+        color: ${({ theme }) => theme.color.text};
         &:hover {
             transform: scale(1.3);
-            color: black;
+            color: ${({ theme }) => theme.color.text};
         }
     }
 `;

@@ -28,7 +28,7 @@ export const MyCalendar: FC<IMyCalendar> = ({
             onClickDay={onClickDay}
             tileContent={({ date }) => {
                 return isReservedDay(appointments, date) ? (
-                    <BsDot size={30} />
+                    <BsDot size={50} />
                 ) : null;
             }}
             // tileClassName="tile"

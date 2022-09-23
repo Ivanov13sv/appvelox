@@ -168,7 +168,8 @@ export const StepNumber = styled.div<StatusProps>`
         props.done &&
         css`
             &:hover {
-                box-shadow: 0 0 0 2px ${({ theme }) => theme.color.darkenAccent};
+                /* box-shadow: 0 0 0 2px ${({ theme }) => theme.color.darkenAccent}; */
+                box-shadow: ${({theme}) => theme.other.boxShadow};
             }
             &::before {
                 width: 100%;

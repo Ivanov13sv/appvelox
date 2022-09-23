@@ -16,8 +16,7 @@ export const SidebarItem = styled(NavLink)<SidebarItemProps>`
     gap: 5px;
     height: 46px;
     width: 100%;
-    color: white;
-    background-color: ${({ theme }) => theme.color.main};
+    color: ${({theme}) => theme.color.text};
     svg {
         > * {
             fill: white;

@@ -20,7 +20,6 @@ import { Datepicker } from 'components/UI/Datepicker';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { fetchReservedDates } from '../../firebase';
 import * as S from './style';
-import { getFormateDate } from 'utils/formateDate';
 
 export const MakeAnAppointment = () => {
     const [date, setDate] = useState<Date | null>(null);
@@ -48,7 +47,6 @@ export const MakeAnAppointment = () => {
         setReservedDates(result);
     };
 
-    console.log(new Date('2022-09-21T11:00:00.000Z'));
 
     const postNewAppointment = () => {
         const doctor = doctors.find(

@@ -36,11 +36,12 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.span<ITextProps>`
-display: none;
+color: ${({theme}) => theme.color.text};
+    display: none;
     @media ${({ theme }) => theme.media.tablet} {
         font-size: 12px;
         position: absolute;
-		display: block;
+        display: block;
         ${(props) =>
             props.labelSide === 'top' &&
             css`

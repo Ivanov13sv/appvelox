@@ -22,11 +22,12 @@ import doctorsSlice from './slices/doctorsSlice';
 import notificationSlice from './slices/notificationSlice';
 import newEmailModalSlice from './slices/newEmailModalSlice';
 import userActivity from './slices/userActivitySlice';
+import themeSlice from './slices/themeSlice';
 
 const persistConfig = {
     key: 'root',
 	storage: storage,
-	whitelist: ['test']
+	whitelist: ['theme']
 };
 
 const rootReducer = combineReducers({
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
     notification: notificationSlice,
     newEmailModal: newEmailModalSlice,
     userActivity: userActivity,
+    theme: themeSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

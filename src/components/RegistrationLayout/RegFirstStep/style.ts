@@ -22,7 +22,7 @@ export const StepAgreements = styled.ul`
 		font-size: 14px;
 		line-height: 17px;
 		text-align: justify;
-		color: #000000;
+		color: ${({theme}) => theme.color.text};
 		position: relative;
 		padding-left: 13px;
 		margin-bottom: 10px;
@@ -31,7 +31,7 @@ export const StepAgreements = styled.ul`
 			position: absolute;
 			width: 5px;
 			height: 0.1px;
-			background: black;
+			background: ${({theme}) => theme.color.text};
 			top: 50%;
 			left: 0;
 			transform: translateY(-50%);

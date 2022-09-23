@@ -9,6 +9,7 @@ import { notificationActions } from 'store/slices/notificationSlice';
 import { asyncActions } from 'store/actions/asyncActionCreators';
 import { newEmailModalActions } from 'store/slices/newEmailModalSlice';
 import { userActivityActions } from 'store/slices/userActivitySlice';
+import {themeActions} from 'store/slices/themeSlice'
 
 export const allActions = {
 	...successActions,
@@ -21,5 +22,6 @@ export const allActions = {
 	...notificationActions,
 	...asyncActions,
 	...newEmailModalActions,
-	...userActivityActions
+	...userActivityActions,
+	...themeActions
 };

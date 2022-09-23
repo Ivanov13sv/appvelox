@@ -3,16 +3,18 @@ import styled, { css } from 'styled-components';
 import { INotificationType } from 'types/notification';
 
 export const Wrapper = styled.article`
-    box-shadow: 0px 0px 5px #c0c0c0;
+    box-shadow: ${({theme}) => theme.other.boxShadow};
     border-radius: 5px;
-    background: #f8f8f8;
+    /* background: #f8f8f8; */
+    background: ${({theme}) => theme.color.secondary};
     transition: opacity 3s ease-in-out;
     padding: 15px;
 
     h3 {
-        font-weight: 500;
+        font-weight: 100;
         font-size: 15px;
         padding: 10px 0;
+        color: white;
     }
     .showMore {
     }
@@ -52,11 +54,12 @@ export const StoryItem = styled.div<StoryItemProps>`
     }
     .date {
         font-size: 13px;
-        color: #000000;
+        color: white;
+        font-weight: 500;
     }
     .message {
         font-size: 14px;
-        color: black;
+        color: white;
         font-weight: 500;
     }
     ${(props) =>
@@ -64,12 +67,13 @@ export const StoryItem = styled.div<StoryItemProps>`
         css`
             .message {
                 font-size: 14px;
-                color: #00000096;
-                font-weight: 400;
+                color: #fdfdfd;
+                font-weight: 100;
             }
             .date {
                 font-size: 13px;
-                color: #000000cc;
+                color: #f7f7f7;
+                font-weight: 100;
             }
         `}
 `;

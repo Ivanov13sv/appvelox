@@ -11,7 +11,7 @@ padding-left: 10px;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 19px;
-	color: #000000;
+	color: ${({theme}) => theme.color.text};
 	position: absolute;
 	transition: left 0.3s ease;
 	left: ${props => (props.active ? 0 : '-100%')};

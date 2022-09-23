@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
 import { ThemeProvider } from 'styled-components';
@@ -5,15 +6,16 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useActions } from 'hooks/useActions';
 import { Router } from 'Router';
 import { NotificationProvider } from 'components/UI/Notification/NotificationProvider';
-import { myTheme } from './styles/theme';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { darkTheme, lightTheme } from './styles/theme';
 import { GlobalStyles } from './styles/global';
 import { auth } from './firebase';
-import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
 
 function App() {
     const { logIn, logOut, cleanUser } = useActions();
     //eslint-disable-next-line
     const [user, loading, error] = useAuthState(auth);
+    const { theme } = useAppSelector((state) => state.theme);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -30,10 +32,13 @@ function App() {
         }
     });
 
+
+    const themeMode = theme === 'dark' ? darkTheme : lightTheme;
+
     if (loading) return <FullscreenSpiner />;
 
     return (
-        <ThemeProvider theme={myTheme}>
+        <ThemeProvider theme={themeMode}>
             <NotificationProvider />
             <Router />
             <GlobalStyles />

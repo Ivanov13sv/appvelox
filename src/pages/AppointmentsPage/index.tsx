@@ -89,6 +89,7 @@ export const AppointmentsPage: FC = () => {
 };
 
 const ModalWrapper = styled.div`
+background-color: ${({theme}) => theme.color.uiBase};
     display: flex;
     width: 100%;
     height: 100%;
@@ -97,14 +98,14 @@ const ModalWrapper = styled.div`
     gap: 2rem;
     h3 {
         text-align: center;
-        font-weight: 500;
+        font-weight: 100;
     }
 `;
 
 const AppointmentListItem = styled.li`
 
     /* height: 120px; */
-    background-color: whitesmoke;
+    background-color: ${({theme}) => theme.color.bg};
     border-radius: 10px;
     padding: 15px;
     flex: 0 0 45%;
@@ -112,6 +113,7 @@ const AppointmentListItem = styled.li`
     gap: 10px;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: ${({theme}) => theme.other.boxShadow};
     .date{
         font-weight: 500;
     }

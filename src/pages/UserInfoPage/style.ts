@@ -9,7 +9,7 @@ export const ProfileImage = styled.div`
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    box-shadow: 0px 0px 5px #abaaaf;
+    box-shadow: ${({theme}) => theme.other.boxShadow};
     position: relative;
     > * {
         width: 100%;
@@ -26,7 +26,7 @@ export const ProfileImage = styled.div`
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        box-shadow: 0px 0px 5px #abaaaf;
+        box-shadow: ${({theme}) => theme.other.boxShadow};
         transition: transform 0.1s ease-in-out;
         background: green;
         input {
@@ -69,8 +69,8 @@ export const ConfirmButton = styled.button<IConfirmButton>`
     z-index: 1;
     width: 30px;
     height: 30px;
-    box-shadow: 0px 0px 5px #abaaaf;
-    background: white;
+    box-shadow: ${({theme}) => theme.other.boxShadow};
+    background: ${({theme}) => theme.color.bg};
     bottom: 20%;
     left: 0;
     border-radius: 50%;
@@ -99,7 +99,7 @@ export const ConfirmButton = styled.button<IConfirmButton>`
             }
             &:hover {
                 svg {
-                    color: green;
+                    color: ${({theme}) => theme.color.success};
                 }
             }
         `}
@@ -109,7 +109,7 @@ export const Form = styled.form`
     width: 250px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
     h3 {
         font-weight: 300;
         padding-bottom: 5px;

@@ -13,12 +13,7 @@ export const LoginBody = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1 1 60%;
-    /* width: 782px;
-	padding: 0 40px 30px 40px;
-	min-height: 100%;
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 60%; */
+
 `;
 
 interface ThemeProps {
@@ -90,7 +85,7 @@ export const LoginHeader = styled.header`
 
     > a {
         text-decoration: none;
-        color: #000;
+        color: ${({theme}) => theme.color.text};
     }
     @media ${({ theme }) => theme.media.tablet} {
         justify-content: space-between;

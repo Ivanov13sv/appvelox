@@ -5,7 +5,8 @@ import * as S from './style';
 interface DropdownItemProps extends ListItemProps {
     switchMenu?: string;
     setMenuOpen?: (menu: string) => void;
-    goTo?: () => void;
+    children?: JSX.Element;
+    onClick?: () => void;
 }
 
 export const DropdownItem: FC<DropdownItemProps> = ({
@@ -13,8 +14,9 @@ export const DropdownItem: FC<DropdownItemProps> = ({
     text,
     rightIcon,
     switchMenu,
-    goTo,
+    onClick,
     setMenuOpen,
+    children
 }) => {
     const changeMenu = () => {
         if (switchMenu && setMenuOpen) {
@@ -22,15 +24,16 @@ export const DropdownItem: FC<DropdownItemProps> = ({
         }
     };
 
-    const changeLocation = () => {
-        if (goTo) {
-            goTo();
+    const onClickHandler = () => {
+        if (onClick) {
+            onClick();
         }
     };
 
     return (
-        <S.DropdownItem onClick={switchMenu ? changeMenu : changeLocation}>
+        <S.DropdownItem onClick={switchMenu ? changeMenu : onClickHandler}>
             <ListItem leftIcon={leftIcon} text={text} rightIcon={rightIcon} />
+            {children}
         </S.DropdownItem>
     );
 };
