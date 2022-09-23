@@ -5,12 +5,14 @@ import { MdChevronRight, MdOutlineExitToApp } from 'react-icons/md';
 import { BsGearFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
+import { BsFillMoonFill } from "react-icons/bs";
 import { useActions } from 'hooks/useActions';
 import { getAuth, signOut } from 'firebase/auth';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { DropdownItem } from './DropdownItem';
 
 import * as S from './style';
+import { Toggler } from '../Toggler';
 
 export const Dropdown = () => {
     const [menuOpen, setMenuOpen] = useState('main');
@@ -21,9 +23,9 @@ export const Dropdown = () => {
     const mainMenuRef = useRef<HTMLUListElement>(null);
     const secondaryMenuRef = useRef<HTMLUListElement>(null);
     const auth = getAuth();
-
+    const { toggleTheme } = useActions();
+    const { theme } = useAppSelector((state) => state.theme);
     const navigate = useNavigate();
-	
     const exit = () => {
         signOut(auth)
             .then(() => {
@@ -40,7 +42,6 @@ export const Dropdown = () => {
         } else {
             setMenuHeight(secondaryMenuRef.current?.clientHeight);
         }
-
     }, [menuOpen]);
 
     return (
@@ -50,7 +51,8 @@ export const Dropdown = () => {
                 <DropdownItem
                     text="Мой профиль"
                     leftIcon={<MdPerson />}
-                    goTo={() => navigate('/profile/userInfo')}
+                    onClick={() => navigate('/profile/userInfo')}
+                    // goTo={() => navigate('/profile/userInfo')}
                 />
                 <DropdownItem
                     switchMenu="settings"
@@ -74,16 +76,18 @@ export const Dropdown = () => {
                         />
                     }
                 />
+                <DropdownItem onClick={toggleTheme} text="Темная тема" leftIcon={<BsFillMoonFill />}>
+                    <Toggler theme={theme} toggleTheme={toggleTheme} />
+                </DropdownItem>
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
-                <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />
+
                 <DropdownItem
-                    goTo={exit}
+                    onClick={() => exit()}
                     text="Выйти"
                     leftIcon={<MdOutlineExitToApp />}
                 />

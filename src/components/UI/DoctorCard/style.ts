@@ -19,9 +19,9 @@ const shake = keyframes`
 export const Card = styled.article`
 	width: 200px;
 	height: 300px;
-	background: white;
+	background: ${({theme}) => theme.color.uiBase};
 	position: relative;
-	box-shadow: 0px 0px 5px #abaaaf;
+	box-shadow: ${({theme}) => theme.other.boxShadow};
 	border-radius: 5px;
 	overflow: hidden;
 `;
@@ -56,7 +56,7 @@ export const Description = styled.p`
 
 
 export const Details = styled(NavLink)`
-color: ${({theme}) => theme.color.accent};
+color: ${({theme}) => theme.color.text};
 display: flex;
 align-items: center;
 justify-content: center;
@@ -65,7 +65,7 @@ gap: 10px;
 transition: transform 1s ease;
 cursor: pointer;
 svg{
-    color: ${({theme}) => theme.color.accent};
+	color: ${({theme}) => theme.color.text};
 
 }
 

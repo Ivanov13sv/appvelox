@@ -50,7 +50,7 @@ export const SidebarMain = styled.div<SidebarBodyProps>`
         position: fixed;
         bottom: 75px;
         right: 10px;
-        background-color: ${({ theme }) => theme.color.secondary};
+        background-color: ${({ theme }) => theme.color.otherElems};
     }
     svg{
         font-size: 50px;

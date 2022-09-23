@@ -5,5 +5,5 @@ export const Description = styled.p`
 	font-size: 14px;
 	line-height: 17px;
 	text-align: center;
-	color: #000000;
+	color: ${({theme}) => theme.color.text};
 `;

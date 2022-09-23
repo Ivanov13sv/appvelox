@@ -8,7 +8,7 @@ export const DropdownItem = styled.li`
 	transition: background-color 0.3s ease;
 	height: 40px;
 	cursor: pointer;
-
+	background-color: ${({theme}) => theme.color.secondary};
 	svg {
 		font-size: 22px;
 		> * {
@@ -21,6 +21,6 @@ export const DropdownItem = styled.li`
 	}
 
 	&:hover {
-		background-color: #36a2d0;
+		filter: brightness(85%);
 	}
 `;

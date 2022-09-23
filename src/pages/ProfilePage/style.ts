@@ -26,7 +26,7 @@ export const ShowMoreBlock = styled.div`
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
-        color: #000000;
+        color: ${({theme}) => theme.color.text};
     }
 
     a {
@@ -35,7 +35,7 @@ export const ShowMoreBlock = styled.div`
         line-height: 20px;
         text-decoration-line: underline;
         cursor: pointer;
-        color: #50caff;
+        color: ${({theme}) => theme.color.otherElems};
     }
 `;
 
@@ -47,7 +47,7 @@ export const PatientInfo = styled.div`
         font-weight: 400;
         font-size: 20px;
         line-height: 19px;
-        color: #000000;
+        color: ${({theme}) => theme.color.text};
     }
 
     @media ${({ theme }) => theme.media.tablet} {

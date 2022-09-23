@@ -33,7 +33,7 @@ export const RecoveryPage = () => {
 	return (
 		<S.Recovery>
 			<div style={{ padding: ' 1rem 0', color: 'red' }}>
-				{' '}
+
 				Приносим извинения, данная страница находится в разработке
 			</div>
 			<h2>Ввостановление пароля</h2>

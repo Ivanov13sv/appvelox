@@ -11,8 +11,8 @@ export const CardItemIcon = styled.div`
 
     svg {
         > * {
-            fill: ${({ theme }) => theme.color.secondary};
-            stroke: ${({ theme }) => theme.color.secondary};
+            fill: ${({ theme }) => theme.color.otherElems};
+            stroke: ${({ theme }) => theme.color.otherElems};
         }
     }
 
@@ -33,7 +33,7 @@ export const CardItemIcon = styled.div`
             left: -100%;
             position: absolute;
             z-index: -1;
-            background-color: ${({ theme }) => theme.color.secondary};
+            background-color: ${({ theme }) => theme.color.otherElems};
         }
     }
 `;
@@ -82,7 +82,7 @@ export const CardItemBody = styled.div`
                 width: 4px;
                 height: 4px;
                 border-radius: 50%;
-                background: ${({ theme }) => theme.color.secondary};
+                background: ${({ theme }) => theme.color.otherElems};
                 left: 0;
                 top: 50%;
                 transform: translateY(-50%);
@@ -103,7 +103,7 @@ export const CardItemBody = styled.div`
                 position: absolute;
                 width: 0;
                 height: 2px;
-                background-color: ${({ theme }) => theme.color.secondary};
+                background-color: ${({ theme }) => theme.color.otherElems};
                 bottom: -10px;
                 right: 0;
                 z-index: 5;
@@ -175,8 +175,7 @@ export const ECardItem = styled.article`
 
                 li {
                     &::before {
-                        background-color: ${({ theme }) =>
-                            theme.color.secondary};
+                        background-color: ${({ theme }) => theme.color.otherElems};
                     }
                 }
             }

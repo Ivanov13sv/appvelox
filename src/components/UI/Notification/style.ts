@@ -48,8 +48,9 @@ export const NotificationItem = styled.div<INotificationItem>`
 
 	width: 300px;
 	overflow: hidden;
-	background: white;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	background: ${({theme}) => theme.color.uiBase};
+	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
+	box-shadow: ${({theme}) => theme.other.boxShadow};
 	border-radius: 5px;
 	padding: 15px;
 	position: relative;

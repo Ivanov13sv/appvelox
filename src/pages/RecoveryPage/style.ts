@@ -9,7 +9,7 @@ export const Recovery = styled.section`
 		font-size: 28px;
 		line-height: 33px;
 		text-align: center;
-		color: #000000;
+		color: ${({theme}) => theme.color.text};
 		padding-bottom: 15px;
 	}
 	span {
@@ -18,7 +18,7 @@ export const Recovery = styled.section`
 		font-size: 14px;
 		line-height: 17px;
 		padding-bottom: 34px;
-		color: #000;
+		color: ${({theme}) => theme.color.text};
 	}
 
 	form {

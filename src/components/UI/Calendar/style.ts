@@ -2,30 +2,48 @@ import { Calendar } from 'react-calendar';
 import styled from 'styled-components';
 
 export const BigCalendar = styled(Calendar)`
-    box-shadow: 0px 0px 5px #ebe7ff;
+    box-shadow: ${({ theme }) => theme.other.boxShadow};
     border: none;
     border-radius: 10px;
     padding: 0.5rem;
     width: 100%;
+    background-color: ${({ theme }) => theme.color.uiBase};
     svg {
         font-size: 16px;
     }
     abbr {
         text-decoration: none;
         font-size: 12px;
+        color: ${({ theme }) => theme.color.text};
+    }
+
+    .react-calendar__navigation__arrow {
+        color: ${({ theme }) => theme.color.text};
+    }
+    .react-calendar__navigation{
+        button:hover{
+            background-color: ${({ theme }) => theme.color.otherElems};
+        }
+        button{
+            background-color: ${({ theme }) => theme.color.uiBase};
+     
+        }
     }
     .react-calendar__navigation span {
         font-size: 14px;
     }
     .react-calendar__tile--now {
         color: ${({ theme }) => theme.color.secondary};
-        background-color: white;
+        background-color: ${({ theme }) => theme.color.otherElems};
     }
     .react-calendar__month-view__days__day--weekend {
-        color: #000000;
     }
-    .react-calendar__viewContainer {
+
+    .react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
+        color: ${({theme}) => theme.color.text};
     }
+
+
 
     @media ${({ theme }) => theme.media.tablet} {
         padding: 2rem;
@@ -46,14 +64,21 @@ export const BigCalendar = styled(Calendar)`
         justify-content: center;
         border-radius: 4px;
         height: 60px;
+
         &:hover {
             background: #f5f5f5;
+            background: ${({ theme }) => theme.color.otherElems};
+            span{
+                color: red;
+            }
         }
         &:focus {
-            background: ${({ theme }) => theme.color.main};
+            /* background: none; */
+            background: ${({ theme }) => theme.color.otherElems};
+            
         }
         svg {
-            color: ${({ theme }) => theme.color.accent};
+            color: #7aff00;
         }
 
         @media ${({ theme }) => theme.media.tablet} {
@@ -61,11 +86,12 @@ export const BigCalendar = styled(Calendar)`
         }
     }
     .react-calendar__tile--active {
-        background: ${({ theme }) => theme.color.main};
-        color: white;
+        /* background: ${({ theme }) => theme.color.main}; */
+        background: none;
 
         &:enabled:hover {
-            background: ${({ theme }) => theme.color.main};
+            background: ${({ theme }) => theme.color.otherElems};
+            /* background: none; */
         }
     }
     @media ${({ theme }) => theme.media.desktop} {

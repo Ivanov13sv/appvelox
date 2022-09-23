@@ -16,6 +16,9 @@ export const SelectBox = styled.div`
 	width: 300px;
 	flex-direction: column;
 	position: relative;
+	background-color: ${({theme}) => theme.color.uiBase};
+	border-radius: 8px;
+
 `;
 
 interface isActiveProps {
@@ -25,13 +28,13 @@ interface isActiveProps {
 
 export const SelectedOption = styled.span<isActiveProps>`
 	padding: 12px 24px;
-	border-radius: 8px;
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
-	box-shadow: 0px 0px 5px #abaaaf;
+	box-shadow: ${({theme}) => theme.other.boxShadow};
 	height: 45px;
 	align-items: center;
+	border-radius: 8px;
 
 	svg {
 		transition: transform 0.3s ease;
@@ -48,9 +51,8 @@ export const SelectedOption = styled.span<isActiveProps>`
 	${props =>
 		props.isDisabled &&
 		css`
-			background: #dbdbdb;
 			pointer-events: none;
-			opacity: 0.7;
+			opacity: 0.6;
 		`}
 `;
 
@@ -60,15 +62,14 @@ export const SelectIndicate = styled.div`
 `;
 
 export const OptionsContainer = styled.div<isActiveProps>`
-	box-shadow: 0px 0px 5px #abaaaf;
+	background-color: ${({theme}) => theme.color.uiBase};
 	top: 50px;
 	position: absolute;
-	color: black;
+	color: ${({theme}) => theme.color.text};
 	max-height: 0;
 	width: 100%;
 	opacity: 0;
 	transition: all 0.4s;
-	background: white;
 	border-radius: 8px;
 	overflow: hidden;
 	z-index: 300;

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Card = styled.li`
+background-color: ${({theme}) => theme.color.uiBase};
     height: 174px;
-    box-shadow: 0px 0px 5px #ebe7ff;
+    box-shadow: ${({theme}) => theme.other.boxShadow};
     border-radius: 5px;
     width: 320px;
     @media ${({ theme }) => theme.media.tablet} {
@@ -20,7 +21,7 @@ export const Date = styled.span`
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
-    color: #000000;
+    color: ${({theme}) => theme.color.text};
     margin-bottom: 5px;
 `;
 
@@ -28,13 +29,13 @@ export const Address = styled.p`
     font-weight: 300;
     font-size: 14px;
     line-height: 20px;
-
-    color: #000000;
+    color: ${({theme}) => theme.color.text};
 `;
 
 export const Hospital = styled(Address)``;
 
 export const DoctorInfo = styled.div`
+
     gap: 10px;
     margin-top: 10px;
     display: flex;
@@ -44,9 +45,11 @@ export const DoctorInfo = styled.div`
         gap: 1rem;
         display: flex;
         align-items: center;
-        /* justify-content: spa */
     }
+    span{
+        color: ${({theme}) => theme.color.text};
 
+    }
     button {
         margin-left: auto;
     }

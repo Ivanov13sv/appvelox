@@ -85,8 +85,8 @@ export const CloseContentButton = styled(IoMdClose)`
     height: 35px;
 
     > * {
-        fill: ${({theme}) => theme.color.main};
-        stroke: ${({theme}) => theme.color.main};
+        fill: ${({theme}) => theme.color.text};
+        stroke: ${({theme}) => theme.color.text};
     }
 
     @media ${({ theme }) => theme.media.tablet} {
