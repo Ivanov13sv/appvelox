@@ -14,7 +14,6 @@ const MainLayout = () => {
     const { successReg } = useAppSelector((state) => state.successReg);
     const { isModalOpen } = useAppSelector((state) => state.modal);
 
-
     const {
         authInfo: { id: userId },
     } = useAppSelector((state) => state.authInfo);
@@ -48,7 +47,6 @@ const MainLayout = () => {
         };
         //eslint-disable-next-line
     }, [userId]);
-
 
     if (successReg) {
         return <SuccessScreen />;
@@ -85,4 +83,4 @@ const Wrapper = styled.div`
     }
 `;
 
-export default MainLayout
+export default MainLayout;
