@@ -13,7 +13,6 @@ export const LoginBody = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1 1 60%;
-
 `;
 
 interface ThemeProps {
@@ -52,7 +51,6 @@ export const Theme = styled.div<ThemeProps>`
 
     > img {
         padding: 55px 5px;
-
     }
 
     > p {
@@ -85,7 +83,7 @@ export const LoginHeader = styled.header`
 
     > a {
         text-decoration: none;
-        color: ${({theme}) => theme.color.text};
+        color: ${({ theme }) => theme.color.text};
     }
     @media ${({ theme }) => theme.media.tablet} {
         justify-content: space-between;

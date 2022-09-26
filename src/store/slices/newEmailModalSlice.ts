@@ -8,13 +8,12 @@ const newEmailModalSlice = createSlice({
     initialState,
     name: 'newEmailModalSlice',
     reducers: {
-        openNewEmailModal: (state) =>{
+        openNewEmailModal: (state) => {
             state.isOpenEmailModal = true;
         },
-        closeNewEmailModal: (state) =>{
+        closeNewEmailModal: (state) => {
             state.isOpenEmailModal = false;
-        }
-
+        },
     },
 });
 

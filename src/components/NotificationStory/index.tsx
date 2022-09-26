@@ -14,7 +14,6 @@ export const NotificationStory: FC<INotificationStory> = ({ story }) => {
     const { setActivityChecked } = useActions();
     const { loading } = useAppSelector((state) => state.userActivity);
 
-
     const storyItems = story
         .slice(-3)
         .reverse()

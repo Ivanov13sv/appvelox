@@ -16,7 +16,7 @@ import { currentUserActions } from 'store/slices/currentUserSlice';
 import { modalActions } from 'store/slices/modalSlice';
 import { IAppointment } from 'types/appointment';
 import { IDoctor } from 'types/doctors';
-import { IIUser } from 'types/iuser';
+import { IUser } from 'types/iuser';
 import { IActivity } from 'types/activity';
 import { userActivityActions } from 'store/slices/userActivitySlice';
 import { db } from '../../firebase';
@@ -168,7 +168,7 @@ const fetchCurrentUser = createAsyncThunk(
                     id: docSnap.id,
                     //@ts-ignore
                     dOb: docSnap.data().dOb.toDate().getTime(),
-                } as IIUser;
+                } as IUser;
                 return result;
             }
         } catch (error) {
@@ -186,7 +186,7 @@ const fetchCurrentUser = createAsyncThunk(
 
 const updateUserData = createAsyncThunk(
     'user/updateUserData',
-    async (data: IIUser, { getState, dispatch }) => {
+    async (data: IUser, { getState, dispatch }) => {
         const {
             authInfo: { authInfo },
         } = getState() as RootState;

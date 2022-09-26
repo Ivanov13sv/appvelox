@@ -12,10 +12,10 @@ const rotate = keyframes`
 `;
 
 export const Loader = styled.div<LocalLoaderProps>`
-	width: ${props => props.width || '100%'} ;
-	height: ${props => props.height  || '100%'};
-	border-radius: 50%;
-	border: 2px solid ${({ theme }) => theme.color.darkenAccent};
-	border-left: 2px solid ${({ theme }) => theme.color.secondary};
-	animation: ${rotate} 1s infinite;
+    width: ${(props) => props.width || '100%'};
+    height: ${(props) => props.height || '100%'};
+    border-radius: 50%;
+    border: 2px solid ${({ theme }) => theme.color.darkenAccent};
+    border-left: 2px solid ${({ theme }) => theme.color.secondary};
+    animation: ${rotate} 1s infinite;
 `;

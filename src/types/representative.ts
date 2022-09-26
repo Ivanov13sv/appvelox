@@ -1,4 +1,4 @@
-export interface IRepresentative{
+export interface IRepresentative {
     firstName: string;
     secondName: string;
     patronymic: string;

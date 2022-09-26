@@ -61,7 +61,7 @@ export const NavbarItem: FC<NavbarItemProps> = ({
 
             {showContent && (
                 <S.Content ref={ref}>
-                    <S.CloseContentButton  onClick={hideContent}/>
+                    <S.CloseContentButton onClick={hideContent} />
                     {children}
                 </S.Content>
             )}

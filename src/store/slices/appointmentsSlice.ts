@@ -12,7 +12,7 @@ const initialState: IAppointmentsState = {
     loading: false,
 };
 
-const { fetchAppointments, removeAppointment,addAppointment } = asyncActions;
+const { fetchAppointments, removeAppointment, addAppointment } = asyncActions;
 
 const appointmentsSlice = createSlice({
     name: 'appointments',

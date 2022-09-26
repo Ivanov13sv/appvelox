@@ -29,7 +29,6 @@ export const PersonalInfo = styled.div`
             width: 500px;
         }
     }
-
 `;
 
 export const Description = styled.div`

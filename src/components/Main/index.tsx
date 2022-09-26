@@ -1,6 +1,6 @@
 import { SectionTitle } from 'components/SectionTitle';
 import React, { FC, useEffect, useState } from 'react';
-import { useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import * as S from './style';
 
 interface MainProps {

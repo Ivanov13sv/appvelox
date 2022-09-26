@@ -89,8 +89,6 @@ const userActivitySlice = createSlice({
                 state.loading = false;
             }
         );
-
-
     },
 });
 

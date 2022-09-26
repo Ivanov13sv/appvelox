@@ -12,7 +12,7 @@ export const lightTheme: DefaultTheme = {
         text: '#333',
         otherElems: '#50caff',
         success: '#00bb00',
-        error: '#ff0000'
+        error: '#ff0000',
     },
     media: {
         phoneSM: '(min-width:375px)',
@@ -37,7 +37,7 @@ export const darkTheme: DefaultTheme = {
         text: 'whitesmoke',
         otherElems: '#7761FF',
         success: '#00bb00',
-        error: '#ff0000'
+        error: '#ff0000',
     },
     media: {
         phoneSM: '(min-width:375px)',
@@ -84,7 +84,6 @@ export const darkTheme: DefaultTheme = {
 //     };
 // }
 
-
 // const themeVars: IThemeVars = {
 //     media: {
 //         phoneSM: '(min-width:375px)',
@@ -112,5 +111,5 @@ export const darkTheme: DefaultTheme = {
 //     accent: '#7761FF',
 //     darkenAccent: '#5342b8',
 //     bg: '#FFFFFF',
-    
+
 // };

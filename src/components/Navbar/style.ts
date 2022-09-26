@@ -8,7 +8,6 @@ export const NavList = styled.ul`
     display: flex;
     align-items: center;
     gap: 0 20px;
-
 `;
 
 export const NavItem = styled.li``;

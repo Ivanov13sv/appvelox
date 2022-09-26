@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import styled from 'styled-components';
 import { AppointmentCard } from 'components/UI/AppointmentCard';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';
@@ -88,5 +87,3 @@ export const Appointments: FC = () => {
         </S.Appointments>
     );
 };
-
-// export default Appointments;

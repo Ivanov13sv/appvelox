@@ -22,7 +22,11 @@ export const Sidebar = () => {
                 text: 'Врачи и клиника',
                 path: '/doctors',
             },
-            { leftIcon: <Message />, text: 'Уведомления', path: '/userActivity' },
+            {
+                leftIcon: <Message />,
+                text: 'Уведомления',
+                path: '/userActivity',
+            },
         ];
     }, []);
 

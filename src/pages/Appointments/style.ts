@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Section } from 'components/Section';
 
-
 export const ModalWrapper = styled.div`
     background-color: ${({ theme }) => theme.color.uiBase};
     display: flex;
@@ -55,7 +54,6 @@ export const List = styled.ul`
         border-radius: 5px;
     }
 `;
-
 
 export const Appointments = styled(Section)`
     max-width: 1400px;

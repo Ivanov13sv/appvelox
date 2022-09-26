@@ -8,7 +8,7 @@ interface NavbarProps {
 export const Navbar: FC<NavbarProps> = ({ children }) => {
     return (
         <S.Navbar>
-                <S.NavList>{children}</S.NavList>
+            <S.NavList>{children}</S.NavList>
         </S.Navbar>
     );
 };

@@ -21,7 +21,7 @@ export const DoctorsPage = () => {
 
     return (
         <Section>
-                <S.Title>Наши специалисты</S.Title>
+            <S.Title>Наши специалисты</S.Title>
             <S.CardList>
                 {loading
                     ? [0, 1, 2, 3, 4, 5].map((_, i) => (

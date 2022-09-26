@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface SuccessRegProps {
-	successReg: boolean;
+    successReg: boolean;
 }
 
 const initialState: SuccessRegProps = {
-	successReg: false,
+    successReg: false,
 };
 
 const successReg = createSlice({
-	name: 'successReg',
-	initialState,
-	reducers: {
-		setSuccessReg(state) {
-			state.successReg = true;
-		},
-		hideSuccessReg(state) {
-			state.successReg = false;
-		},
-	},
+    name: 'successReg',
+    initialState,
+    reducers: {
+        setSuccessReg(state) {
+            state.successReg = true;
+        },
+        hideSuccessReg(state) {
+            state.successReg = false;
+        },
+    },
 });
 
 export const successActions = successReg.actions;

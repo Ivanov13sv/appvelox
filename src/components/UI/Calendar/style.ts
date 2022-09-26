@@ -20,13 +20,12 @@ export const BigCalendar = styled(Calendar)`
     .react-calendar__navigation__arrow {
         color: ${({ theme }) => theme.color.text};
     }
-    .react-calendar__navigation{
-        button:hover{
+    .react-calendar__navigation {
+        button:hover {
             background-color: ${({ theme }) => theme.color.otherElems};
         }
-        button{
+        button {
             background-color: ${({ theme }) => theme.color.uiBase};
-     
         }
     }
     .react-calendar__navigation span {
@@ -40,10 +39,8 @@ export const BigCalendar = styled(Calendar)`
     }
 
     .react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
-        color: ${({theme}) => theme.color.text};
+        color: ${({ theme }) => theme.color.text};
     }
-
-
 
     @media ${({ theme }) => theme.media.tablet} {
         padding: 2rem;
@@ -68,14 +65,12 @@ export const BigCalendar = styled(Calendar)`
         &:hover {
             background: #f5f5f5;
             background: ${({ theme }) => theme.color.otherElems};
-            span{
+            span {
                 color: red;
             }
         }
         &:focus {
-            /* background: none; */
             background: ${({ theme }) => theme.color.otherElems};
-            
         }
         svg {
             color: #7aff00;
@@ -86,12 +81,10 @@ export const BigCalendar = styled(Calendar)`
         }
     }
     .react-calendar__tile--active {
-        /* background: ${({ theme }) => theme.color.main}; */
         background: none;
 
         &:enabled:hover {
             background: ${({ theme }) => theme.color.otherElems};
-            /* background: none; */
         }
     }
     @media ${({ theme }) => theme.media.desktop} {

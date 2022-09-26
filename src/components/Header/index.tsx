@@ -17,7 +17,6 @@ export const Header = () => {
     const [newAction, setNewAction] = useState(false);
     const { activities } = useAppSelector((state) => state.userActivity);
 
-
     useEffect(() => {
         activities.some((item) => item.checked === false)
             ? setNewAction(true)

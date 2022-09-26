@@ -47,7 +47,6 @@ export const MakeAnAppointment = () => {
         setReservedDates(result);
     };
 
-
     const postNewAppointment = () => {
         const doctor = doctors.find(
             (item) => item.id === selectedDoctor.id

@@ -21,7 +21,7 @@ export const Label = styled.label<LabelProps>`
     font-size: 16px;
     line-height: 17px;
     z-index: 1;
-    color: ${({theme}) => theme.color.text};
+    color: ${({ theme }) => theme.color.text};
 
     ${(props) =>
         props.isFocus &&
@@ -31,8 +31,7 @@ export const Label = styled.label<LabelProps>`
             font-size: 13px;
             padding: 0 5px;
             border-radius: 15px;
-			background-color: ${({theme}) => theme.color.uiBase};
-
+            background-color: ${({ theme }) => theme.color.uiBase};
         `}
 `;
 
@@ -42,7 +41,7 @@ interface InputProps {
 }
 
 export const Input = styled.input<InputProps>`
-	background-color: ${({theme}) => theme.color.uiBase};
+    background-color: ${({ theme }) => theme.color.uiBase};
     width: 100%;
     height: 40px;
     border: 0.5px solid #000000;
@@ -51,9 +50,9 @@ export const Input = styled.input<InputProps>`
     font-size: 16px;
     padding: 0 10px;
     transition: border 0.3s ease;
-	color: ${({theme}) => theme.color.text};
-    &::placeholder{
-        color: ${({theme}) => theme.color.text};
+    color: ${({ theme }) => theme.color.text};
+    &::placeholder {
+        color: ${({ theme }) => theme.color.text};
     }
     ${(props) =>
         props.isError &&
@@ -101,7 +100,7 @@ export const ErrorMessage = styled.span`
     bottom: -15%;
     padding: 0 5px;
     border-radius: 15px;
-    background: ${({theme}) => theme.color.uiBase};
+    background: ${({ theme }) => theme.color.uiBase};
     color: red;
     font-weight: 300;
     line-height: 17px;

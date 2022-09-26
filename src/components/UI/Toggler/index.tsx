@@ -11,7 +11,7 @@ export const Toggler: FC<IToggler> = ({ theme, toggleTheme }) => {
             <input
                 onChange={() => toggleTheme()}
                 type="checkbox"
-                checked={theme === 'dark' ? true :false }
+                checked={theme === 'dark' ? true : false}
             />
             <span className="check_box" />
         </StyledToggler>
@@ -19,7 +19,7 @@ export const Toggler: FC<IToggler> = ({ theme, toggleTheme }) => {
 };
 
 const StyledToggler = styled.label`
-cursor: pointer;
+    cursor: pointer;
     width: 60px;
     height: 30px;
     background-color: lightgrey;
@@ -33,12 +33,12 @@ cursor: pointer;
         &:checked {
             & ~ span {
                 transform: translate(120%, -50%);
-                background-color: ${({theme}) => theme.color.otherElems};
+                background-color: ${({ theme }) => theme.color.otherElems};
             }
         }
     }
     span {
-        transition: transform .3s ease;
+        transition: transform 0.3s ease;
         left: 0;
         content: '';
         position: absolute;

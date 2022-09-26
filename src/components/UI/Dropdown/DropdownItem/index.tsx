@@ -16,7 +16,7 @@ export const DropdownItem: FC<DropdownItemProps> = ({
     switchMenu,
     onClick,
     setMenuOpen,
-    children
+    children,
 }) => {
     const changeMenu = () => {
         if (switchMenu && setMenuOpen) {

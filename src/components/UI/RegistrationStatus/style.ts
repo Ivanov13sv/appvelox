@@ -20,68 +20,66 @@ export const Status = styled.div`
 `;
 
 export const Step = styled.div<StatusProps>`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
-	&:before {
-		content: '';
-		position: absolute;
-		width: 30px;
-		height: 2px;
-		background-color: #C5C5C5;
-		top: 40%;
-		left: 100%;
-		border-radius: 5px;
-		transform: translateX(50%);
-		@media ${({ theme }) => theme.media.phoneSM}{
+    &:before {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        background-color: #c5c5c5;
+        top: 40%;
+        left: 100%;
+        border-radius: 5px;
+        transform: translateX(50%);
+        @media ${({ theme }) => theme.media.phoneSM} {
             width: 35px;
             transform: translateX(65%);
-		}
-		@media ${({ theme }) => theme.media.phoneMD}{
-			top: 30%;
-			transform: translateX(0);
-            width: 40px;
-		}
-	}
-	&:after {
-		transition: .3s ease;
-		content: '';
-		position: absolute;
-		width: 0;
-		height: 2px;
-		background-color: ${({ theme }) => theme.color.accent};
-		top: 40%;
-		left: 100%;
-		border-radius: 5px;
-        transform: translateX(50%);
-        
-		@media ${({ theme }) => theme.media.phoneSM}{
-            transform: translateX(65%);
-		}
-		@media ${({ theme }) => theme.media.phoneMD}{
-			top: 30%;
+        }
+        @media ${({ theme }) => theme.media.phoneMD} {
+            top: 30%;
             transform: translateX(0);
-		}
-        
-	}
-	>span{
-		display: none;
-		@media ${({ theme }) => theme.media.phoneMD}{
-			display: block;
-			font-weight: 300;
-			font-size: 14px;
-			line-height: 17px;
-			width: 100%;
-			text-align: center;
-			color: #c5c5c5;
-			pointer-events: none;
-		}
+            width: 40px;
+        }
+    }
+    &:after {
+        transition: 0.3s ease;
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: ${({ theme }) => theme.color.accent};
+        top: 40%;
+        left: 100%;
+        border-radius: 5px;
+        transform: translateX(50%);
 
-	}
-	
-	${(props) =>
+        @media ${({ theme }) => theme.media.phoneSM} {
+            transform: translateX(65%);
+        }
+        @media ${({ theme }) => theme.media.phoneMD} {
+            top: 30%;
+            transform: translateX(0);
+        }
+    }
+    > span {
+        display: none;
+        @media ${({ theme }) => theme.media.phoneMD} {
+            display: block;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 17px;
+            width: 100%;
+            text-align: center;
+            color: #c5c5c5;
+            pointer-events: none;
+        }
+    }
+
+    ${(props) =>
         props.active &&
         css`
 			>span{
@@ -92,10 +90,8 @@ export const Step = styled.div<StatusProps>`
 					color: white;
 				}
 		`}
-	
-	}
 
-	${(props) =>
+    ${(props) =>
         props.done &&
         css`
             &:after {

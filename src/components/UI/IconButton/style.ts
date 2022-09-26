@@ -11,8 +11,7 @@ export const IconButton = styled.button`
     background: transparent;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
-    svg{
+    svg {
         font-size: 20px;
-
     }
 `;

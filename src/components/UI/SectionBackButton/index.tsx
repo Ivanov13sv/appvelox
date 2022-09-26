@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { BackButton } from './style';
 
-interface ISectionBackButton{
+interface ISectionBackButton {
     text: string;
 }
 
-export const SectionBackButton:FC<ISectionBackButton> = ({text}) => {
+export const SectionBackButton: FC<ISectionBackButton> = ({ text }) => {
     const navigate = useNavigate();
 
     return (

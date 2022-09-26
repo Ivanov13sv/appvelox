@@ -52,7 +52,7 @@ export const SidebarMain = styled.div<SidebarBodyProps>`
         right: 10px;
         background-color: ${({ theme }) => theme.color.otherElems};
     }
-    svg{
+    svg {
         font-size: 50px;
     }
     @media ${({ theme }) => theme.media.desktop} {

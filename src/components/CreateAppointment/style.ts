@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 
 export const Wrapper = styled.section`
-	background-color: ${({theme}) => theme.color.bg};
+    background-color: ${({ theme }) => theme.color.bg};
     width: 100%;
     height: 100%;
     padding: 2rem;

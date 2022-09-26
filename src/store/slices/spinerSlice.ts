@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const spinerSlice = createSlice({
-	name: 'spiner',
-	initialState: {
-		isLoading: false,
-	},
+    name: 'spiner',
+    initialState: {
+        isLoading: false,
+    },
 
-	reducers: {
-		spinerOn(state){
+    reducers: {
+        spinerOn(state) {
             state.isLoading = true;
         },
-		spinerOff(state){
+        spinerOff(state) {
             state.isLoading = false;
-        }
-	},
+        },
+    },
 });
 
 export const spinerActions = spinerSlice.actions;

@@ -6,7 +6,7 @@ interface INavbarItem {
 }
 
 export const NavbarItem = styled.li<INavbarItem>`
-    -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: relative;
     svg {
@@ -85,8 +85,8 @@ export const CloseContentButton = styled(IoMdClose)`
     height: 35px;
 
     > * {
-        fill: ${({theme}) => theme.color.text};
-        stroke: ${({theme}) => theme.color.text};
+        fill: ${({ theme }) => theme.color.text};
+        stroke: ${({ theme }) => theme.color.text};
     }
 
     @media ${({ theme }) => theme.media.tablet} {

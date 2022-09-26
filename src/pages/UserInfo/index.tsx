@@ -10,7 +10,7 @@ import { Button } from 'components/UI/Button';
 import { Modal } from 'components/UI/Modal';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { LocalLoader } from 'components/UI/LocalLoader';
-import { IIUser } from 'types/iuser';
+import { IUser } from 'types/iuser';
 import { updateEmail, User } from 'firebase/auth';
 import { useFetching } from 'hooks/useFetching';
 import { INotificationType } from 'types/notification';
@@ -156,7 +156,7 @@ export const UserInfoPage = () => {
 
     const updateUserInfo = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const updatedUser: IIUser = {
+        const updatedUser: IUser = {
             firstName: firstNameInput.value,
             lastName: lastNameInput.value,
             patronymic: patronymicInput.value,

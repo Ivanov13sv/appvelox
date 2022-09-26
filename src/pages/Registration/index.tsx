@@ -58,7 +58,6 @@ export const RegistrationLayout = () => {
             });
     };
 
-
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (user.email && user.password) {

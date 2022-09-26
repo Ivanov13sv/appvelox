@@ -29,8 +29,8 @@ export const DateTimepicker = styled(DatePicker)<DatepickerProps>`
             color: ${({ theme }) => theme.color.text};
         }
     }
-    &::placeholder{
-        color: ${({theme}) => theme.color.text};
+    &::placeholder {
+        color: ${({ theme }) => theme.color.text};
     }
     ${(props) =>
         props.isError &&

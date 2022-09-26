@@ -23,7 +23,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: ${({ theme }) => theme.color.bg};;
 	background-size: cover;
-	color: ${({theme}) => theme.color.text};
+	color: ${({ theme }) => theme.color.text};
 	object-fit: cover;
 
 }

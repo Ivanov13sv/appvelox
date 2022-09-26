@@ -10,10 +10,10 @@ export const CardsList = styled.ul`
     align-items: flex-start;
     flex-wrap: wrap;
     margin: 0 auto;
-    @media ${({theme}) => theme.media.desktopPlus}{
+    @media ${({ theme }) => theme.media.desktopPlus} {
         align-items: center;
     }
-    @media ${({theme}) => theme.media.phoneMD}{
+    @media ${({ theme }) => theme.media.phoneMD} {
         justify-content: flex-start;
     }
 `;
@@ -26,7 +26,7 @@ export const ShowMoreBlock = styled.div`
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
-        color: ${({theme}) => theme.color.text};
+        color: ${({ theme }) => theme.color.text};
     }
 
     a {
@@ -35,7 +35,7 @@ export const ShowMoreBlock = styled.div`
         line-height: 20px;
         text-decoration-line: underline;
         cursor: pointer;
-        color: ${({theme}) => theme.color.otherElems};
+        color: ${({ theme }) => theme.color.otherElems};
     }
 `;
 
@@ -47,7 +47,7 @@ export const PatientInfo = styled.div`
         font-weight: 400;
         font-size: 20px;
         line-height: 19px;
-        color: ${({theme}) => theme.color.text};
+        color: ${({ theme }) => theme.color.text};
     }
 
     @media ${({ theme }) => theme.media.tablet} {

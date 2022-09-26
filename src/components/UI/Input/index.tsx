@@ -30,7 +30,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         autoFocus = false,
         togglerShowingValue = false,
     } = props;
-	
 
     const [isFocus, setIsFocus] = useState(false);
     const [inputType, setInputType] = useState(() => {

@@ -7,7 +7,7 @@ export const Dropdown = styled.div`
     transition: all 0.3s ease;
     padding: 1rem;
     overflow: hidden;
-    box-shadow: ${({theme}) => theme.other.boxShadow};
+    box-shadow: ${({ theme }) => theme.other.boxShadow};
 
     @media ${({ theme }) => theme.media.tablet} {
         width: 300px;

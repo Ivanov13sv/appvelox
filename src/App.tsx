@@ -31,7 +31,6 @@ function App() {
         }
     });
 
-
     const themeMode = theme === 'dark' ? darkTheme : lightTheme;
 
     if (loading) return <FullscreenSpiner />;

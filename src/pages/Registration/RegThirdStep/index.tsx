@@ -18,7 +18,10 @@ export const RegThirdStep = () => {
     const patronymic = useInput(representativeInfo?.patronymic, {
         isEmpty: true,
     });
-    const phone = useInput(representativeInfo?.phone, { isEmpty: true, isPhone: true });
+    const phone = useInput(representativeInfo?.phone, {
+        isEmpty: true,
+        isPhone: true,
+    });
     const { setRepresentativeInfo } = useActions();
 
     const [validForm, setValidForm] = useState(false);
