@@ -23,7 +23,6 @@ export const DateTimepicker = styled(DatePicker)<DatepickerProps>`
         z-index: 10;
     }
     &:disabled {
-        /* background: #dbdbdb; */
         pointer-events: none;
         opacity: 0.7;
         &::placeholder {

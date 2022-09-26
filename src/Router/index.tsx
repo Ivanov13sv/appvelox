@@ -1,44 +1,44 @@
-import { FC } from 'react';
+import { FC, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Layout } from 'components/Layout';
-import { ProfilePage } from 'pages/ProfilePage';
-import { AppointmentsPage } from 'pages/AppointmentsPage';
+import { ProfilePage } from 'pages/Profile';
 import { RequireAuth } from 'hoc/RequireAuth';
-import { LoginLayout } from 'components/LoginLayout';
-import { RegistrationLayout } from 'components/RegistrationLayout';
-import { Login } from 'components/Login';
-import { RegFirstStep } from 'components/RegistrationLayout/RegFirstStep';
-import { RegSecondStep } from 'components/RegistrationLayout/RegSecondStep';
-import { RegThirdStep } from 'components/RegistrationLayout/RegThirdStep';
-import { RecoveryPage } from 'pages/RecoveryPage';
-import { DoctorsPage } from 'pages/DoctorsPage';
-import { DoctorDetailsPage } from 'pages/DoctorDetailsPage';
-import { UserInfoPage } from 'pages/UserInfoPage';
-import { UserActivityPage } from 'pages/UserActivityPage';
+import { RegistrationLayout } from 'pages/Registration';
+import { Login } from 'pages/Login';
+import { RegFirstStep } from 'pages/Registration/RegFirstStep';
+import { RegSecondStep } from 'pages/Registration/RegSecondStep';
+import { RegThirdStep } from 'pages/Registration/RegThirdStep';
+import { RecoveryPage } from 'pages/Recovery';
+import { DoctorsPage } from 'pages/Doctors';
+import { DoctorDetailsPage } from 'pages/DoctorDetails';
+import { UserInfoPage } from 'pages/UserInfo';
+import { UserActivityPage } from 'pages/UserActivity';
+import { Appointments } from 'pages/Appointments';
+
+const LazyLoginLayout = lazy(() => import('components/LoginLayout'));
+const LazyMainLayout = lazy(() => import('components/Layout'));
 
 export const Router: FC = () => {
     return (
         <Routes>
             <Route element={<RequireAuth />}>
-                <Route element={<Layout />}>
+                <Route element={<LazyMainLayout />}>
                     <Route path="profile" element={<ProfilePage />} />
                     <Route path="profile/userInfo" element={<UserInfoPage />} />
-                    <Route path="appointments" element={<AppointmentsPage />} />
+
+                    <Route path="appointments" element={<Appointments />} />
+
                     <Route path="doctors" element={<DoctorsPage />}></Route>
                     <Route
                         path="doctors/:doctorId"
                         element={<DoctorDetailsPage />}
                     />
-                    <Route
-                        path="userActivity"
-                        element={<UserActivityPage />}
-                    />
+                    <Route path="userActivity" element={<UserActivityPage />} />
                     <Route path="test" element={<></>} />
                     <Route path="goodtoknow" element={<></>} />
                     <Route path="*" element={<Navigate to="profile" />} />
                 </Route>
             </Route>
-            <Route element={<LoginLayout />}>
+            <Route element={<LazyLoginLayout />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<RegistrationLayout />}>
                     <Route index element={<RegFirstStep />} />

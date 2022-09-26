@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { asyncActions } from 'store/actions/asyncActionCreators';
 import { IIUser, IUserRepresentative } from 'types/iuser';
 
 interface IRegistrationData {

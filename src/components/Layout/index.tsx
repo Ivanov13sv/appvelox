@@ -7,13 +7,13 @@ import { MakeAnAppointment } from 'components/MakeAnAppointment';
 import styled from 'styled-components';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';
-import { SuccessScreen } from 'components/RegistrationLayout/SuccessScreen';
+import { SuccessScreen } from 'pages/Registration/SuccessScreen';
 import { Modal } from 'components/UI/Modal';
 
-export const Layout = () => {
+const MainLayout = () => {
     const { successReg } = useAppSelector((state) => state.successReg);
     const { isModalOpen } = useAppSelector((state) => state.modal);
-    const { setLightTheme } = useActions();
+
 
     const {
         authInfo: { id: userId },
@@ -84,3 +84,5 @@ const Wrapper = styled.div`
         grid-template-rows: 55px 1fr;
     }
 `;
+
+export default MainLayout

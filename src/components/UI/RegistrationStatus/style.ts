@@ -6,7 +6,6 @@ interface StatusProps {
 }
 
 export const Status = styled.div`
-    /* width: 437px; */
     display: flex;
     justify-content: space-around;
     > *:last-child {
@@ -168,8 +167,9 @@ export const StepNumber = styled.div<StatusProps>`
         props.done &&
         css`
             &:hover {
-                /* box-shadow: 0 0 0 2px ${({ theme }) => theme.color.darkenAccent}; */
-                box-shadow: ${({theme}) => theme.other.boxShadow};
+                /* box-shadow: 0 0 0 2px ${({ theme }) =>
+                    theme.color.darkenAccent}; */
+                box-shadow: ${({ theme }) => theme.other.boxShadow};
             }
             &::before {
                 width: 100%;

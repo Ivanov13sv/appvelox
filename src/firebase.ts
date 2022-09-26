@@ -6,7 +6,6 @@ import {
     uploadBytes,
     getDownloadURL,
 } from '@firebase/storage';
-import { notificationActions } from 'store/slices/notificationSlice';
 import {
     getAuth,
     onAuthStateChanged,
@@ -14,15 +13,9 @@ import {
     updateProfile,
     User,
     EmailAuthProvider,
-    reauthenticateWithPopup,
     reauthenticateWithCredential,
-    AuthCredential,
-    updateEmail,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { IUser } from 'types/user';
-import { INotificationType } from 'types/notification';
-import { useDispatch } from 'react-redux';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -71,7 +64,6 @@ export const setNewPassword = async (
         updatePassword(currentUser, newPassword);
     });
 };
-
 
 export const reAuth = (
     currentPasswod: string,

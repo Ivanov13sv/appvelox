@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FullscreenSpiner } from 'components/UI/FullscreenSpiner';
 import { ThemeProvider } from 'styled-components';

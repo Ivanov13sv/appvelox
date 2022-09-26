@@ -47,24 +47,6 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// export const store = configureStore({
-//     reducer: {
-//         dropdown: dropdownReducer,
-//         authInfo: authInfo,
-//         successReg: successRegistrationSlice,
-//         regFields: regFieldsSlice,
-//         spiner: spinerSlice,
-//         appointments: appointmentsSlice,
-//         currentUser: currentUserSlice,
-//         modal: modalSlice,
-//         doctors: doctorsSlice,
-//         notification: notificationSlice,
-//         newEmailModal: newEmailModalSlice,
-//         story: storySlice,
-//     },
-
-//     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-// });
 
 export const store = configureStore({
     reducer: persistedReducer,

@@ -1,18 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { INotification, INotificationType } from 'types/notification';
 import { asyncActions } from 'store/actions/asyncActionCreators';
 import { IActivity } from 'types/activity';
 
-export interface IUserActivity {
-    id: number;
-    type: INotificationType;
-    date: number;
-    message: string;
-    checked: boolean;
-}
-
 interface IUserActivityState {
-    activities: IUserActivity[];
+    activities: IActivity[];
     loading: boolean;
 }
 
@@ -25,7 +16,7 @@ const userActivitySlice = createSlice({
     name: 'userActivity',
     initialState,
     reducers: {
-        addNewActivity: (state, action: PayloadAction<IUserActivity>) => {
+        addNewActivity: (state, action: PayloadAction<IActivity>) => {
             state.activities = [...state.activities, action.payload];
         },
         toggleActivityChecked: (state, action: PayloadAction<number>) => {
@@ -53,32 +44,23 @@ const userActivitySlice = createSlice({
             }));
             state.activities = toggledActivityArr;
         },
-        deleteActivity: (state, action) =>{
-            const filtredArray = state.activities.filter(item => item.id !== action.payload);
+        deleteActivity: (state, action) => {
+            const filtredArray = state.activities.filter(
+                (item) => item.id !== action.payload
+            );
             state.activities = filtredArray;
         },
-        clearStory: (state) =>{
-            state.activities = []
-        }
+        clearStory: (state) => {
+            state.activities = [];
+        },
     },
     extraReducers: (builder) => {
-        // builder.addCase(asyncActions.addActivity.pending, (state) => {
-        //     state.loading = true;
-        // });
-        // builder.addCase(
-        //     asyncActions.fetchUserActivity.fulfilled,
-        //     (state, action: PayloadAction<IUserActivity>) => {
-        //         state.loading = false;
-        //         state.activities = [...state.activities, action.payload];
-        //     }
-        // );
-
         builder.addCase(asyncActions.fetchUserActivity.pending, (state) => {
             state.loading = true;
         });
         builder.addCase(
             asyncActions.fetchUserActivity.fulfilled,
-            (state, action: PayloadAction<IUserActivity[]>) => {
+            (state, action: PayloadAction<IActivity[]>) => {
                 state.loading = false;
                 state.activities = action.payload;
             }
@@ -90,16 +72,7 @@ const userActivitySlice = createSlice({
         builder.addCase(asyncActions.removeActivity.fulfilled, (state) => {
             state.loading = false;
         });
-        // builder.addCase(asyncActions.removeActivity.pending, (state) => {
-        //     state.loading = true;
-        // });
-        // builder.addCase(
-        //     asyncActions.removeActivity.fulfilled,
-        //     (state, action) => {
-        //         state.loading = false;
-        //         state.activities = action.payload as IUserActivity[];
-        //     }
-        // );
+
         builder.addCase(asyncActions.clearActivityStory.pending, (state) => {
             state.loading = true;
         });
@@ -110,16 +83,14 @@ const userActivitySlice = createSlice({
         builder.addCase(asyncActions.checkedAllActivities.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(asyncActions.checkedAllActivities.fulfilled, (state) => {
-            state.loading = false;
-        });
+        builder.addCase(
+            asyncActions.checkedAllActivities.fulfilled,
+            (state) => {
+                state.loading = false;
+            }
+        );
 
-        // builder.addCase(
-        //     asyncActions.checkedAllActivities.fulfilled,
-        //     (state: IUserActivityState) => {
-        //         state.loading = false;
-        //     }
-        // );
+
     },
 });
 

@@ -3,7 +3,7 @@ import { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { BsDot } from 'react-icons/bs';
-import { isReservedDay } from 'utils/isReservedDay';
+import { isReservedDay } from 'utils';
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi';
 import { BigCalendar } from './style';
 
@@ -31,8 +31,7 @@ export const MyCalendar: FC<IMyCalendar> = ({
                     <BsDot size={50} />
                 ) : null;
             }}
-            // tileClassName="tile"
-            tileClassName={({ activeStartDate, date, view }) =>
+            tileClassName={({ date }) =>
                 isReservedDay(appointments, date) ? 'tile reserved' : 'tile'
             }
         />

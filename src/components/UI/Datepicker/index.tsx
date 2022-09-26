@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import  { FC } from 'react';
 import { ReactDatePickerProps } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { DateTimepicker , DatePickerWrapper} from './style';

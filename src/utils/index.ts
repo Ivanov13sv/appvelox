@@ -41,4 +41,34 @@ export const filterReservedDates = (reservedDates: number[], date: Date) => {
 	return false;
 };
 
-// выбор изображения
+export const checkPasswordMatch = (passOne: string, passTwo: string): boolean => {
+    if (passOne && passTwo){
+       return passOne === passTwo ? true : false;
+    }
+	return false;
+};
+
+export const getFormateDate = (date: number) => {
+    return new Date(date).toLocaleString('ru', {
+        month: 'long',
+        day: 'numeric',
+    });
+};
+export const getFormateDateWithTime = (date: number) => {
+    return new Date(date).toLocaleString('ru', {
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+    });
+};
+
+
+export const isReservedDay = (appointmentsArr: Date[], value: Date) => {
+    return appointmentsArr.some(
+        (item) =>
+            new Date(item).getMonth() === value.getMonth() &&
+            new Date(item).getDate() === value.getDate() &&
+            new Date(item).getFullYear() === value.getFullYear()
+    );
+};

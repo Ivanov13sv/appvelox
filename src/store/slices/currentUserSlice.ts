@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { asyncActions } from 'store/actions/asyncActionCreators';
 import { IIUser, IUserState } from 'types/iuser';
-import { IUser } from 'types/user';
 
 const initialState: IUserState = {
 	user: {

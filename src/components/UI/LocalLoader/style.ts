@@ -18,5 +18,4 @@ export const Loader = styled.div<LocalLoaderProps>`
 	border: 2px solid ${({ theme }) => theme.color.darkenAccent};
 	border-left: 2px solid ${({ theme }) => theme.color.secondary};
 	animation: ${rotate} 1s infinite;
-	/* margin: 0 auto; */
 `;

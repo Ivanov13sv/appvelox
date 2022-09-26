@@ -53,21 +53,21 @@ export const CardItemBody = styled.div`
             height: 2px;
             bottom: -10px;
             left: 0;
-            background: ${({theme}) => theme.color.secondary};
+            background: ${({ theme }) => theme.color.secondary};
         }
     }
 
     p {
-		padding: 0 10px;
+        padding: 0 10px;
         margin-top: 25px;
         max-width: 300px;
-		text-align: center;
+        text-align: center;
     }
 
     ul {
-		width: 300px;
+        width: 300px;
         margin-top: 25px;
-		padding: 0 20px;
+        padding: 0 20px;
         li {
             position: relative;
             padding-left: 11px;
@@ -93,7 +93,7 @@ export const CardItemBody = styled.div`
         padding: 20px 36px;
         font-size: 28px;
         h4 {
-			text-align: start;
+            text-align: start;
             &::after {
                 background: #ebe7ff;
             }
@@ -112,10 +112,9 @@ export const CardItemBody = styled.div`
         }
         p {
             font-size: 18px;
-			max-width: 324px;
-			text-align: start;
+            max-width: 324px;
+            text-align: start;
             padding: 0;
-
         }
         ul {
             padding: 0;
@@ -175,7 +174,8 @@ export const ECardItem = styled.article`
 
                 li {
                     &::before {
-                        background-color: ${({ theme }) => theme.color.otherElems};
+                        background-color: ${({ theme }) =>
+                            theme.color.otherElems};
                     }
                 }
             }

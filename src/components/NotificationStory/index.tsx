@@ -1,12 +1,10 @@
-import { useLocalStorage } from 'hooks/useLocalStorage';
-import { getFormateDateWithTime } from 'utils/formateDate';
+import { getFormateDateWithTime } from 'utils';
 import { IStoryItem } from 'types/storyItem';
 import { FC } from 'react';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { LocalLoader } from 'components/UI/LocalLoader';
 import { ShowMore, StoryItem, Wrapper } from './style';
-import { useClickOutside } from 'hooks/useClickOutside';
 
 interface INotificationStory {
     story: IStoryItem[];
@@ -16,22 +14,13 @@ export const NotificationStory: FC<INotificationStory> = ({ story }) => {
     const { setActivityChecked } = useActions();
     const { loading } = useAppSelector((state) => state.userActivity);
 
-    const [test, setTest] = useLocalStorage('test', []);
-
-    const setNewTest = (id: number) => {
-        setActivityChecked(id);
-        if (!test.includes(id)) {
-            setTest([...test, id]);
-        }
-    };
-
 
     const storyItems = story
         .slice(-3)
         .reverse()
         .map((item: IStoryItem) => (
             <StoryItem
-                onMouseEnter={() => setNewTest(item.id)}
+                onMouseEnter={() => setActivityChecked(item.id)}
                 key={item.id}
                 type={item.type}
                 isChecked={item.checked}
@@ -53,7 +42,9 @@ export const NotificationStory: FC<INotificationStory> = ({ story }) => {
             ) : (
                 storyItems
             )}
-            {story.length > 1 && <ShowMore to="userActivity">Подробнее</ShowMore>}
+            {story.length > 1 && (
+                <ShowMore to="userActivity">Подробнее</ShowMore>
+            )}
         </Wrapper>
     );
 };

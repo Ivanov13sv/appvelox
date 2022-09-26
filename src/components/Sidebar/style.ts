@@ -56,7 +56,6 @@ export const SidebarMain = styled.div<SidebarBodyProps>`
         font-size: 50px;
     }
     @media ${({ theme }) => theme.media.desktop} {
-        /* height: 100%; */
         padding: 0;
         > button {
             margin: 10px 0 0 20px;

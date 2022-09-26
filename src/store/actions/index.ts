@@ -9,19 +9,19 @@ import { notificationActions } from 'store/slices/notificationSlice';
 import { asyncActions } from 'store/actions/asyncActionCreators';
 import { newEmailModalActions } from 'store/slices/newEmailModalSlice';
 import { userActivityActions } from 'store/slices/userActivitySlice';
-import {themeActions} from 'store/slices/themeSlice'
+import { themeActions } from 'store/slices/themeSlice';
 
 export const allActions = {
-	...successActions,
-	...authInfoActions,
-	...regFieldsActions,
-	...spinerActions,
-	...appointmentsActions,
-	...currentUserActions,
-	...modalActions,
-	...notificationActions,
-	...asyncActions,
-	...newEmailModalActions,
-	...userActivityActions,
-	...themeActions
+    ...successActions,
+    ...authInfoActions,
+    ...regFieldsActions,
+    ...spinerActions,
+    ...appointmentsActions,
+    ...currentUserActions,
+    ...modalActions,
+    ...notificationActions,
+    ...asyncActions,
+    ...newEmailModalActions,
+    ...userActivityActions,
+    ...themeActions,
 };

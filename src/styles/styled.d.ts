@@ -15,9 +15,7 @@ declare module 'styled-components' {
 			success: string;
 			error: string;
 		};
-		font?: {
 
-		};
 		media:{
 			phoneSM: string;
 			phoneMD: string;

@@ -17,10 +17,8 @@ import { modalActions } from 'store/slices/modalSlice';
 import { IAppointment } from 'types/appointment';
 import { IDoctor } from 'types/doctors';
 import { IIUser } from 'types/iuser';
-import {
-    IUserActivity,
-    userActivityActions,
-} from 'store/slices/userActivitySlice';
+import { IActivity } from 'types/activity';
+import { userActivityActions } from 'store/slices/userActivitySlice';
 import { db } from '../../firebase';
 
 const fetchAppointments = createAsyncThunk(
@@ -250,7 +248,7 @@ const fetchUserActivity = createAsyncThunk(
             try {
                 const response = docSnap.data();
                 const result = response?.activities.map(
-                    (item: IUserActivity) => item
+                    (item: IActivity) => item
                 );
                 return result;
             } catch (error) {

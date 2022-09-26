@@ -3,7 +3,6 @@ import { ReactComponent as Heart } from 'assets/img/Sidebar-icons/heart.svg';
 import { ReactComponent as Stethoscope } from 'assets/img/Sidebar-icons/stethoscope.svg';
 import { ReactComponent as Message } from 'assets/img/Sidebar-icons/message.svg';
 import { ReactComponent as Test } from 'assets/img/Sidebar-icons/test.svg';
-import { ReactComponent as Book } from 'assets/img/Sidebar-icons/book.svg';
 import { ReactComponent as Help } from 'assets/img/Sidebar-icons/help.svg';
 import { Button } from 'components/UI/Button';
 import logo from 'assets/img/Sidebar-icons/logo.png';

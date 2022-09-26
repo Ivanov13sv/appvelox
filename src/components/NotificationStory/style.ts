@@ -3,21 +3,19 @@ import styled, { css } from 'styled-components';
 import { INotificationType } from 'types/notification';
 
 export const Wrapper = styled.article`
-    box-shadow: ${({theme}) => theme.other.boxShadow};
+    box-shadow: ${({ theme }) => theme.other.boxShadow};
     border-radius: 5px;
-    /* background: #f8f8f8; */
-    background: ${({theme}) => theme.color.secondary};
+    background: ${({ theme }) => theme.color.secondary};
     transition: opacity 3s ease-in-out;
     padding: 15px;
 
     h3 {
-        font-weight: 100;
+        font-weight: 400;
         font-size: 15px;
         padding: 10px 0;
         color: white;
     }
-    .showMore {
-    }
+
     @media ${({ theme }) => theme.media.tablet} {
         width: 300px;
     }
@@ -32,6 +30,7 @@ export const StoryItem = styled.div<StoryItemProps>`
     position: relative;
     font-size: 14px;
     margin-bottom: 8px;
+    color: red;
     &:after {
         content: '';
         position: absolute;
@@ -67,12 +66,12 @@ export const StoryItem = styled.div<StoryItemProps>`
         css`
             .message {
                 font-size: 14px;
-                color: #fdfdfd;
+                color: white;
                 font-weight: 100;
             }
             .date {
                 font-size: 13px;
-                color: #f7f7f7;
+                color: white;
                 font-weight: 100;
             }
         `}

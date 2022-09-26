@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { IAppointment } from 'types/appointment';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { getFormateDateWithTime } from 'utils/formateDate';
+import { getFormateDateWithTime } from 'utils';
 import { ConfirmButtons } from 'components/UI/ConfirmButtons';
 import { Button } from '../Button';
 import { Avatar } from '../Avatar';

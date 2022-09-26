@@ -30,8 +30,8 @@ const phoneMask = (number: string) => {
 
 export const getMaskedPhone = (
 	e: ChangeEvent<HTMLInputElement>,
-	callback: (number: string) => void
+	formateDate: (number: string) => void
 ) => {
 	const value = e.target.value.replace(/\D/gi, '');
-	return callback(phoneMask(value));
+	return formateDate(phoneMask(value));
 };

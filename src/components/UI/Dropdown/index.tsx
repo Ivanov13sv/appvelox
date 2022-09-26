@@ -1,18 +1,16 @@
-import React, { useState, useRef, useEffect, FC } from 'react';
-import { useClickOutside } from 'hooks/useClickOutside';
+import { useState, useRef, useEffect } from 'react';
 import { MdPerson } from 'react-icons/md';
 import { MdChevronRight, MdOutlineExitToApp } from 'react-icons/md';
 import { BsGearFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-
-import { BsFillMoonFill } from "react-icons/bs";
+import { Toggler } from 'components/UI/Toggler';
+import { BsFillMoonFill } from 'react-icons/bs';
 import { useActions } from 'hooks/useActions';
 import { getAuth, signOut } from 'firebase/auth';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { DropdownItem } from './DropdownItem';
 
 import * as S from './style';
-import { Toggler } from '../Toggler';
 
 export const Dropdown = () => {
     const [menuOpen, setMenuOpen] = useState('main');
@@ -26,14 +24,9 @@ export const Dropdown = () => {
     const { toggleTheme } = useActions();
     const { theme } = useAppSelector((state) => state.theme);
     const navigate = useNavigate();
+
     const exit = () => {
-        signOut(auth)
-            .then(() => {
-                logOut();
-            })
-            .catch((error) => {
-                // An error happened.
-            });
+        signOut(auth).then(() => logOut());
     };
 
     useEffect(() => {
@@ -52,7 +45,6 @@ export const Dropdown = () => {
                     text="Мой профиль"
                     leftIcon={<MdPerson />}
                     onClick={() => navigate('/profile/userInfo')}
-                    // goTo={() => navigate('/profile/userInfo')}
                 />
                 <DropdownItem
                     switchMenu="settings"
@@ -76,7 +68,11 @@ export const Dropdown = () => {
                         />
                     }
                 />
-                <DropdownItem onClick={toggleTheme} text="Темная тема" leftIcon={<BsFillMoonFill />}>
+                <DropdownItem
+                    onClick={toggleTheme}
+                    text="Темная тема"
+                    leftIcon={<BsFillMoonFill />}
+                >
                     <Toggler theme={theme} toggleTheme={toggleTheme} />
                 </DropdownItem>
                 <DropdownItem text="Настойки" leftIcon={<BsGearFill />} />

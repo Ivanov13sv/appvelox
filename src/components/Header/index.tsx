@@ -1,5 +1,5 @@
-import { Navbar } from 'components/UI/Navbar';
-import { NavbarItem } from 'components/UI/Navbar/NavbarItem';
+import { Navbar } from 'components/Navbar';
+import { NavbarItem } from 'components/Navbar/NavbarItem';
 import { Dropdown } from 'components/UI/Dropdown';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { ReactComponent as Bell } from 'assets/img/icons/bell.svg';
