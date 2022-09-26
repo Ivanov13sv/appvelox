@@ -6,7 +6,7 @@ import { useActions } from 'hooks/useActions';
 import { Router } from 'Router';
 import { NotificationProvider } from 'components/UI/Notification/NotificationProvider';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { darkTheme, lightTheme } from './styles/theme';
+import { darkTheme, lightTheme } from './styles/themes';
 import { GlobalStyles } from './styles/global';
 import { auth } from './firebase';
 

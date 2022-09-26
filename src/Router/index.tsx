@@ -15,7 +15,7 @@ import { UserActivityPage } from 'pages/UserActivity';
 import { Appointments } from 'pages/Appointments';
 
 const LazyLoginLayout = lazy(() => import('components/LoginLayout'));
-const LazyMainLayout = lazy(() => import('components/Layout'));
+const LazyMainLayout = lazy(() => import('components/MainLayout'));
 
 export const Router: FC = () => {
     return (

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Header } from 'components/Header';
 import { Sidebar } from 'components/Sidebar';
 import { Main } from 'components/Main';
-import { MakeAnAppointment } from 'components/MakeAnAppointment';
+import { MakeAnAppointment } from 'components/CreateAppointment';
 import styled from 'styled-components';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useActions } from 'hooks/useActions';

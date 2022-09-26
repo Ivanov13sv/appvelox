@@ -21,3 +21,5 @@ root.render(
         </React.StrictMode>
     </HashRouter>
 );
+
+// used HashRouter instead BrowserRouter because get an error during deployment ot Netlify
