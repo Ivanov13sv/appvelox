@@ -29,4 +29,5 @@ This application is a personal account of the patient.
 
 ## Preview :
 
-![appvelox](https://user-images.githubusercontent.com/72716607/192396992-0f176a30-60d7-4c0a-a8e1-db7842ea3554.gif)
+![appvelox](https://user-images.githubusercontent.com/72716607/192406378-bc6481ca-7e38-4ffa-b21e-0f2bf4d4e28e.gif)
+
