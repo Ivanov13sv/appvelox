@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { DatepickerProps } from './index';
 
 export const DatePickerWrapper = styled.div`
